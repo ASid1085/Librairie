@@ -65,7 +65,7 @@ git remote				#sert à afficher la liste des serveurs distants des dépôts
 git remote -v			#sert à afficher les URLs stockés
 git remote add ’nom dépôt distant’ + l’URL du dépôt #sert à donner son premier nom au dépôt distant
 git remote rename 'ancien nom 'nouveau nom' #sert à renommer un dépôt distant
-git fitch 'nom distant'	#sert à récupérer ttes les données qu’on ne possède pas déjà (mise à jour du distant)
+git fetch 'nom distant'	#sert à récupérer ttes les données qu’on ne possède pas déjà (mise à jour du distant)
 git pull 'nom bran dis' #sert à récupérer ttes les données d’une branche ciblée du distant puis fusionne avec une branche local
 git push 'nom-distant' 'nom-branche' #sert à pousser vers un dépôt distant sur lequel on a les droits d’écriture
 git remote show 'nom dépôt'			 #sert à consulter les informations d’un dépôt distant ciblé
