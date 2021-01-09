@@ -1,0 +1,72 @@
+GIT en ligne de commande dans le terminal
+
+/* CREER UN DEPOT LOCAL */
+cd						#sert à se placer dans un répertoire
+cd desktop				#sert à se placer sur le bureau
+mkdir 'nom dossier'		#sert à créer un dossier et personnaliser son nom
+cd 'nom dossier'		#sert à se placer dans le dossier ciblé
+cd ..					#sert à se placer dans le dossier parent
+ls						#sert à afficher le contenu du dossier actif
+git init				#sert à initialiser le dépôt
+	// Attention le dépôt est tjs vide à ce stade puisque nous n’avons versionné aucun fichier (nous n’avons pas. commit)
+git status				#sert à connaitre l’état des fichiers du dossier ciblé
+git add					#sert à indexer les fichiers ou dossiers pour qu’ils soient ajoutés à la base
+git add *.txt			#sert à indexer tous les fichiers portant cette extension
+git commit				#sert à valider et ajouter les docs à la base
+	// attention une nouvelle fenêtre s’ouvre pour rédiger un commentaire concernant le commit en cours
+	// pour en sortir appuyez sur la touche "echap" 
+	// et entre le message :wq et appuyez sur "entrée"
+git commit -a			#sert à indexer && valider et ajouter les docs à la base
+git commit -m			#sert à ajouter un message lié au commit sans passer par VIM
+
+/* CLONER UN DEPOT EN LOCAL*/
+git clone 'nom dépot à cloner' 'nom du clone créé'	#sert à cloner un dépôt en local
+
+/* SUPPRIMER OU EXCLURE UN FICHIER */
+rm 'nom ficher'				#sert à exclure un fichier de la validation
+git rm 'nom fichier'		#sert à supprimer un fichier du git
+git rm --cached				#sert à abandonner le suivi d’un fichier sans le supprimer du projet
+git add/rm 'nom fichier'	#sert à ré-inclure un fichier dans la validation
+git restore 'nom fichier'	#sert à annuler l’exclusion de l’espace de travail
+
+/* MODIFICATION du contenu texte du fichier */
+echo 'texte à insérer'		#sert à créer du texte qui sera insérer dans le fichier ciclé
+cat 'nom du fichier à modif'#sert à cibler le fichier dans lequel sera insérer le texte
+
+/* COMMANDES COMPLEMENTAIRES */
+'nom fichier'.gitignore		#sert à ignorer les fichiers à l’indexation
+git mv 'ancien nom' 'nouveau nom' #sert à renommer un fichier
+
+/* MANIPULER L’HISTORIQUE DES MODIFICATIONS */
+git lot				#sert à afficher les commits réalisés du + récent au + ancien avec nom/mail de l’auteur et date/contenu du message
+git log -p				#sert à afficher les diff. introduites entre chaque validation
+git log --pretty=online	#sert à afficher les commits et leur détail sur une seule ligne 
+git log --since			#sert à afficher les commits que depuis une certaine période/date (2.weeks || 2019-10-10)
+git log --author		#sert à afficher les commits que d’un auteur ciblé
+git commit --amend		#sert à écraser le commit précédent
+git restore ’nom fichier’#sert à récupérer la dernière version du fichier enregistré
+
+/* LES BRANCHES SUR GIT */
+
+C’est créer une espèce de copie du projet pour développer et tester de nouvelles fonctionnalités sans impater le projet base
+Une branche est un pointeur vers un commit en particulier, le commit est lui-même un objet qui contient un pointeur vers vers le contenu indexé et un autre vers le ou les commits le précédent directement
+Créer une nouvelle branche c’est simplement créer un nouveau pointeur plutôt que de recopier l’intralité du répertoire de travail.
+
+git branch 'nom branche'		#sert à créer une nouvelle branche
+git branch -d 'nom branche'		#sert à supprimer la branche choisie
+git checkout 'nom branche'		#sert à basculer sur la branche choisie
+git checkout -b 'nom branche'	#sert à créer && basculer sur la nouvelle branche créée
+git merge 'nom branche'			#sert à fusionner 2 branches. Pour cela le pointeur doit être sur la branche commitN+1 et faire le git merge sur le fichier commitN. La fusion revient à faire avancer le commitN vers le commitN+1 ce qui s’appel 'fast forward' (avance rapide)
+git rebase						#sert à recupérer les modif d’une branche qui seront ajoutée au commit 'cible'/'source'. ATTENTION on il ne faut jamais faire un rebase sur un git public car le rebase équivant à supprimer des commits existants pour en créer des nouveaux.
+
+/* GÉRER À PARTIR D’UN DÉPÔT DISTANT */
+git clone 'URL'			#sert à cloner un dépôt distant
+git remote				#sert à afficher la liste des serveurs distants des dépôts
+git remote -v			#sert à afficher les URLs stockés
+git remote add ’nom dépôt distant’ + l’URL du dépôt #sert à donner son premier nom au dépôt distant
+git remote rename 'ancien nom 'nouveau nom' #sert à renommer un dépôt distant
+git fitch 'nom distant'	#sert à récupérer ttes les données qu’on ne possède pas déjà (mise à jour du distant)
+git pull 'nom bran dis' #sert à récupérer ttes les données d’une branche ciblée du distant puis fusionne avec une branche local
+git push 'nom-distant' 'nom-branche' #sert à pousser vers un dépôt distant sur lequel on a les droits d’écriture
+git remote show 'nom dépôt'			 #sert à consulter les informations d’un dépôt distant ciblé
+git remote rm 'nom dépôt'			 #sert à retirer un dépôt distant
