@@ -38,7 +38,7 @@ cat 'nom du fichier à modif'#sert à cibler le fichier dans lequel sera insére
 git mv 'ancien nom' 'nouveau nom' #sert à renommer un fichier
 
 /* MANIPULER L’HISTORIQUE DES MODIFICATIONS */
-git lot				#sert à afficher les commits réalisés du + récent au + ancien avec nom/mail de l’auteur et date/contenu du message
+git log				#sert à afficher les commits réalisés du + récent au + ancien avec nom/mail de l’auteur et date/contenu du message
 git log -p				#sert à afficher les diff. introduites entre chaque validation
 git log --pretty=online	#sert à afficher les commits et leur détail sur une seule ligne 
 git log --since			#sert à afficher les commits que depuis une certaine période/date (2.weeks || 2019-10-10)
