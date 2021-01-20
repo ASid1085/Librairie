@@ -105,9 +105,9 @@ create table COMMANDE
    COMMANDENUM          varchar  (50)                 not null,
    STATUTID             varchar  (50)                 not null,
    CLIENTLOGIN          varchar  (50)                 not null,
-   ADRESSEID            varchar  (50)                 not null,
+   ADRESSEIDF           varchar  (50)                 not null,
    TVAID                varchar  (50)                 not null,
-   ADRESSEID      		varchar  (50)                 not null,
+   ADRESSEIDL     		varchar  (50)                 not null,
    COMMANDEPAIEMENT     varchar  (50)                 null,
    COMMANDEFORFAITLIVRAISON varchar (50)              null,
    COMMANDEDATE         date                          not null,
@@ -118,8 +118,8 @@ create table COMMANDE
    constraint PK_COMMANDE primary key (COMMANDENUM),
    constraint FK_COMMANDE_TVA foreign key (TVAID) references TVA (TVAID),
    constraint FK_COMMANDE_STATUT foreign key (STATUTID) references STATUT (STATUTID),
-   constraint FK_COMMANDE_FACT_ADR foreign key (ADR_ADRESSEID) references ADRESSE (ADRESSEID),
-   constraint FK_COMMANDE_LIV_ADR foreign key (ADRESSEID) references ADRESSE (ADRESSEID),
+   constraint FK_COMMANDE_FACT_ADR foreign key (ADRESSEIDF) references ADRESSE (ADRESSEID),
+   constraint FK_COMMANDE_LIV_ADR foreign key (ADRESSEIDL) references ADRESSE (ADRESSEID),
    constraint FK_COMMANDE_CLIENT foreign key (CLIENTLOGIN) references CLIENT (CLIENTLOGIN)
 );
 
