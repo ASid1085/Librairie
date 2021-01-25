@@ -1,0 +1,108 @@
+// Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Lilia
+iLivreDAO & Livre
+	addLivre()
+	affichageListLivre()
+	updateLivre()
+	deleteLivre()
+	findLivreByGenre()
+	findLivreByTheme()
+	findLivreByAuteur()
+	findLivreByTitre()
+	findLivreByMotClef()
+	findLivreByIsbn()
+	findLivreByQte()
+	findLivreByPrixTTC()
+	
+
+iEditeurDAO & Editeur
+	addEditeur()
+	AffichageListEditeur()
+	findEditeurByName()
+	updateEditeur()
+	deleteEditeur()
+	
+
+iAuteurDAO & Auteur
+	addAuteur()
+	AffichageListAuteur()
+	findAuteurByName()
+	updateAuteur()
+	deleteAuteur()
+
+iMotCleDAO & MotCle
+	addMotCle()
+	AffichageListMotCle()
+	findMotCleByName()
+	updateMotCle()
+	deleteMotCle()
+
+
+// Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Marine
+iThemeDAO & Theme
+	addTheme()
+	AffichageListTheme()
+	findThemeByName()
+	updateTheme()
+	deleteTheme()
+
+
+iEvenementDAO & Evenement
+	addEvenement()
+	AffichageListEvenement()
+	findEvenementByName()
+	findEvenementByDate()
+	updateEvenement()
+	deleteEvenement()
+
+
+iEmployeDAO & Employe
+	validationAuthentif()
+	addEmploye()
+	AffichageListEmploye()
+	findEmployeByName()
+	findEmployeByAcces()
+	updateEmploye()
+	deleteEmploye()
+	
+
+iCommentaireDAO & Commentaire
+	AffichageListCommentaire()
+	findCommentaireByStatut()
+	findCommentaireByIdClient()
+	findCommentaireByLivre()
+	updateCommentaire()
+	deleteCommentaire()
+
+
+// Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Sidonie
+iGenreDAO & Genre
+	addGenre()
+	AffichageListGenre()
+	findGenreByName()
+	updateGenre()
+	deleteGenre()
+
+
+iClientDAO & Client
+	addClient()
+	AffichageListClient()
+	findGenreByName()
+	findGenreById()
+	updateClient()
+
+
+iCommandeDAO & Commande
+	addCommande()
+	AffichageListCommande()
+	findGenreByClient()
+	findGenreByNumCde()
+	findGenreByLivre()
+	findGenreByStatut()
+	findGenreByDate()
+	updateClient()
+
+
+iLigneCdeDAO & LigneCde
+	addLigneCde()
+	AffichageListeLigneCde()
+
