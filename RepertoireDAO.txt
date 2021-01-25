@@ -16,7 +16,7 @@ iLivreDAO & Livre
 
 iEditeurDAO & Editeur
 	addEditeur()
-	AffichageListEditeur()
+	affichageListEditeur()
 	findEditeurByName()
 	updateEditeur()
 	deleteEditeur()
@@ -24,14 +24,14 @@ iEditeurDAO & Editeur
 
 iAuteurDAO & Auteur
 	addAuteur()
-	AffichageListAuteur()
+	affichageListAuteur()
 	findAuteurByName()
 	updateAuteur()
 	deleteAuteur()
 
 iMotCleDAO & MotCle
 	addMotCle()
-	AffichageListMotCle()
+	affichageListMotCle()
 	findMotCleByName()
 	updateMotCle()
 	deleteMotCle()
@@ -40,7 +40,7 @@ iMotCleDAO & MotCle
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Marine
 iThemeDAO & Theme
 	addTheme()
-	AffichageListTheme()
+	affichageListTheme()
 	findThemeByName()
 	updateTheme()
 	deleteTheme()
@@ -48,7 +48,7 @@ iThemeDAO & Theme
 
 iEvenementDAO & Evenement
 	addEvenement()
-	AffichageListEvenement()
+	affichageListEvenement()
 	findEvenementByName()
 	findEvenementByDate()
 	updateEvenement()
@@ -58,7 +58,7 @@ iEvenementDAO & Evenement
 iEmployeDAO & Employe
 	validationAuthentif()
 	addEmploye()
-	AffichageListEmploye()
+	affichageListEmploye()
 	findEmployeByName()
 	findEmployeByAcces()
 	updateEmploye()
@@ -66,7 +66,7 @@ iEmployeDAO & Employe
 	
 
 iCommentaireDAO & Commentaire
-	AffichageListCommentaire()
+	affichageListCommentaire()
 	findCommentaireByStatut()
 	findCommentaireByIdClient()
 	findCommentaireByLivre()
@@ -77,7 +77,7 @@ iCommentaireDAO & Commentaire
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Sidonie
 iGenreDAO & Genre
 	addGenre()
-	AffichageListGenre()
+	affichageListGenre()
 	findGenreByName()
 	updateGenre()
 	deleteGenre()
@@ -85,7 +85,7 @@ iGenreDAO & Genre
 
 iClientDAO & Client
 	addClient()
-	AffichageListClient()
+	affichageListClient()
 	findGenreByName()
 	findGenreById()
 	updateClient()
@@ -93,7 +93,7 @@ iClientDAO & Client
 
 iCommandeDAO & Commande
 	addCommande()
-	AffichageListCommande()
+	affichageListCommande()
 	findGenreByClient()
 	findGenreByNumCde()
 	findGenreByLivre()
@@ -104,5 +104,5 @@ iCommandeDAO & Commande
 
 iLigneCdeDAO & LigneCde
 	addLigneCde()
-	AffichageListeLigneCde()
+	affichageListeLigneCde()
 
