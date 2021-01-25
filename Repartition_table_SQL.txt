@@ -1,24 +1,30 @@
 Répartition des tables sql pour le jeu d’essai
 
-COMMANDE
-LIGNE COMMANDE
-DROIT D’ACCES
-STATUT
 
-CLIENT
-EMPLOYE
-EVENEMENT
-COMMENTAIRE
+// Contraintes particulières de syntaxe des IDs //
+COMMANDE		> 4 chacun	=> 00001CMD
+EMPLOYE		> 4 chacun	=> 00001EMP
+EVENEMENT	> 1 chacun 	=> 00001EVE (Lilia au printemps, Mehdi en été, Marine en automne et Sidonie en hiver)	 
+LIVRE		> 4 chacun	=> 00001LIV
+AUTEUR		> 4 chacun	=> 00001AUT
+MOT CLE		> 4 chacun	=> 00001MOT
+EDITEUR		> 2 chacun	=> 00001EDI
+GENRE		> 4 chacun	=> 00001GEN
+THEME		> 4 chacun	=> 00001THE
+ADRESSE		> 4 chacun	=> 00001ADR
+CLIENT		> 4 chacun 	=> pas de contrainte ( l’ID sera l’identifiant que le client choisira pour se connecter)
+
+Codification pour l'ISBN > ISBN0123456789
+
+// pour éviter les doublons d’ID, Lilia aura les 4 premiers, Medhi les 4 suivants, Marine les 4 suivants, Sidonie les 4 derniers //
 
 
-LIVRE
-AUTEUR
-MOT CLE
-EDITEUR
+OK ---->  SOCIETE		> Marine ou Sidonie
+OK ---->  STATUTDROIT D’ACCES	> Marine ou Sidonie
+OK ---->  STATUT			> Marine ou Sidonie
+OK ---->  TVA			> Sidonie
 
-GENRE
-THEME
-ADRESSE
-TVA
 
-SOCIETE
+// Reporter //
+LIGNE COMMANDE	> au choix puisque que c’est lié aux 3 commandes	=> 00001LIG
+COMMENTAIRE	> 4 chacun					=> 00001COM
