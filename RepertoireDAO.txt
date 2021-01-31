@@ -1,108 +1,107 @@
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Lilia
 iLivreDAO & Livre
-	addLivre()
-	affichageListLivre()
-	updateLivre()
-	deleteLivre()
-	findLivreByGenre()
-	findLivreByTheme()
-	findLivreByAuteur()
-	findLivreByTitre()
-	findLivreByMotClef()
-	findLivreByIsbn()
-	findLivreByQte()
-	findLivreByPrixTTC()
-	
+	ajouterLivre()
+	afficherLivre()
+	rechercherLivreparGenre()
+	rechercherLivreparTheme()
+	rechercherLivreparAuteur()
+	rechercherLivreparTitre()
+	rechercherLivreparMotCle()
+	rechercherLivreparIsbn()
+	rechercherLivreparQuantite()	
+	rechercherLivreparPrixTTC()
+	modifierLivre()
+	supprimerLivre()
+
 
 iEditeurDAO & Editeur
-	addEditeur()
-	affichageListEditeur()
-	findEditeurByName()
-	updateEditeur()
-	deleteEditeur()
+	ajouterEditeur()
+	afficherEditeur()
+	rechercherEditeur()
+	modifierEditeur()
+	supprimerEditeur()
 	
 
 iAuteurDAO & Auteur
-	addAuteur()
-	affichageListAuteur()
-	findAuteurByName()
-	updateAuteur()
-	deleteAuteur()
+	ajouterAuteur()
+	afficherAuteur()
+	rechercherAuteur()
+	modifierAuteur()
+	supprimerAuteur()
 
 iMotCleDAO & MotCle
-	addMotCle()
-	affichageListMotCle()
-	findMotCleByName()
-	updateMotCle()
-	deleteMotCle()
+	ajouterMotCle()
+	afficherMotCle()
+	rechercherMotCle()
+	modifierMotCle()
+	supprimerMotCle()
 
 
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Marine
 iThemeDAO & Theme
-	addTheme()
-	affichageListTheme()
-	findThemeByName()
-	updateTheme()
-	deleteTheme()
+	ajouterTheme()
+	afficherTheme()
+	rechercherTheme()
+	modifierTheme()
+	supprimerTheme()
 
 
 iEvenementDAO & Evenement
-	addEvenement()
-	affichageListEvenement()
-	findEvenementByName()
-	findEvenementByDate()
-	updateEvenement()
-	deleteEvenement()
+	ajouterEvenement()
+	afficherEvenement()
+	rechercherEvenement()
+	rechercherEvenementparDate()
+	modifierEvenement()
+	supprimerEvenement()
 
 
 iEmployeDAO & Employe
-	validationAuthentif()
-	addEmploye()
-	affichageListEmploye()
-	findEmployeByName()
-	findEmployeByAcces()
-	updateEmploye()
-	deleteEmploye()
+	authentification()
+	ajouterEmploye()
+	afficherEmploye()
+	rechercherEmploye()
+	rechercherEmployeparDroitDacces()
+	modifierEmploye()
+	supprimerEmploye()
 	
 
 iCommentaireDAO & Commentaire
-	affichageListCommentaire()
-	findCommentaireByStatut()
-	findCommentaireByIdClient()
-	findCommentaireByLivre()
-	updateCommentaire()
-	deleteCommentaire()
+	afficherCommentaire()
+	rechercherCommentaireparStatut()
+	rechercherCommentaireparClient()
+	rechercherCommentaireparLivre()
+	modifierCommentaire()
+	supprimerCommentaire()
 
 
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Sidonie
 iGenreDAO & Genre
-	addGenre()
-	affichageListGenre()
-	findGenreByName()
-	updateGenre()
-	deleteGenre()
+	ajouterGenre()
+	afficherGenre()
+	rechercherGenre()
+	modifierGenre()
+	supprimerGenre()
 
 
 iClientDAO & Client
-	addClient()
-	affichageListClient()
-	findGenreByName()
-	findGenreById()
-	updateClient()
+	ajouterClient()
+	afficherClient()
+	rechercherClient()
+	modifierClient()
 
 
 iCommandeDAO & Commande
-	addCommande()
-	affichageListCommande()
-	findGenreByClient()
-	findGenreByNumCde()
-	findGenreByLivre()
-	findGenreByStatut()
-	findGenreByDate()
-	updateClient()
+	ajouterCommande()
+	afficherCommande()
+	rechercherCommandeparClient()
+	rechercherCommandeparCommande()
+	rechercherCommandeparLivre()
+	rechercherCommandeparStatut()
+	rechercherCommandeparDate()
+	modifierCommande()
 
 
-iLigneCdeDAO & LigneCde
-	addLigneCde()
-	affichageListeLigneCde()
+iLigneCommandeDAO & LigneCommande
+	ajouterLigneCommande()
+	affichereLigneCommande()
 
