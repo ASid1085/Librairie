@@ -76,19 +76,22 @@ iCommentaireDAO & Commentaire
 
 
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Sidonie
-iGenreDAO & Genre
-	ajouterGenre()
-	afficherGenre()
-	rechercherGenre()
-	modifierGenre()
-	supprimerGenre()
+iGenreDAO & Genre // Ok Sid
+	public void ajouterGenre(Genre genre) throws SQLException;
+	public void modifierGenre(String genreNom) throws SQLException;
+	public Vector<String> vectorListGenre() throws SQLException;
+	public DefaultTableModel listeGenre() throws SQLException;
+	public Genre findGenreByNom(String genreNom) throws SQLException;
+	public void supprimerGenre() throws SQLException;
 
 
-iClientDAO & Client
-	ajouterClient()
-	afficherClient()
-	rechercherClient()
-	modifierClient()
+iClientDAO & Client // Ok Sid
+	public void ajouterClient(Client clt) throws SQLException;
+	public void modifierClient(Client clt) throws SQLException;
+	public Vector<String> vectorListClient() throws SQLException;
+	public DefaultTableModel listeClient() throws SQLException;
+	public Client findClientByLogin(String clientLogin) throws SQLException;
+	public Client findClientByNom(String clientNom) throws SQLException;
 
 
 iCommandeDAO & Commande

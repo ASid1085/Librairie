@@ -14,7 +14,7 @@ public class LigneCommande {
 	private String evenementId;
 	
 	public LigneCommande(String ligneCdeId, String cdeNum, String livreIsbn, float ligneCdeQte, float ligneCdePrixHt,
-			float ligneCdeTvaAppliquee, String clientLogin, String commentaireId, String evenementId) {
+			float ligneCdeTvaAppliquee, String clientLogin) {
 		super();
 		this.ligneCdeId = ligneCdeId;
 		this.cdeNum = cdeNum;
@@ -23,8 +23,6 @@ public class LigneCommande {
 		this.ligneCdePrixHt = ligneCdePrixHt;
 		this.ligneCdeTvaAppliquee = ligneCdeTvaAppliquee;
 		this.clientLogin = clientLogin;
-		this.commentaireId = commentaireId;
-		this.evenementId = evenementId;
 	}
 
 	public LigneCommande() {

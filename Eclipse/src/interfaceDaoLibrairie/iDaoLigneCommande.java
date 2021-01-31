@@ -1,5 +1,5 @@
 package interfaceDaoLibrairie;
 
-public class iDaoLigneCommande {
+public interface iDaoLigneCommande {
 
 }
