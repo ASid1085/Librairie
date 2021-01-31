@@ -11,10 +11,6 @@ public class Client {
 	private String clientStatuts;
 	private String clientNotaBene;
 	
-	public Client() {
-		super();
-	}
-
 	public Client(String clientLogin, String clientNom, String clientPrenom, String clientMdp, String clientEmail) {
 		super();
 		this.clientLogin = clientLogin;
@@ -22,6 +18,10 @@ public class Client {
 		this.clientPrenom = clientPrenom;
 		this.clientMdp = clientMdp;
 		this.clientEmail = clientEmail;
+	}
+	
+	public Client() {
+		super();
 	}
 
 	public String getClientLogin() {
