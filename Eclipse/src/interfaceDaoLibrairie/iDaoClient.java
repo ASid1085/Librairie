@@ -13,7 +13,7 @@ public interface iDaoClient {
 
 	public void modifierClient(Client clt) throws SQLException;
 	
-	public Vector<String> vectorListClient() throws SQLException;
+	public Vector<Client> vectorListClient() throws SQLException;
 	
 	public DefaultTableModel listeClient() throws SQLException;
 		

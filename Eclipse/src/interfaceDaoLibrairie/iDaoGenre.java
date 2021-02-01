@@ -13,7 +13,7 @@ public interface iDaoGenre {
 
 	public void modifierGenre(String genreNom) throws SQLException;
 
-	public Vector<String> vectorListGenre() throws SQLException;
+	public Vector<Genre> vectorListGenre() throws SQLException;
 
 	public DefaultTableModel listeGenre() throws SQLException;
 
