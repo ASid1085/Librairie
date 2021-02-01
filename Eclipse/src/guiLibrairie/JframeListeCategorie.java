@@ -52,9 +52,9 @@ public class JframeListeCategorie extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane.setBounds(6, 6, 767, 504);
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		tabbedPane.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		tabbedPane.setBounds(6, 6, 767, 504);
 		contentPane.add(tabbedPane);
 		
 		JLayeredPane layPaneAuteur = new JLayeredPane();
@@ -80,6 +80,7 @@ public class JframeListeCategorie extends JFrame {
 		tabbedPane.setBackgroundAt(3, Color.ORANGE);
 		
 		JLayeredPane layPaneTheme = new JLayeredPane();
+		layPaneTheme.setBorder( BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		layPaneTheme.setForeground(Color.WHITE);
 		tabbedPane.addTab("Thème", null, layPaneTheme, null);
 		
@@ -111,7 +112,8 @@ public class JframeListeCategorie extends JFrame {
 		paneGenre.add(btnLoupe);
 		
 		JList list = new JList();
-		list.setBounds(22, 109, 666, 274);
+		list.setVisibleRowCount(100);
+		list.setBounds(22, 98, 666, 285);
 		paneGenre.add(list);
 		
 		JButton btnCréer = new JButton("Créer");
@@ -123,13 +125,13 @@ public class JframeListeCategorie extends JFrame {
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.setBounds(274, 399, 129, 54);
+		btnModifier.setBounds(292, 399, 129, 54);
 		paneGenre.add(btnModifier);
 		
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnSupprimer.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnSupprimer.setBounds(491, 399, 129, 54);
+		btnSupprimer.setBounds(510, 399, 129, 54);
 		paneGenre.add(btnSupprimer);
 		tabbedPane.setBackgroundAt(4, Color.ORANGE);
 		tabbedPane.setForegroundAt(4, Color.DARK_GRAY);

@@ -72,22 +72,18 @@ public class JFrameListeClient extends JFrame {
 		contentPane.add(lblNomClient);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		panel.setBackground(new Color(255, 248, 220));
 		panel.setBounds(18, 118, 737, 311);
 		contentPane.add(panel);
 		
 		table = new JTable();
-		// table.setModel( A compléter le moment venu);
-		table.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		table.setFont(new Font("Cochin", Font.PLAIN, 15));
 		table.setShowGrid( true);
 		table.setShowHorizontalLines( true);
 		table.setShowVerticalLines( true);
-		table.getTableHeader().setBounds( 6, 6, 500, 324);
+		table.getTableHeader().setBounds( 6, 6, 731, 305);
 		table.getTableHeader().setVisible( true);
-		panel.add(table);
-		
-		table = new JTable();
 		panel.add(table);
 		
 		JButton btnLoupe = new JButton("");
