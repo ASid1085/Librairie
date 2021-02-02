@@ -19,10 +19,13 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
-public class JFrameAccueil extends JFrame {
-
+public class JFrameAccueil {
+	
+	private JFrame frame;
 	private JPanel contentPane;
-	private static JFrameListeCommande lc;
+	private static JFrameListeCommande lcde;
+	private static JFrameListeClient lclt;
+	private static JFrameListeCategorie lcat;
 
 	/**
 	 * Launch the application.
@@ -31,29 +34,46 @@ public class JFrameAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// test window = new test();
+					//window.frame.setVisible(true);
+					
 					JFrameAccueil frame = new JFrameAccueil();
-					frame.setVisible(true);
+					frame.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
+	/**
+	 * Create the application.
+	 */
+	public JFrameAccueil() {
+		initialize();
+	}
 	/**
 	 * Create the frame.
 	 */
-	public JFrameAccueil() {
-		setTitle("Accueil");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 663, 467);
+	private void initialize() {
+		frame = new JFrame();
+		frame.setTitle("Accueil");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 663, 467);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JButton btnGestionCategorie = new JButton( "<html><center>Gestion<br>catégorie</center></html>");
+		btnGestionCategorie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lcat = new JFrameListeCategorie();
+				lcat.setLocationRelativeTo( lcat.getParent());
+				lcat.setVisible( true);
+			}
+		});
 		btnGestionCategorie.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnGestionCategorie.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionCategorie.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCategorie.png"));
@@ -68,6 +88,13 @@ public class JFrameAccueil extends JFrame {
 		contentPane.add(btnGestionEvenement);
 		
 		JButton btnGestionClient = new JButton("<html><center>Gestion<br>client</center></html>");
+		btnGestionClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lclt = new JFrameListeClient();
+				lclt.setLocationRelativeTo( lclt.getParent());
+				lclt.setVisible( true);
+			}
+		});
 		btnGestionClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestClient.png"));
 		btnGestionClient.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnGestionClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -92,10 +119,9 @@ public class JFrameAccueil extends JFrame {
 		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lc = new JFrameListeCommande();
-				lc.setLocationRelativeTo( lc.getParent());
-				lc.setVisible( true);
-				
+				lcde = new JFrameListeCommande();
+				lcde.setLocationRelativeTo( lcde.getParent());
+				lcde.setVisible( true);
 			}
 		});
 		btnGestionCommande.setFont(new Font("Avenir Next", Font.PLAIN, 15));

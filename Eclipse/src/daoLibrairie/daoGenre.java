@@ -1,48 +1,120 @@
 package daoLibrairie;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import connexionLibrairie.Connexion;
 import entitesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoGenre;
 
 public class daoGenre implements iDaoGenre {
+	
+	private Statement stmt;
+	private ResultSet rs;
+	private PreparedStatement pstmt;
+	static private Connection myConnexion;
 
 	@Override
-	public void ajouterGenre(Genre genre) throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
+	public void ajouterGenre( Genre genre) throws SQLException {
 		
+		myConnexion = Connexion.getInstance();
+		
+		String query = "insert into GENRE values ('" + genre.getGenreId() + "', '" + genre.getGenreNom() + "');";
+		
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "Le nouveau genre a été ajouté !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
-	public void modifierGenre(String genreNom) throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
+	public void modifierGenre( Genre genre, String genreId) throws SQLException {
+		myConnexion = Connexion.getInstance();
+
+		String query = "update GENRE set GENREID = '" + genre.getGenreId() +"', GENRENOM = '" + genre.getGenreNom() 
+							+"' where GENREID = '" + genre.getGenreId() +"';";
 		
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
 	public Vector<Genre> vectorListGenre() throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
-		return null;
+		Vector vGenre = new Vector<>();
+		
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from GENRE order by GENREID;";
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				Vector colonne = new Vector();
+				colonne.add( rs.getString( "GENREID"));
+				colonne.add( rs.getString( "GENRENOM"));
+
+				vGenre.add( colonne);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vGenre;
 	}
 
 	@Override
 	public DefaultTableModel listeGenre() throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
-		return null;
+		
+		Vector Vgenre = vectorListGenre();
+		Vector nomColonne = new Vector<>();
+		nomColonne.add( "ID du genre");
+		nomColonne.add( "Nom du genre");
+		
+		return new DefaultTableModel( Vgenre, nomColonne);
 	}
 
 	@Override
 	public Genre findGenreByNom(String genreNom) throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
-		return null;
+		
+		myConnexion = Connexion.getInstance();
+		Genre g = new Genre();
+		String query = "select * from GENRE where GENRENOM ='"+ genreNom +"';";
+        try {
+        	stmt = myConnexion.createStatement();
+        	ResultSet rs = stmt.executeQuery( query);
+        	while ( rs.next()) {
+        		g = new Genre( 	rs.getString( "GENREID"),
+        						rs.getString( "GENRENOM"));
+        	}
+        	rs.close();
+        	stmt.close();
+    } catch (SQLException ex) {
+        System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+    }
+		return g;
 	}
 
 	@Override
-	public void supprimerGenre() throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
+	public void supprimerGenre( String genreNom) throws SQLException {
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "delete from GENRE where GENREID = '"+ genreNom +"';";
+		
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "Le genre a été supprimé !", "Confirmation", JOptionPane.WARNING_MESSAGE);
+		
 		
 	}
 

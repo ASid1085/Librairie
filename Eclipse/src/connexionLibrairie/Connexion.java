@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class Connexion {
 	
-	private String BDD = "Librairie";
-	private String BDDTest = "LibrarieTest";
-	private String url = "jdbc:mysql://localhost:3306/" + BDDTest;
+	private String BDD1 = "Librairie";
+	private String BDD2 = "Librairie2";
+	private String url = "jdbc:mysql://localhost:3306/" + BDD2;
 	private String user = "root";
 	private String mdp = "Sidonie1";
 	static private Connection conn;

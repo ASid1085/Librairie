@@ -33,7 +33,7 @@ public class JFrameListeCommande extends JFrame {
 	 */
 	public JFrameListeCommande() {
 		setTitle("Liste des commandes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 544);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
