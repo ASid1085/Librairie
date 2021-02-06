@@ -107,7 +107,7 @@ public class daoGenre implements iDaoGenre {
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "delete from GENRE where GENREID = '"+ genreNom +"';";
+		String query = "delete from GENRE where GENRENOM = '"+ genreNom +"';";
 		
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();

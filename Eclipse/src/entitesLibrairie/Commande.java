@@ -31,6 +31,14 @@ public class Commande {
 		this.cdeIp = cdeIp;
 		this.dateStatut = dateStatut;
 	}
+	
+	public Commande(String cdeNum, String clientLogin, Date cdeDate, String statutId) {
+		super();
+		this.cdeNum = cdeNum;
+		this.clientLogin = clientLogin;
+		this.cdeDate = cdeDate;
+		this.statutId = statutId;
+	}
 
 	public Commande() {
 		super();

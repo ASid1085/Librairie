@@ -36,7 +36,6 @@ public class JFrameListeCategorie extends JFrame {
 	private daoGenre daoG = new daoGenre();
 	private JTable table;
 	private static JFrameGenre JFgen;
-
 	/**
 	 * Launch the application.
 	 */
@@ -113,8 +112,6 @@ public class JFrameListeCategorie extends JFrame {
 		textField.setBounds(274, 45, 162, 26);
 		paneGenre.add(textField);
 		
-		
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 248, 220));
 		panel.setBounds(6, 94, 697, 293);
@@ -128,6 +125,7 @@ public class JFrameListeCategorie extends JFrame {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.setBackground(new Color(255, 248, 220));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView( table);
@@ -172,6 +170,8 @@ public class JFrameListeCategorie extends JFrame {
 				JFgen = new JFrameGenre( "");
 				JFgen.setLocationRelativeTo( JFgen.getParent());
 				JFgen.setVisible( true);
+				setVisible( false);
+				dispose();
 			}
 		});
 		btnCreer.setFont(new Font("Avenir Next", Font.PLAIN, 15));
@@ -185,15 +185,17 @@ public class JFrameListeCategorie extends JFrame {
 				String genreNomSelect = "";
 				try {
 					genreNomSelect = (String) daoG.listeGenre().getValueAt(table.getSelectedRow(), 1);
+					JFgen = new JFrameGenre( genreNomSelect);
+					JFgen.setLocationRelativeTo( JFgen.getParent());
+					JFgen.setVisible( true);
+					setVisible( false);
+					dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un genre - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
 				}
-				JFgen = new JFrameGenre( genreNomSelect);
-				JFgen.setLocationRelativeTo( JFgen.getParent());
-				JFgen.setVisible( true);
 			}
 		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
@@ -208,6 +210,7 @@ public class JFrameListeCategorie extends JFrame {
 				try {
 					genreNomSelect = (String) daoG.listeGenre().getValueAt(table.getSelectedRow(), 1);
 					daoG.supprimerGenre( genreNomSelect);
+					table.setModel( daoG.listeGenre());
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {

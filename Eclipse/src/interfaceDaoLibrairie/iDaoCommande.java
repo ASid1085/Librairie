@@ -16,14 +16,20 @@ public interface iDaoCommande {
 
 	public DefaultTableModel listeCommande() throws SQLException;
 
-	public Commande findCommandeByLogin(String clientLogin) throws SQLException;
+	public Vector<Commande> findCommandeByLogin(String clientLogin) throws SQLException;
+	
+	public DefaultTableModel listeCommandeByLogin(String clientLogin) throws SQLException;
 
-	public Commande findCommandeByCdeNum(String CdeNum) throws SQLException;
+	public Vector<Commande> findCommandeByCdeNum(String CdeNum) throws SQLException;
 	
-	public Commande findCommandeByLivreTitre(String LivreTitre) throws SQLException;
+	public DefaultTableModel listeCommandeByCdeNum(String CdeNum) throws SQLException;
 	
-	public Commande findCommandeByStatutId(String StatutId) throws SQLException;
+	public Vector<Commande> findCommandeByStatut(String StatutLibelle) throws SQLException;
 	
-	public Commande findCommandeByDateCde(Date cdeDate) throws SQLException;
+	public DefaultTableModel listeCommandeByStatut(String StatutLibelle) throws SQLException;
+	
+	public Vector<Commande> findCommandeByDateCde(Date cdeDate) throws SQLException;
+	
+	public DefaultTableModel listeCommandeByDateCde(Date cdeDate) throws SQLException;
 
 }

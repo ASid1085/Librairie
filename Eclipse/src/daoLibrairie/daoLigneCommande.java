@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
+import entitesLibrairie.Adresse;
 import entitesLibrairie.LigneCommande;
 import interfaceDaoLibrairie.iDaoLigneCommande;
 

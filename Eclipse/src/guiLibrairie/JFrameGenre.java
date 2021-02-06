@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.sql.*;
-
 import daoLibrairie.daoGenre;
 import entitesLibrairie.Genre;
 
@@ -91,6 +90,8 @@ public class JFrameGenre extends JFrame {
 				if (genreNom.equals( "")) {
 					try {
 						daoG.ajouterGenre( g);
+						setVisible( false);
+						dispose();
 					} catch (SQLException e1) {
 						System.err.println( "Oops : erreur avec la validation d'un nouveau genre - Voir JFrameGenre & daoGenre");
 						e1.printStackTrace();
@@ -98,6 +99,12 @@ public class JFrameGenre extends JFrame {
 				} 
 				try {
 					daoG.modifierGenre( g, genreNom);
+					setVisible( false);
+					dispose();
+					JFrameListeCategorie lc = new JFrameListeCategorie();
+					lc.setLocationRelativeTo( lc.getParent());
+					lc.setVisible( true);
+
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
 					e1.printStackTrace();

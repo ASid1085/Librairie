@@ -20,6 +20,28 @@ public class Client {
 		this.clientEmail = clientEmail;
 	}
 	
+	public Client(String clientLogin, String clientNom, String clientPrenom, String clientMdp, String clientEmail, String clientTel) {
+		super();
+		this.clientLogin = clientLogin;
+		this.clientNom = clientNom;
+		this.clientPrenom = clientPrenom;
+		this.clientMdp = clientMdp;
+		this.clientEmail = clientEmail;
+		this.clientTel = clientTel;
+	}
+	
+	public Client(String clientLogin, String clientNom, String clientPrenom, String clientMdp, String clientEmail,
+			String clientTel, String clientStatuts) {
+		super();
+		this.clientLogin = clientLogin;
+		this.clientNom = clientNom;
+		this.clientPrenom = clientPrenom;
+		this.clientMdp = clientMdp;
+		this.clientEmail = clientEmail;
+		this.clientTel = clientTel;
+		this.clientStatuts = clientStatuts;
+	}
+	
 	public Client() {
 		super();
 	}
@@ -92,7 +114,5 @@ public class Client {
 	public String toString() {
 		return clientLogin;
 	}
-	
-	
 
 }

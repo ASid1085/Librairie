@@ -19,5 +19,5 @@ public interface iDaoClient {
 		
 	public Client findClientByLogin(String clientLogin) throws SQLException;
 	
-	public Client findClientByNom(String clientNom) throws SQLException;
+	public Client findClientByNom(String clientLogin) throws SQLException;
 }
