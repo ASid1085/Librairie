@@ -175,7 +175,7 @@ public class JFrameClient extends JFrame {
 		JButton btnCommentaireClient = new JButton("");
 		btnCommentaireClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jdcc = new JDialogCommentaireClient( txtLogin.getText());
+				jdcc = new JDialogCommentaireClient( ClientLogin);
 				jdcc.setLocationRelativeTo( jdcc.getParent());
 				jdcc.setVisible( true);
 			}
@@ -187,7 +187,7 @@ public class JFrameClient extends JFrame {
 		JButton btnValiderLesModifications = new JButton("Valider les modifications");
 		btnValiderLesModifications.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Client clt = new Client( txtLogin.getText(), txtNom.getText(), txtPrenom.getText(), txtMdp.getText(), txtMail.getText(), (String) cmbBoxStatut.getSelectedItem());
+				Client clt = new Client( txtLogin.getText(), txtNom.getText(), txtPrenom.getText(), txtMdp.getText(), txtMail.getText(), txtTelephone.getText(), (String) cmbBoxStatut.getSelectedItem());
 				
 				try {
 					daoClt.modifierClient( clt);
@@ -223,13 +223,14 @@ public class JFrameClient extends JFrame {
 			txtTelephone.setEnabled( false);
 			txtMail.setEnabled( false);
 			cmbBoxStatut.setEnabled( false);
-			btnCommentaireClient.setEnabled( false);
 			btnValiderLesModifications.setEnabled( false);
+			btnAjouterUnClient.setEnabled( false);
 		}
 		
 		if ( etat.equals( "Modifier")) {
 			txtLogin.setEnabled( false);
 			txtMdp.setEnabled( false);
+			btnAjouterUnClient.setEnabled( false);
 		}
 		
 	}

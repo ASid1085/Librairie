@@ -88,6 +88,7 @@ public class JFrameLigneCommande extends JFrame {
 	private ResultSet rs;
 	private PreparedStatement pstmt;
 	static private Connection myConnexion;
+	private JTextField textField;
 	
 	public Vector<String> vectorListLivre() throws SQLException {
 		Vector vLiv = new Vector();
@@ -216,6 +217,7 @@ public class JFrameLigneCommande extends JFrame {
 		contentPane.add(scrollPaneDroite);
 		
 		table = new JTable( dtm());
+		table.setEnabled(false);
 		table.setBackground(new Color(255, 248, 220));
 		table.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, Color.ORANGE));
 		scrollPaneDroite.setViewportView(table);
@@ -342,6 +344,11 @@ public class JFrameLigneCommande extends JFrame {
 		panelBas.add(lblTelAdrLiv);
 		
 		JButton btnValiderLigCde = new JButton("");
+		btnValiderLigCde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 		btnValiderLigCde.setToolTipText("Valider la commande");
 		btnValiderLigCde.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnValiderLigCde.setBounds(717, 223, 67, 54);
@@ -359,51 +366,57 @@ public class JFrameLigneCommande extends JFrame {
 		panelBas.add(txtPortHt);
 		txtPortHt.setColumns(10);
 		
-		JLabel lblRemise = new JLabel("Remise HT :");
+		JLabel lblRemise = new JLabel("Remise % :");
 		lblRemise.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRemise.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblRemise.setBounds(564, 55, 96, 16);
+		lblRemise.setBounds(564, 84, 96, 16);
 		panelBas.add(lblRemise);
 		
 		txtRemiseHt = new JTextField();
 		txtRemiseHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtRemiseHt.setBounds(675, 50, 77, 26);
+		txtRemiseHt.setBounds(675, 79, 77, 26);
 		panelBas.add(txtRemiseHt);
 		txtRemiseHt.setColumns(10);
 		
-		JLabel lblTotalHT = new JLabel("Total HT :");
+		JLabel lblTotalHT = new JLabel("Total HT après remise :");
 		lblTotalHT.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalHT.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTotalHT.setBounds(557, 89, 103, 26);
+		lblTotalHT.setBounds(515, 116, 145, 26);
 		panelBas.add(lblTotalHT);
 		
 		txtTotalHt = new JTextField();
+		txtTotalHt.setEnabled(false);
+		txtTotalHt.setEditable(false);
 		txtTotalHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTotalHt.setBounds(675, 89, 77, 26);
+		txtTotalHt.setBounds(675, 116, 77, 26);
 		panelBas.add(txtTotalHt);
 		txtTotalHt.setColumns(10);
 		
 		JLabel lblTxTva = new JLabel("Taux TVA :");
 		lblTxTva.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTxTva.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTxTva.setBounds(557, 127, 103, 26);
+		lblTxTva.setBounds(557, 149, 103, 26);
 		panelBas.add(lblTxTva);
 		
 		txtTxTva = new JTextField();
+		txtTxTva.setEnabled(false);
+		txtTxTva.setEditable(false);
 		txtTxTva.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTxTva.setBounds(675, 127, 77, 26);
+		txtTxTva.setBounds(675, 149, 77, 26);
 		panelBas.add(txtTxTva);
 		txtTxTva.setColumns(10);
 		
 		JLabel lblTotalTtc = new JLabel("Total TTC :");
 		lblTotalTtc.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTotalTtc.setBounds(557, 168, 103, 16);
+		lblTotalTtc.setBounds(557, 190, 103, 16);
 		panelBas.add(lblTotalTtc);
 		
 		txtTotalTtc = new JTextField();
+		txtTotalTtc.setEnabled(false);
+		txtTotalTtc.setEditable(false);
 		txtTotalTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTotalTtc.setBounds(675, 163, 77, 26);
+		txtTotalTtc.setBounds(675, 185, 77, 26);
 		panelBas.add(txtTotalTtc);
 		txtTotalTtc.setColumns(10);
 		
@@ -475,5 +488,19 @@ public class JFrameLigneCommande extends JFrame {
 		lblPaiementType.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPaiementType.setBounds(528, 261, 145, 16);
 		panelBas.add(lblPaiementType);
+		
+		JLabel lblTotalHtAvant = new JLabel("Total HT avant remise :");
+		lblTotalHtAvant.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTotalHtAvant.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblTotalHtAvant.setBounds(515, 45, 145, 26);
+		panelBas.add(lblTotalHtAvant);
+		
+		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setEditable(false);
+		textField.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		textField.setColumns(10);
+		textField.setBounds(675, 45, 77, 26);
+		panelBas.add(textField);
 	}
 }

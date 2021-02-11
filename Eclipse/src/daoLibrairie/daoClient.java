@@ -46,7 +46,8 @@ public class daoClient implements iDaoClient{
 		myConnexion = Connexion.getInstance();
 
 		String query = "update CLIENT set CLIENTNOM = '" + clt.getClientNom() +"', CLIENTPRENOM = '" + clt.getClientPrenom() 
-							+"', CLIENTTEL = '"+ clt.getClientTel() +"', CLIENTEMAIL = '"+ clt.getClientEmail()  +"', CLIENTSTATUT = '" + clt.getClientStatuts()
+							+"', CLIENTTEL = '"+ clt.getClientTel() +"', CLIENTEMAIL = '"+ clt.getClientEmail() +"', CLIENTTEL = '" + clt.getClientTel()
+							+"', CLIENTSTATUT = '" + clt.getClientStatuts()
 							+"' where CLIENTLOGIN = '" + clt.getClientLogin() +"';";
 		
 		pstmt = myConnexion.prepareStatement( query);
@@ -79,7 +80,7 @@ public class daoClient implements iDaoClient{
 		stmt = myConnexion.createStatement();
     	ResultSet rs = stmt.executeQuery( query);
     	while ( rs.next()) {
-    		commentaire += rs.getString( "CLIENTCOMMENT");
+    		commentaire = rs.getString( "CLIENTCOMMENT");
     	}
     	rs.close();
     	stmt.close();
@@ -114,10 +115,88 @@ public class daoClient implements iDaoClient{
 		}
 		return vClient;
 	}
-
+	
 	@Override
 	public DefaultTableModel listeClient() throws SQLException {
 		Vector vClient = vectorListClient();
+		Vector nomColonne = new Vector<>();
+		nomColonne.add( "Login");
+		nomColonne.add( "Nom");
+		nomColonne.add( "Prénom");
+		nomColonne.add( "Mail");
+		nomColonne.add( "Statut");
+		
+		return new DefaultTableModel( vClient, nomColonne);
+	}
+	
+	public Vector<Client> vectorListClientByLogin( String clientLogin) throws SQLException {
+		Vector vClient = new Vector<>();
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from CLIENT where CLIENTLOGIN ='"+ clientLogin +"';";
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				Vector colonne = new Vector();
+				colonne.add( rs.getString( "CLIENTLOGIN"));
+				colonne.add( rs.getString( "CLIENTNOM"));
+				colonne.add( rs.getString( "CLIENTPRENOM"));
+				colonne.add( rs.getString( "CLIENTEMAIL"));
+				colonne.add( rs.getString( "CLIENTSTATUT"));
+
+				vClient.add( colonne);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vClient;
+	}
+	
+	public DefaultTableModel listeClientByLogin( String clientLogin) throws SQLException {
+		Vector vClient = vectorListClientByLogin( clientLogin);
+		Vector nomColonne = new Vector<>();
+		nomColonne.add( "Login");
+		nomColonne.add( "Nom");
+		nomColonne.add( "Prénom");
+		nomColonne.add( "Mail");
+		nomColonne.add( "Statut");
+		
+		return new DefaultTableModel( vClient, nomColonne);
+	}
+	
+	public Vector<Client> vectorListClientByNom( String clientNom) throws SQLException {
+		Vector vClient = new Vector<>();
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from CLIENT where CLIENTLOGIN ='"+ clientNom +"';";
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				Vector colonne = new Vector();
+				colonne.add( rs.getString( "CLIENTLOGIN"));
+				colonne.add( rs.getString( "CLIENTNOM"));
+				colonne.add( rs.getString( "CLIENTPRENOM"));
+				colonne.add( rs.getString( "CLIENTEMAIL"));
+				colonne.add( rs.getString( "CLIENTSTATUT"));
+
+				vClient.add( colonne);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vClient;
+	}
+	
+	public DefaultTableModel listeClientByNom( String clientNom) throws SQLException {
+		Vector vClient = vectorListClientByNom( clientNom);
 		Vector nomColonne = new Vector<>();
 		nomColonne.add( "Login");
 		nomColonne.add( "Nom");
@@ -169,6 +248,7 @@ public class daoClient implements iDaoClient{
 						rs.getString( "CLIENTPRENOM"),
 						rs.getString( "CLIENTMDP"),
 						rs.getString( "CLIENTEMAIL"),
+						rs.getString( "CLIENTTEL"),
 						rs.getString( "CLIENTSTATUT"));
 			}
 			rs.close();

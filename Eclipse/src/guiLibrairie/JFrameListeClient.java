@@ -96,7 +96,6 @@ public class JFrameListeClient extends JFrame {
 		try {
 			dcbm = daoClt.ClientLogin();
 		} catch (SQLException e1) {
-			// TODO Bloc catch généré automatiquement
 			e1.printStackTrace();
 		}
 		JComboBox cmbBxLoginClient = new JComboBox( dcbm);
@@ -108,7 +107,12 @@ public class JFrameListeClient extends JFrame {
 		lblNomClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblNomClient.setBounds(398, 61, 82, 16);
 		contentPane.add(lblNomClient);
-		//table.setModel( daoClt.listeClient());
+		
+		txtNomClient = new JTextField();
+		txtNomClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		txtNomClient.setBounds(478, 55, 162, 26);
+		contentPane.add(txtNomClient);
+		txtNomClient.setColumns(10);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -137,8 +141,27 @@ public class JFrameListeClient extends JFrame {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		
+
 		JButton btnLoupe = new JButton("");
+		btnLoupe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String clientLogSelect = new String();
+				try {
+					if ( txtNomClient.getText().equals( "") ) {	
+						clientLogSelect = (String) cmbBxLoginClient.getSelectedItem();
+						System.out.println( clientLogSelect);
+						table.setModel( daoClt.listeClientByLogin( clientLogSelect));
+						table.repaint();
+					} else {
+						clientLogSelect = txtNomClient.getText();
+						table.setModel( daoClt.listeClientByNom( clientLogSelect));
+						table.repaint();
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 		btnLoupe.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
 		btnLoupe.setBounds(703, 43, 55, 55);
 		contentPane.add(btnLoupe);
@@ -173,12 +196,6 @@ public class JFrameListeClient extends JFrame {
 		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnModifier.setBounds(542, 452, 173, 41);
 		contentPane.add(btnModifier);
-		
-		txtNomClient = new JTextField();
-		txtNomClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtNomClient.setBounds(478, 55, 162, 26);
-		contentPane.add(txtNomClient);
-		txtNomClient.setColumns(10);
 		
 		JButton btnConsulter = new JButton("Consulter");
 		btnConsulter.addActionListener(new ActionListener() {

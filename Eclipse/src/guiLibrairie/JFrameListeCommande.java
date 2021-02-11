@@ -20,6 +20,7 @@ public class JFrameListeCommande extends JFrame {
 	private daoCommande daoCde = new daoCommande();
 	private JTable table;
 	private JTextField txtLoginClient;
+	private JFrameLigneCommande JFlc;
 
 	/**
 	 * Launch the application.
@@ -180,6 +181,9 @@ public class JFrameListeCommande extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFlc = new JFrameLigneCommande();
+				JFlc.setLocationRelativeTo( getParent());
+				JFlc.setVisible( true);
 				
 			}
 		});

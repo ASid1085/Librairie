@@ -66,7 +66,9 @@ public class JFrameGenre extends JFrame {
 		contentPane.add(lblGenreId);
 		
 		txtGenreId = new JTextField();
+		txtGenreId.setText( daoG.ajoutIdGenre());
 		txtGenreId.setBounds(150, 55, 189, 26);
+		txtGenreId.setEnabled( false);
 		txtGenreId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		contentPane.add(txtGenreId);
 		txtGenreId.setColumns(10);

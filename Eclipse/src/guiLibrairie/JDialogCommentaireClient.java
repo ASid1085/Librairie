@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class JDialogCommentaireClient extends JDialog {
 
+	private JTextArea textAreaPostIt;
 	private final JPanel contentPanel = new JPanel();
 	private daoClient daoClt = new daoClient();
 
@@ -38,9 +39,10 @@ public class JDialogCommentaireClient extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-
+				String recup = "";
 				try {
-					daoClt.recupererNoteClient( clientLogin);
+					recup = daoClt.recupererNoteClient( clientLogin);
+					textAreaPostIt.setText( recup);
 				} catch (SQLException ex) {
 					System.err.println( "Oops : Erreur avec la récupération du post'it client");
 					ex.printStackTrace();
@@ -61,7 +63,7 @@ public class JDialogCommentaireClient extends JDialog {
 		scrollPane.setBounds(16, 17, 367, 206);
 		contentPanel.add(scrollPane);
 		
-		JTextArea textAreaPostIt = new JTextArea();
+		textAreaPostIt = new JTextArea();
 		scrollPane.setViewportView(textAreaPostIt);
 		JButton btnValider = new JButton("");
 		btnValider.setBounds(275, 235, 48, 50);
@@ -69,7 +71,7 @@ public class JDialogCommentaireClient extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String note = "";
 				try {
-					note += daoClt.recupererNoteClient( clientLogin);
+					note = daoClt.recupererNoteClient( clientLogin);
 					daoClt.modifierNoteClient( clientLogin, note);
 				} catch (SQLException ex) {
 					System.err.println( "Oops : Erreur avec l'ajout/modification du post'it client.");

@@ -225,6 +225,8 @@ public class JFrameAdresse extends JFrame {
 		JLabel lblAdresseId = new JLabel("");
 		if ( !id.equals( "")) {
 			lblAdresseId.setText( id);
+		} else {
+			lblAdresseId.setText( daoAdr.ajoutIdAdresse());
 		}
 		lblAdresseId.setEnabled(false);
 		lblAdresseId.setFont(new Font("Avenir Next", Font.PLAIN, 13));

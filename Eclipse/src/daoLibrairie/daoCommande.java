@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import connexionLibrairie.Connexion;
 import entitesLibrairie.Client;
@@ -21,6 +22,26 @@ public class daoCommande implements iDaoCommande {
 	private ResultSet rs;
 	private PreparedStatement pstmt;
 	static private Connection myConnexion;
+
+	public Integer ajoutIdLigneCommande() {
+		int id = 0;
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select count(*) from COMMANDE;";
+
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				int numCmd = rs.getInt( 1) +1 ;
+			}
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+		return id;
+	}
 
 	@Override
 	public void ajouterCommande(Commande cde, String ClientLog) throws SQLException {

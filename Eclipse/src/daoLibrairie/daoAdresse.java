@@ -23,6 +23,37 @@ public class daoAdresse implements iDaoAdresse {
 	private PreparedStatement pstmt;
 	static private Connection myConnexion;
 
+	public String ajoutIdAdresse() {
+		String id = null;
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select count(*) from ADRESSE;";
+
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				int numAdr = rs.getInt( 1) +1 ;
+				if (numAdr < 10) {
+					id = "0000" + numAdr + "ADR";
+				} else if (numAdr < 100) {
+					id = "000" + numAdr + "ADR";
+				} else if (numAdr < 1000) {
+					id = "00" + numAdr + "ADR";
+				} else if (numAdr < 10000) {
+					id = "0" + numAdr + "ADR";
+				} if (numAdr > 99999) {
+					JOptionPane.showMessageDialog(null, "Vous ne pouvez plus ajouter de nouvelle adresse !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
 	@Override
 	public void addAdresse(Adresse adresse) throws SQLException {
 		myConnexion = Connexion.getInstance();

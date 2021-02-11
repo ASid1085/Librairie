@@ -17,6 +17,38 @@ public class daoGenre implements iDaoGenre {
 	private PreparedStatement pstmt;
 	static private Connection myConnexion;
 
+	public String ajoutIdGenre() {
+		String id = null;
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select count(*) from GENRE;";
+
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				int numGenre = rs.getInt( 1) +1 ;
+				if (numGenre < 10) {
+					id = "0000" + numGenre + "GEN";
+				} else if (numGenre < 100) {
+					id = "000" + numGenre + "GEN";
+				} else if (numGenre < 1000) {
+					id = "00" + numGenre + "GEN";
+				} else if (numGenre < 10000) {
+					id = "0" + numGenre + "GEN";
+				} if (numGenre > 99999) {
+					JOptionPane.showMessageDialog(null, "Vous ne pouvez plus ajouter de nouveau genre !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+		return id;
+	}
+
+
 	@Override
 	public void ajouterGenre( Genre genre) throws SQLException {
 		
