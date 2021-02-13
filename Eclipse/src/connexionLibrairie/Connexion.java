@@ -1,55 +1,48 @@
 package connexionLibrairie;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 
+import java.sql.*;
 import com.mysql.jdbc.Driver;
 
 
 public class Connexion {
 
+	private String BDD1 = "Librairie";
+	private String BDD2 = "Librairie2";
+	private String url = "jdbc:mysql://localhost:3306/" + BDD2;
+	private String user = "root";
+	private String mdp = "Sidonie1";
+	static private Connection conn;
 	
-	static Connection conn = null;
-	private final String protocole =  "jdbc:mysql:" ;
-     // Adresse IP de l’hôte de la base et port
-    private final String ip =  "localhost" ;  // dépend du contexte
-    private final String port =  "3306" ;  // port MySQL par défaut
-     // Nom de la base ;
-    private final String nomBase =  "LibrairieTEST" ;  // dépend du contexte
-     // Chaîne de connexion
-    private final String conString = protocole +  "//" + ip +  ":" + port +  "/" + nomBase ;
-     // Identifiants de connexion et mot de passe
-    private final String nomConnexion =  "root" ;  // dépend du contexte
-    private final String motDePasse =  "2021PasswordMySQL" ;  // dépend du contexte
-    
-    private Connexion() {
-		
-		
+	//Constructeur de ma calsse
+	private Connexion() {
 		try {
-			//1. Get a connection to database
-			// chargement de la classe par son nom
-	        Class c = Class.forName("com.mysql.jdbc.Driver") ;
-	        Driver pilote = (Driver)c.newInstance() ;
-	         // enregistrement du pilote auprès du DriverManager
-	        DriverManager.registerDriver(pilote);
-	         // Protocole de connexion
-
-	         // Connexion
-	        conn = DriverManager.getConnection(conString, nomConnexion, motDePasse) ;
-			
-			
-		} catch (Exception exc) {
-			exc.printStackTrace();
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    conn = DriverManager.getConnection(url, user, mdp);
+		    System.out.println("Connecter");
+		} catch (Exception e){
+		    e.printStackTrace();
+		    System.out.println("Erreur");
+		    //System.exit(0);
 		}
-		
-		
-}
-
-public static Connection getInstance() {
-	if (conn == null) {
-		new Connexion();
 	}
-	return conn;
-}
+	
+	public static Connection getInstance() {
+		if (conn == null) {
+			new Connexion();
+		}
+		return conn;
+	}
+	
+	public static Connection closeInstance() {
+		try {
+            conn.close();
+            System.out.println( "Déconnection de la BDD");
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        	
+        }
+		return conn;
+	}
 
 }

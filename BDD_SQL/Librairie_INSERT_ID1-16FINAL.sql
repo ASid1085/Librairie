@@ -1,4 +1,4 @@
-Use Librairie;
+Use Librairie2;
 
 INSERT INTO DROITS_D_ACCES VALUES
 	('DT10', 'Administrateur', 'Administrateur'),
@@ -28,7 +28,7 @@ INSERT INTO EMPLOYE VALUES ('00016EMP', 'DT20', 'Bacri', 'Jean-Pierre', 'Commerc
 
 
 INSERT INTO EVENEMENT VALUES
-	('00001EVE', 'Les cerisiers en fleurs', '19.04.2019', '31.05.2019', 5.00, 'SAKURA',NULL, NULL),
+	('00001EVE', 'Les cerisiers en fleurs', '19.04.2021', '31.05.2021', 5.00, 'SAKURA',NULL, NULL),
 	('00002EVE', 'Grandes vacances', '01.07.2021', '31.08.2021', 5.00, 'CHOLETE',NULL, NULL),
 	('00003EVE', 'La rentrée', '01.09.2021', '30.09.2021', 5.00, 'BACK2SCHOOL',NULL, NULL),
 	('00004EVE', 'Vos cadeaux de Noël', '20.11.2021', '24.12.2021', 5.00, 'CHRISTMAS',NULL, NULL);
@@ -463,6 +463,8 @@ delete from COMMANDE
 insert into COMMANDE Values
 	('00007CMD', 'jackychoun', 'CB', '5.90', '19.12.2018', '00007FAC', 'TVA1', 'ST12', '00007ADR', '00007ADR', '17.78.134.222', NULL, '17.10.2020');
 
+ALTER TABLE LIGNE_COMMANDE  DROP FOREIGN KEY FK_LIGCDE_COMMENTAIRE, DROP KEY FK_LIGCDE_COMMENTAIRE;
+
 INSERT INTO FACTURER VALUES 
 	('philou','00001ADR'),
 	('juju','00002ADR'),
@@ -502,3 +504,5 @@ INSERT INTO FAIRE_LIVRER VALUES
 
 INSERT INTO SOCIETE VALUES
 	('156.787.564.00001', 'Ma librairie à moi', '8, place de la Madeleine - 75008 PARIS', '--CHEMIN VERS LA SOURCE DE L\'IMAGE--', '01.45.67.89.44', 'www.malibrairieamoi.io', 'RCS Paris : 156.787.564', '10.000 €', 'Stagiaire & co SARL');
+    
+    

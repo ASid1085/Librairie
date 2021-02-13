@@ -1,5 +1,4 @@
-create schema Librairie;
-use Librairie;
+use Librairie2;
 
 /*==============================================================*/
 /* Table : ADRESSE                                              */
@@ -195,20 +194,20 @@ create table LIGNE_COMMANDE
    LIGNECOMMANDETVAAPPLIQUEE numeric(8,2)                 not null,
    LIGNECOMMANDEREMISE  	numeric(8,2)                  null,
    CLIENTLOGIN          	varchar(50)                   not null,
-   COMMENTAIREID        	varchar(50)                   not null,
+   COMMENTAIREID        	varchar(50)                   null,
    EVENEMENTID          	varchar(50)                   null,
    
-   constraint PK_LIGNE_COMMANDE primary key (LIVREISBN, COMMANDENUM, CLIENTLOGIN, COMMENTAIREID, LIGNECOMMANDEID),
+   constraint PK_LIGNE_COMMANDE primary key (LIVREISBN, COMMANDENUM, CLIENTLOGIN, LIGNECOMMANDEID),
    constraint FK_LIGCDE_LIVRE foreign key (LIVREISBN) references LIVRE (LIVREISBN),
    constraint FK_LIGCDE_EVENEMENT foreign key (EVENEMENTID) references EVENEMENT (EVENEMENTID),
    constraint FK_LIGCDE_COMMANDE foreign key (COMMANDENUM) references COMMANDE (COMMANDENUM),
-   constraint FK_LIGCDE_COMMENTAIRE foreign key (CLIENTLOGIN, LIVREISBN, COMMENTAIREID) references COMMENTAIRE (CLIENTLOGIN, LIVREISBN, COMMENTAIREID)
+   constraint FK_LIGCDE_COMMENTAIRE foreign key (CLIENTLOGIN, LIVREISBN) references COMMENTAIRE (CLIENTLOGIN, LIVREISBN)
 );
 
 
 alter table COMMENTAIRE 
-   add constraint FK_COMMENTAIRE_LIGCDE foreign key (LIVREISBN, COMMANDENUM, CLIENTLOGIN, COMMENTAIREID, LIGNECOMMANDEID)
-     references LIGNE_COMMANDE (LIVREISBN, COMMANDENUM, CLIENTLOGIN, COMMENTAIREID, LIGNECOMMANDEID);
+   add constraint FK_COMMENTAIRE_LIGCDE foreign key (LIVREISBN, COMMANDENUM, CLIENTLOGIN, LIGNECOMMANDEID)
+     references LIGNE_COMMANDE (LIVREISBN, COMMANDENUM, CLIENTLOGIN, LIGNECOMMANDEID);
 
 /*==============================================================*/
 /* Table : EDITEUR                                              */

@@ -1,3 +1,4 @@
+
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Lilia
 iLivreDAO & Livre
 	ajouterLivre()
@@ -75,33 +76,37 @@ iCommentaireDAO & Commentaire
 
 
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Sidonie
-iGenreDAO & Genre
-	ajouterGenre()
-	afficherGenre()
-	rechercherGenre()
-	modifierGenre()
-	supprimerGenre()
+iGenreDAO & Genre // Ok Sid
+	public void ajouterGenre(Genre genre) throws SQLException;
+	public void modifierGenre(String genreNom) throws SQLException;
+	public Vector<String> vectorListGenre() throws SQLException;
+	public DefaultTableModel listeGenre() throws SQLException;
+	public Genre findGenreByNom(String genreNom) throws SQLException;
+	public void supprimerGenre() throws SQLException;
 
 
-iClientDAO & Client
-	ajouterClient()
-	afficherClient()
-	rechercherClient()
-	modifierClient()
+iClientDAO & Client // Ok Sid
+	public void ajouterClient(Client clt) throws SQLException;
+	public void modifierClient(Client clt) throws SQLException;
+	public Vector<Client> vectorListClient() throws SQLException;
+	public DefaultTableModel listeClient() throws SQLException;
+	public Client findClientByLogin(String clientLogin) throws SQLException;
+	public Client findClientByNom(String clientNom) throws SQLException;
 
 
 iCommandeDAO & Commande
-	ajouterCommande()
-	afficherCommande()
-	rechercherCommandeparClient()
-	rechercherCommandeparCommande()
-	rechercherCommandeparLivre()
-	rechercherCommandeparStatut()
-	rechercherCommandeparDate()
-	modifierCommande()
-
+	public void ajouterCommande(Commande cde, String ClientLog) throws SQLException;
+	public void modifierCommande(Commande cde) throws SQLException;
+	public Vector<Commande> vectorListCommande() throws SQLException;
+	public DefaultTableModel listeCommande() throws SQLException;
+	public Commande findCommandeByLogin(String clientLogin) throws SQLException;
+	public Commande findCommandeByCdeNum(String CdeNum) throws SQLException;
+	public Commande findCommandeByLivreTitre(String LivreTitre) throws SQLException;
+	public Commande findCommandeByStatutId(String StatutId) throws SQLException;
+	public Commande findCommandeByDateCde(Date cdeDate) throws SQLException;
 
 iLigneCommandeDAO & LigneCommande
-	ajouterLigneCommande()
-	affichereLigneCommande()
+	public void addLigneCommande(LigneCommande ligneCde, String cdeNum, String livreIsbn, String ClientLogin) throws SQLException;
+	public Vector<LigneCommande> vectorListLigneCde() throws SQLException;
+	public DefaultTableModel listeLigneCde() throws SQLException;
 
