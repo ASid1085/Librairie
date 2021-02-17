@@ -90,7 +90,7 @@ public class JFrameAccueil {
 		JButton btnGestionClient = new JButton("<html><center>Gestion<br>client</center></html>");
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lclt = new JFrameListeClient();
+				lclt = new JFrameListeClient( null);
 				lclt.setLocationRelativeTo( lclt.getParent());
 				lclt.setVisible( true);
 			}

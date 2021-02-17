@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoClient;
-import entitesLibrairie.Client;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Genre;
 
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +37,7 @@ public class JFrameClient extends JFrame {
 	private JTextField txtPrenom;
 	private JTextField txtTelephone;
 	private JTextField txtMail;
-	private String [] statClt = { "Compte actif", "Compte supprimé", "Compte suspendu", "Compte désactivé", "NPAI"};
+	private String [] statClt = { "--", "Compte actif", "Compte supprimé", "Compte suspendu", "Compte désactivé", "NPAI"};
 	private DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>( statClt);
 	private static JDialogCommentaireClient jdcc;
 		
@@ -50,7 +50,7 @@ public class JFrameClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameClient frame = new JFrameClient("", "");
+					JFrameClient frame = new JFrameClient( "", null, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,7 +62,7 @@ public class JFrameClient extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameClient(String ClientLogin, String etat) {
+	public JFrameClient(String ClientLogin, JFrameLigneCommande frameLigCde, String etat) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -74,7 +74,7 @@ public class JFrameClient extends JFrame {
 						txtMdp.setText( clt.getClientMdp());
 						txtNom.setText( clt.getClientNom());
 						txtPrenom.setText( clt.getClientPrenom());
-						cmbBoxStatut.setSelectedIndex( 0);
+						cmbBoxStatut.setSelectedItem( clt.getClientStatuts());;
 						txtTelephone.setText( clt.getClientTel());
 						txtMail.setText( clt.getClientEmail());
 					} catch (SQLException ex) {
@@ -191,6 +191,7 @@ public class JFrameClient extends JFrame {
 				
 				try {
 					daoClt.modifierClient( clt);
+					dispose();
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -206,6 +207,11 @@ public class JFrameClient extends JFrame {
 				Client clt = new Client( txtLogin.getText(), txtNom.getText(), txtPrenom.getText(), txtMdp.getText(), txtMail.getText(), txtTelephone.getText(), (String) cmbBoxStatut.getSelectedItem());
 				try {
 					daoClt.ajouterClient( clt);
+					String clientSel = txtLogin.getText();
+					frameLigCde.refreshCltLogin( clientSel);
+					frameLigCde.repaint();
+					frameLigCde.setVisible( true);
+					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

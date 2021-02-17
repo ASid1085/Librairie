@@ -4,15 +4,25 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import daoLibrairie.*;
-import entitesLibrairie.Client;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Commande;
+
 import javax.swing.table.*;
+
+import connexionLibrairie.Connexion;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class JFrameListeCommande extends JFrame {
 
+	private static JFrameListeCommande frame;
 	private JPanel contentPane;
 	private JTextField txtNumCde;
 	private JTextField txtDateCde;
@@ -22,6 +32,47 @@ public class JFrameListeCommande extends JFrame {
 	private JTextField txtLoginClient;
 	private JFrameLigneCommande JFlc;
 
+	
+	/**
+	 * Méthode à supprimer une fois la mise en commun effectué
+	 */
+	
+	private Statement stmt;
+	private ResultSet rs;
+	private PreparedStatement pstmt;
+	static private Connection myConnexion;
+
+	
+	public Vector<String> vectorListLivre() throws SQLException {
+		Vector<String> vLiv = new Vector<>();
+
+		myConnexion = Connexion.getInstance();
+		
+		String query =	"select * from LIVRE order by LIVRETITRE;";
+
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				vLiv.add( rs.getString( "LIVRETITRE"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vLiv;
+	}
+
+	public DefaultComboBoxModel<String> listeLivre() throws SQLException {
+
+		return new DefaultComboBoxModel<>( vectorListLivre());
+	}
+	/*
+	 * 
+	 */
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -29,7 +80,7 @@ public class JFrameListeCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeCommande frame = new JFrameListeCommande();
+					frame = new JFrameListeCommande();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -110,6 +161,11 @@ public class JFrameListeCommande extends JFrame {
 		contentPane.add(lblTitreLivre);
 		
 		JComboBox cmbBxTitreLivre = new JComboBox();
+		try {
+			cmbBxTitreLivre.setModel( listeLivre());
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		cmbBxTitreLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		cmbBxTitreLivre.setBounds(315, 50, 362, 27);
 		contentPane.add(cmbBxTitreLivre);
@@ -157,11 +213,6 @@ public class JFrameListeCommande extends JFrame {
 						daoCde.findCommandeByCdeNum( nCde);
 						table.setModel( daoCde.listeCommandeByCdeNum( nCde));
 						
-					} else if ( !txtDateCde.getText().equals( "")) {
-						//Date dCde =  format.df(txtDateCde.getText());
-						//daoCde.findCommandeByDateCde( dCde);
-						//table.setModel( daoCde.listeCommandeByDateCde( dCde));
-						
 					} else if ( txtLoginClient.getText().equals( "") && txtNumCde.getText().equals( "") && txtDateCde.getText().equals( "")) {
 						String statut = (String) cmbBxStatutLivre.getSelectedItem();
 						daoCde.findCommandeByStatut( statut);
@@ -181,8 +232,8 @@ public class JFrameListeCommande extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFlc = new JFrameLigneCommande();
-				JFlc.setLocationRelativeTo( getParent());
+				JFlc = new JFrameLigneCommande( "Ajouter");
+				JFlc.setLocationRelativeTo( null);
 				JFlc.setVisible( true);
 				
 			}

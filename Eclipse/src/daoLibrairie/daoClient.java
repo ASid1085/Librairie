@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Client;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoClient;
 
 public class daoClient implements iDaoClient{
@@ -61,7 +61,7 @@ public class daoClient implements iDaoClient{
 	
 		myConnexion = Connexion.getInstance();
 	
-		String query = "update CLIENT set CLIENTCOMMENT='"+ commentaire +"' where CLIENTLOGIN = '"+ clientLogin +"';";
+		String query = "update CLIENT set CLIENTCOMMENT= '" + commentaire.replace("'", "''") + "' where CLIENTLOGIN = '"+ clientLogin +"';";
 	
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();

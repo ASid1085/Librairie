@@ -6,14 +6,16 @@ import javax.swing.border.*;
 import java.awt.event.*;
 import java.sql.*;
 import daoLibrairie.daoGenre;
+import daoLibrairie.daoMotCle;
 import entitiesLibrairie.Genre;
+import entitiesLibrairie.MotCle;
 
-public class JFrameGenre extends JFrame {
+public class JFrameMotCle extends JFrame {
 
-	private daoGenre daoG = new daoGenre();
+	private daoMotCle daoMc = new daoMotCle();
 	private JPanel contentPane;
-	private JTextField txtGenreId;
-	private JTextField txtGenreNom;
+	private JTextField txtMotCleId;
+	private JTextField txtMotCleLib;
 
 	/**
 	 * Launch the application.
@@ -22,7 +24,7 @@ public class JFrameGenre extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameGenre frame = new JFrameGenre( "");
+					JFrameMotCle frame = new JFrameMotCle( "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,23 +36,24 @@ public class JFrameGenre extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameGenre( String genreNom) {
+	public JFrameMotCle( String motCleLib) {
 		
-		if (!genreNom.equals( "")) { 
+		if (!motCleLib.equals( "")) { 
 			addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowOpened(WindowEvent e) {
 					try {
-						Genre modifGenre = daoG.findGenreByNom( genreNom);
-						txtGenreId.setText( modifGenre.getGenreId());
-						txtGenreNom.setText( modifGenre.getGenreNom());
+						
+						MotCle modifMotCle = daoMc.findMotCleByLibelle( motCleLib);
+						txtMotCleId.setText( modifMotCle.getMotCleId());
+						txtMotCleLib.setText( modifMotCle.getMotCleLibelle());
 					} catch (SQLException ex) {
 						ex.printStackTrace();
 					}			
 				}
 			});
 		}
-		setTitle("Genre");
+		setTitle("Mot-clé");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 439, 369);
 		contentPane = new JPanel();
@@ -59,39 +62,39 @@ public class JFrameGenre extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblGenreId = new JLabel("Genre Id : ");
-		lblGenreId.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblGenreId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblGenreId.setBounds(33, 60, 83, 16);
-		contentPane.add(lblGenreId);
+		JLabel lblMotCleId = new JLabel("Mot-clé Id : ");
+		lblMotCleId.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMotCleId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblMotCleId.setBounds(33, 60, 83, 16);
+		contentPane.add(lblMotCleId);
 		
-		txtGenreId = new JTextField();
-		txtGenreId.setText( daoG.ajoutIdGenre());
-		txtGenreId.setBounds(150, 55, 189, 26);
-		txtGenreId.setEnabled( false);
-		txtGenreId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		contentPane.add(txtGenreId);
-		txtGenreId.setColumns(10);
+		txtMotCleId = new JTextField();
+		txtMotCleId.setText( daoMc.ajoutIdMotCle());
+		txtMotCleId.setBounds(150, 55, 189, 26);
+		txtMotCleId.setEnabled( false);
+		txtMotCleId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		contentPane.add(txtMotCleId);
+		txtMotCleId.setColumns(10);
 		
-		JLabel lblGenreNom = new JLabel("Genre nom :");
-		lblGenreNom.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblGenreNom.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblGenreNom.setBounds(19, 170, 97, 16);
-		contentPane.add(lblGenreNom);
+		JLabel lblMotCleLib = new JLabel("Mot-clé Libellé :");
+		lblMotCleLib.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMotCleLib.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblMotCleLib.setBounds(19, 170, 97, 16);
+		contentPane.add(lblMotCleLib);
 		
-		txtGenreNom = new JTextField();
-		txtGenreNom.setBounds(150, 165, 189, 26);
-		txtGenreNom.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		contentPane.add(txtGenreNom);
-		txtGenreNom.setColumns(10);
+		txtMotCleLib = new JTextField();
+		txtMotCleLib.setBounds(150, 165, 189, 26);
+		txtMotCleLib.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		contentPane.add(txtMotCleLib);
+		txtMotCleLib.setColumns(10);
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Genre g = new Genre( txtGenreId.getText(), txtGenreNom.getText());
-				if (genreNom.equals( "")) {
+				MotCle mc = new MotCle( txtMotCleId.getText(), txtMotCleLib.getText());
+				if ( motCleLib.equals( "")) {
 					try {
-						daoG.ajouterGenre( g);
+						daoMc.ajouterMotCle( mc);
 						setVisible( false);
 						dispose();
 					} catch (SQLException e1) {
@@ -100,7 +103,7 @@ public class JFrameGenre extends JFrame {
 					}
 				} 
 				try {
-					daoG.modifierGenre( g, genreNom);
+					daoMc.modifierMotCle( mc, motCleLib);
 					setVisible( false);
 					dispose();
 					JFrameListeCategorie lc = new JFrameListeCategorie();
@@ -121,8 +124,8 @@ public class JFrameGenre extends JFrame {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtGenreId.setText( "");
-				txtGenreNom.setText( "");
+				txtMotCleId.setText( "");
+				txtMotCleLib.setText( "");
 			}
 		});
 		btnAnnuler.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));

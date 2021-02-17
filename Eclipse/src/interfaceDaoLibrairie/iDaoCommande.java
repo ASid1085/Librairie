@@ -4,13 +4,14 @@ import java.sql.*;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import entitesLibrairie.Commande;
+
+import entitiesLibrairie.Commande;
 
 public interface iDaoCommande {
 
-	public void ajouterCommande(Commande cde, String ClientLog) throws SQLException;
+	public void ajouterCommande( Commande cde) throws SQLException;
 
-	public void modifierCommande(Commande cde) throws SQLException;
+	public void modifierCommande( Commande cde) throws SQLException;
 
 	public Vector<Commande> vectorListCommande() throws SQLException;
 

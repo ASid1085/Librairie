@@ -1,5 +1,7 @@
 package daoLibrairie;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +14,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Client;
-import entitesLibrairie.Commande;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Commande;
 import interfaceDaoLibrairie.iDaoCommande;
 
 public class daoCommande implements iDaoCommande {
@@ -23,8 +25,8 @@ public class daoCommande implements iDaoCommande {
 	private PreparedStatement pstmt;
 	static private Connection myConnexion;
 
-	public Integer ajoutIdLigneCommande() {
-		int id = 0;
+	public String ajoutIdCommande() {
+		String id = "";
 
 		myConnexion = Connexion.getInstance();
 
@@ -34,18 +36,89 @@ public class daoCommande implements iDaoCommande {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
 			while ( rs.next()) {
-				int numCmd = rs.getInt( 1) +1 ;
+				int numCde = rs.getInt( 1)+1 ;
+				if (numCde < 10) {
+					id = "0000" + numCde + "CMD";
+				} else if (numCde < 100) {
+					id = "000" + numCde + "CMD";
+				} else if (numCde < 1000) {
+					id = "00" + numCde + "CMD";
+				} else if (numCde < 10000) {
+					id = "0" + numCde + "CMD";
+				} if (numCde > 99999) {
+					JOptionPane.showMessageDialog(null, "Le nombre maximum de commande est atteint !\nVeuillez contacter l'administrateur de BDD !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		return id;
 	}
+	
+	public String recupAdresseIp() {
+		String adrIp = "";
+		
+		InetAddress ip = null;
+		try {
+			ip = InetAddress.getLocalHost();
+			adrIp = ip.getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		
+		return adrIp;
+	}
+		
+	public String recupererNoteCommande(String numCde) throws SQLException {
+		String commentaire = "";
+		
+		myConnexion = Connexion.getInstance();
+	
+		String query = "select COMMANDECOMMENT from COMMANDE where COMMANDENUM = '"+ numCde +"';";
+	
+		stmt = myConnexion.createStatement();
+    	ResultSet rs = stmt.executeQuery( query);
+    	while ( rs.next()) {
+    		commentaire = rs.getString( "COMMANDECOMMENT");
+    	}
+    	rs.close();
+    	stmt.close();
+		
+		return commentaire;
+	}
+	
+	public void modifierNoteCommande(String numCde, String commentaire) throws SQLException {
+		
+		myConnexion = Connexion.getInstance();
+	
+		String query = "update COMMANDE set COMMANDECOMMENT='"+ commentaire.replace("'", "''") +"' where COMMANDENUM = '"+ numCde +"';";
+	
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+	
+		pstmt.close();
+		System.out.println( "La note au sujet de l'éditeur a bien été ajoutée !");;
+	}
 
 	@Override
-	public void ajouterCommande(Commande cde, String ClientLog) throws SQLException {
-		// TODO Stub de la méthode généré automatiquement
+	public void ajouterCommande( Commande cde) throws SQLException {
+		
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into COMMANDE ( COMMANDENUM, CLIENTLOGIN, COMMANDEPAIEMENT, COMMANDEFORFAITLIVRAISON, "
+							+ "COMMANDEDATE, TVAID, STATUTID, ADRESSEIDF, ADRESSEIDL, COMMANDEIP, DATESTATUT) "
+							+ "values ( '"+ cde.getCdeNum() + "', '" + cde.getClientLogin()
+							+ "', '" + cde.getCdePaiement() + "', '" + cde.getCdeForfaitLiv() 
+							+ "', '" + cde.getCdeDate() + "', '" + cde.getTvaID() 
+							+ "', '" + cde.getStatutId() + "', '" + cde.getAdresseIdF()
+							+ "', '" + cde.getAdresseIdL() + "', '" + cde.getCdeIp() + "', '" + cde.getDateStatut()
+							+ "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "Votre commande a été envoyée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 

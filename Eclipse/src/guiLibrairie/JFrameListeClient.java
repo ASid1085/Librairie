@@ -18,8 +18,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.daoClient;
+import entitiesLibrairie.Client;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -35,7 +37,7 @@ public class JFrameListeClient extends JFrame {
 	private daoClient daoClt = new daoClient();
 	private DefaultComboBoxModel dcbm = new DefaultComboBoxModel<>();
 	private JTable table;
-	private String sDoubleClick;
+	private DefaultTableModel dtm;
 	private static JFrameClient JFcl;
 
 	/**
@@ -45,7 +47,7 @@ public class JFrameListeClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeClient frame = new JFrameListeClient();
+					JFrameListeClient frame = new JFrameListeClient( null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,26 +56,10 @@ public class JFrameListeClient extends JFrame {
 		});
 	}
 
-	public String recupClient() {
-		String s = sDoubleClick;
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e){
-				//action que tu veux faire en cas de double clic
-				if (e.getClickCount()>1){
-					try {
-						sDoubleClick = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}	
-				}
-			}
-		});
-		return s;
-	}
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeClient() {
+	public JFrameListeClient( JFrameLigneCommande frameLigCde) {
 		setTitle("Liste des clients");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 544);
@@ -137,7 +123,8 @@ public class JFrameListeClient extends JFrame {
 		table.getTableHeader().setBounds(6, 6, 725, 299);
 		table.getTableHeader().setVisible( true);
 		try {
-			table.setModel( daoClt.listeClient());
+			dtm = daoClt.listeClient();
+			table.setModel( dtm);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -173,7 +160,7 @@ public class JFrameListeClient extends JFrame {
 		});
 		btnCdeLiee.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnCdeLiee.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnCdeLiee.setBounds(56, 452, 173, 41);
+		btnCdeLiee.setBounds(233, 452, 124, 41);
 		contentPane.add(btnCdeLiee);
 		
 		JButton btnModifier = new JButton("Modifier");
@@ -182,7 +169,7 @@ public class JFrameListeClient extends JFrame {
 				String clientLogSelect = "";
 				try {
 					clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					JFcl = new JFrameClient( clientLogSelect, "Modifier");
+					JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
 					JFcl.setLocationRelativeTo( JFcl.getParent());
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
@@ -194,7 +181,7 @@ public class JFrameListeClient extends JFrame {
 		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.setBounds(542, 452, 173, 41);
+		btnModifier.setBounds(591, 452, 124, 41);
 		contentPane.add(btnModifier);
 		
 		JButton btnConsulter = new JButton("Consulter");
@@ -203,8 +190,8 @@ public class JFrameListeClient extends JFrame {
 				String clientLogSelect = "";
 				try {
 					clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					JFcl = new JFrameClient( clientLogSelect, "Consulter");
-					JFcl.setLocationRelativeTo( JFcl.getParent());
+					JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
+					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -215,7 +202,24 @@ public class JFrameListeClient extends JFrame {
 		});
 		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnConsulter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnConsulter.setBounds(296, 452, 173, 41);
+		btnConsulter.setBounds(412, 452, 124, 41);
 		contentPane.add(btnConsulter);
+		
+		JButton btnSelectionner = new JButton("Selectionner");
+		btnSelectionner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int rowSel = table.getSelectedRow();
+				String clientSel = (String) dtm.getValueAt( rowSel, 0);
+				frameLigCde.refreshCltLogin( clientSel);
+				frameLigCde.repaint();
+				frameLigCde.setVisible( true);
+
+
+			}
+		});
+		btnSelectionner.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnSelectionner.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnSelectionner.setBounds(68, 452, 124, 41);
+		contentPane.add(btnSelectionner);
 	}
 }

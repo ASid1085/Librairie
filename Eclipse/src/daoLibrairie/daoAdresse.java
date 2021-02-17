@@ -11,9 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Adresse;
-import entitesLibrairie.Commande;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Commande;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoAdresse;
 
 public class daoAdresse implements iDaoAdresse {
@@ -34,7 +35,7 @@ public class daoAdresse implements iDaoAdresse {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
 			while ( rs.next()) {
-				int numAdr = rs.getInt( 1) +1 ;
+				int numAdr = rs.getInt( 1) ;
 				if (numAdr < 10) {
 					id = "0000" + numAdr + "ADR";
 				} else if (numAdr < 100) {
@@ -54,6 +55,30 @@ public class daoAdresse implements iDaoAdresse {
 		return id;
 	}
 	
+	public void lierAdLivClt(Adresse adr, String clt, String etat) throws SQLException {
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into FAIRE_LIVRER values ( '" + clt + "', '" + adr.getAdresseId() + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "La nouvelle adresse livraison a été rattachée au client !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void lierAdFacClt(Adresse adr, String clt, String etat) throws SQLException {
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into FACTURER values ( '" + clt + "', '" + adr.getAdresseId() + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "La nouvelle adresse facturation a été rattachée au client !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
 	@Override
 	public void addAdresse(Adresse adresse) throws SQLException {
 		myConnexion = Connexion.getInstance();
@@ -70,6 +95,32 @@ public class daoAdresse implements iDaoAdresse {
 
 		pstmt.close();
 		JOptionPane.showMessageDialog(null, "La nouvelle adresse a été ajoutée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void attribAdresseLivraison( String clientLogin, Adresse adresse) throws SQLException {
+		myConnexion = Connexion.getInstance();
+		
+		String query = "insert into FAIRE_LIVRER values ( '" + clientLogin + "', '" + adresse.getAdresseId() + "');";
+		
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "L'adresse a été liée au client avec succès !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+	
+	public void attribAdresseFacturation( String clientLogin, Adresse adresse) throws SQLException {
+		myConnexion = Connexion.getInstance();
+		
+		String query = "insert into FACTURER values ( '" + clientLogin + "', '" + adresse.getAdresseId() + "');";
+		
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		JOptionPane.showMessageDialog(null, "L'adresse a été liée au client avec succès !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 	
 	@Override
@@ -132,15 +183,13 @@ public class daoAdresse implements iDaoAdresse {
 		return new DefaultTableModel( vAdr, nomColonne);
 	}
 	
-	public Vector<Adresse> findAdresseByLogin(String clientLogin) throws SQLException {
+	public Vector<Adresse> findAdresseLivByLogin( String clientLogin) throws SQLException {
 		Vector vAdr  = new Vector();
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from ADRESSE as adr inner join FAIRE_LIVRER as liv on adr.ADRESSEID = liv.ADRESSEID"
-							+ " inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
+		String query = "select distinct * from ADRESSE as adr inner join FAIRE_LIVRER as liv on adr.ADRESSEID = liv.ADRESSEID"
 							+ " inner join CLIENT as clt on liv.CLIENTLOGIN = clt.CLIENTLOGIN"
-							+ " inner join FACTURER as fact on fact.CLIENTLOGIN = clt.CLIENTLOGIN"
 							+ " where clt.CLIENTLOGIN = '" + clientLogin + "';";
 		try {
 			stmt = myConnexion.createStatement();
@@ -164,8 +213,8 @@ public class daoAdresse implements iDaoAdresse {
 		return vAdr;
 	}
 	
-	public DefaultTableModel listeAdresseByLogin(String clientLogin) throws SQLException {
-		Vector vAdr = findAdresseByLogin( clientLogin);
+	public DefaultTableModel listeAdresseLivByLogin( String clientLogin) throws SQLException {
+		Vector vAdrLiv = findAdresseLivByLogin( clientLogin);
 		Vector nomColonne = new Vector<>();
 		nomColonne.add( "Id adresse");
 		nomColonne.add( "Nom, Prénom");
@@ -174,17 +223,120 @@ public class daoAdresse implements iDaoAdresse {
 		nomColonne.add( "CP - Ville");
 		nomColonne.add( "Téléphone");
 
-		return new DefaultTableModel( vAdr, nomColonne);
+		return new DefaultTableModel( vAdrLiv, nomColonne);
 	}
 	
-	public Adresse findAdresseById(String id) throws SQLException {
-		Adresse adr = null;
+	public Vector<Adresse> findAdresseFacByLogin( String clientLogin) throws SQLException {
+		Vector vAdrFac  = new Vector();
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "select distinct * from ADRESSE as adr inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
+							+ " inner join CLIENT as clt on fac.CLIENTLOGIN = clt.CLIENTLOGIN"
+							+ " where clt.CLIENTLOGIN = '" + clientLogin + "';";
+		try {
+			stmt = myConnexion.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				Vector colonne = new Vector();
+				colonne.add( rs.getString( "ADRESSEID"));
+				colonne.add( rs.getString( "ADRESSENOM") + " " + rs.getString( "ADRESSEPRENOM"));
+				colonne.add( rs.getString( "ADRESSENORUE") + ", " + rs.getString( "ADRESSERUE"));
+				colonne.add( rs.getString( "ADRESSECOMPL"));
+				colonne.add( rs.getString( "ADRESSECP") + " - " + rs.getString( "ADRESSEVILLE"));
+				colonne.add( rs.getString( "ADRESSETEL"));
+
+				vAdrFac.add( colonne);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+		}
+		return vAdrFac;
+	}
+	
+	public DefaultTableModel listeAdresseFacByLogin( String clientLogin) throws SQLException {
+		Vector vAdrFac = findAdresseFacByLogin( clientLogin);
+		Vector nomColonne = new Vector<>();
+		nomColonne.add( "Id adresse");
+		nomColonne.add( "Nom, Prénom");
+		nomColonne.add( "Rue");
+		nomColonne.add( "Complément");
+		nomColonne.add( "CP - Ville");
+		nomColonne.add( "Téléphone");
+
+		return new DefaultTableModel( vAdrFac, nomColonne);
+	}
+	
+	public Adresse findAdresseLivById( String id) throws SQLException {
+		Adresse adrLiv = null;
 		
 		myConnexion = Connexion.getInstance();
 
 		String query = "select * from ADRESSE as adr inner join FAIRE_LIVRER as liv on adr.ADRESSEID = liv.ADRESSEID"
-							+ " inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
 							+ " inner join CLIENT as clt on liv.CLIENTLOGIN = clt.CLIENTLOGIN"
+							+ " where adr.ADRESSEID = '" + id + "';";
+		try {
+			stmt = myConnexion.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				adrLiv = new Adresse( rs.getString( "ADRESSEID"), 
+								   rs.getString( "ADRESSENOM").toUpperCase(),
+								   rs.getString( "ADRESSEPRENOM"),
+								   rs.getString( "ADRESSENORUE"),
+								   rs.getString( "ADRESSERUE"),
+								   rs.getString( "ADRESSECOMPL"),
+								   rs.getString( "ADRESSECP"),
+								   rs.getString( "ADRESSEVILLE"),
+								   rs.getString( "ADRESSETEL"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+		}
+		return adrLiv;
+	}
+	
+	public Adresse findAdresseFacById( String id) throws SQLException {
+		Adresse adrFac = null;
+		
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from ADRESSE as adr inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
+							+ " inner join CLIENT as clt on fac.CLIENTLOGIN = clt.CLIENTLOGIN"
+							+ " where adr.ADRESSEID = '" + id + "';";
+		try {
+			stmt = myConnexion.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				adrFac = new Adresse( rs.getString( "ADRESSEID"), 
+								   rs.getString( "ADRESSENOM").toUpperCase(),
+								   rs.getString( "ADRESSEPRENOM"),
+								   rs.getString( "ADRESSENORUE"),
+								   rs.getString( "ADRESSERUE"),
+								   rs.getString( "ADRESSECOMPL"),
+								   rs.getString( "ADRESSECP"),
+								   rs.getString( "ADRESSEVILLE"),
+								   rs.getString( "ADRESSETEL"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+		}
+		return adrFac;
+	}
+	
+	public Adresse findAdresseById( String id) throws SQLException {
+		Adresse adr = null;
+		
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from ADRESSE as adr inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
+							+ "inner join FAIRE_LIVRER as liv on adr.ADRESSEID = liv.ADRESSEID"
+							+ " inner join CLIENT as clt on fac.CLIENTLOGIN = clt.CLIENTLOGIN"
 							+ " inner join FACTURER as fact on fact.CLIENTLOGIN = clt.CLIENTLOGIN"
 							+ " where adr.ADRESSEID = '" + id + "';";
 		try {

@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoClient;
+import daoLibrairie.daoCommande;
+import daoLibrairie.daoEditeur;
 import entitiesLibrairie.Genre;
 
 import javax.swing.*;
@@ -13,18 +15,18 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class JDialogCommentaireClient extends JDialog {
+public class JDialogCommentaireCommande extends JDialog {
 
 	private JTextArea textAreaPostIt;
 	private final JPanel contentPanel = new JPanel();
-	private daoClient daoClt = new daoClient();
+	private daoCommande daoCde = new daoCommande();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			JDialogCommentaireClient dialog = new JDialogCommentaireClient( "");
+			JDialogCommentaireCommande dialog = new JDialogCommentaireCommande( "");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -35,27 +37,36 @@ public class JDialogCommentaireClient extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public JDialogCommentaireClient(String clientLogin) {
+	public JDialogCommentaireCommande(String numCde) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				String recup = "";
 				try {
-					recup = daoClt.recupererNoteClient( clientLogin);
+					recup = daoCde.recupererNoteCommande( numCde);
 					textAreaPostIt.setText( recup);
 				} catch (SQLException ex) {
-					System.err.println( "Oops : Erreur avec la récupération du post'it client");
+					System.err.println( "Oops : Erreur avec la récupération du post'it de la commande");
 					ex.printStackTrace();
 				}			
 			}
 		});
 
-		setTitle("Notes sur le client");
+		setTitle("Notes sur la commande n° " + numCde);
 		setBounds(100, 100, 400, 322);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 248, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		scrollPane.setBackground(new Color(255, 248, 220));
+		scrollPane.setBounds(16, 17, 367, 206);
+		contentPanel.add(scrollPane);
+		
+		textAreaPostIt = new JTextArea();
+		scrollPane.setViewportView(textAreaPostIt);
 		JButton btnValider = new JButton("");
 		btnValider.setBounds(275, 235, 48, 50);
 		btnValider.addActionListener(new ActionListener() {
@@ -63,11 +74,9 @@ public class JDialogCommentaireClient extends JDialog {
 				String note = "";
 				try {
 					note = textAreaPostIt.getText();
-					//System.out.println( note);
-					daoClt.modifierNoteClient( clientLogin, note);
+					daoCde.modifierNoteCommande( numCde, note);
 					JOptionPane.showMessageDialog( null, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog( null, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
 					ex.printStackTrace();
 				}
 			}
@@ -87,10 +96,5 @@ public class JDialogCommentaireClient extends JDialog {
 		});
 		btnSortir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel.png"));
 		contentPanel.add(btnSortir);
-		
-		textAreaPostIt = new JTextArea();
-		textAreaPostIt.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		textAreaPostIt.setBounds(16, 19, 367, 210);
-		contentPanel.add(textAreaPostIt);
 	}
 }

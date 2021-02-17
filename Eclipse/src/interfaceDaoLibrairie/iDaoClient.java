@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import entitesLibrairie.Client;
+import entitiesLibrairie.Client;
 
 public interface iDaoClient {
 	
