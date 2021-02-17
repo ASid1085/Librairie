@@ -1,9 +1,12 @@
 package connexionLibrairie;
 
+
 import java.sql.*;
+import com.mysql.jdbc.Driver;
+
 
 public class Connexion {
-	
+
 	private String BDD1 = "Librairie";
 	private String BDD2 = "Librairie2";
 	private String url = "jdbc:mysql://localhost:3306/" + BDD2;
@@ -41,6 +44,5 @@ public class Connexion {
         }
 		return conn;
 	}
-	
-}
 
+}

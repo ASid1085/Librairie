@@ -1,6 +1,6 @@
 
 // Entités (constructeur, getter/setter) et iDAO (méthodes) gérées par Lilia
-id"LivreDAO & Livre
+iLivreDAO & Livre
 	ajouterLivre()
 	afficherLivre()
 	rechercherLivreparGenre()
