@@ -138,11 +138,11 @@ public class JFrameEditeur extends JFrame {
 		txtTelephone.setBounds(17, 298, 130, 26);
 		contentPane.add(txtTelephone);
 		
-		JLabel txtEditeurTel = new JLabel("Mail :");
-		txtEditeurTel.setHorizontalAlignment(SwingConstants.LEFT);
-		txtEditeurTel.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtEditeurTel.setBounds(170, 281, 61, 16);
-		contentPane.add(txtEditeurTel);
+		JLabel lblEditeurMail = new JLabel("Mail :");
+		lblEditeurMail.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEditeurMail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblEditeurMail.setBounds(170, 281, 61, 16);
+		contentPane.add(lblEditeurMail);
 		
 		txtMail = new JTextField();
 		txtMail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -166,7 +166,7 @@ public class JFrameEditeur extends JFrame {
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Editeur ed = new Editeur( txtEditeurId.getText(), txtEditeurNom.getText(), txtEditeurAdr.getText(), txtEditeurTel.getText(), txtMail.getText(), txtPersContact.getText());
+				Editeur ed = new Editeur( txtEditeurId.getText(), txtEditeurNom.getText(), txtEditeurAdr.getText(), txtTelephone.getText(), txtMail.getText(), txtPersContact.getText());
 				if (editeurNom.equals( "")) {
 					try {
 						daoEd.ajouterEditeur( ed);
@@ -201,7 +201,7 @@ public class JFrameEditeur extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				txtEditeurNom.setText( "");
 				txtEditeurAdr.setText( "");
-				txtEditeurTel.setText( "");
+				txtTelephone.setText( "");
 				txtMail.setText( "");
 				txtPersContact.setText( "");
 			}

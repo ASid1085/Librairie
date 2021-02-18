@@ -70,9 +70,16 @@ public class JFrameAdresse extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				Adresse adr = new Adresse();
+	
 				if ( !id.equals( "")) {
 					try {
-						Adresse adr = daoAdr.findAdresseById( id);
+						if ( etat.equals( "Livraison")) {
+							adr = daoAdr.findAdresseLivById( id);
+						}
+						if ( etat.equals( "Facturation")) {
+							adr = daoAdr.findAdresseFacById( id);
+						}
 						txtNom.setText( adr.getAdresseNom());
 						txtPrenom.setText( adr.getAdressePrenom());
 						txtNumRue.setText( adr.getAdresseNoRue());
@@ -87,7 +94,7 @@ public class JFrameAdresse extends JFrame {
 						ex.printStackTrace();
 					}	
 				}
-				if (!id.equals( "")) {
+				if ( !id.equals( "")) {
 					btnAjouter.setEnabled( false);
 					rdbtnFacturation.setVisible( false);
 					rdbtnLivraison.setVisible( false);
@@ -274,10 +281,10 @@ public class JFrameAdresse extends JFrame {
 		btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText(), txtNom.getText(),
-										   txtPrenom.getText(), txtNumRue.getText(), txtRue.getText(),
-										   txtComplement.getText(), txtCP.getText(), txtVille.getText(),
-										   txtPays.getText(), txtTelephone.getText(), "");
+				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText().replace("'", "''"), txtNom.getText().replace("'", "''"),
+										   txtPrenom.getText().replace("'", "''"), txtNumRue.getText().replace("'", "''"), txtRue.getText().replace("'", "''"),
+										   txtComplement.getText().replace("'", "''"), txtCP.getText(), txtVille.getText().replace("'", "''"),
+										   txtPays.getText().replace("'", "''"), txtTelephone.getText().replace("'", "''"), "");
 				try {
 					daoAdr.addAdresse( adr);
 					if ( rdbtnLivraison.isSelected()) {
@@ -297,7 +304,6 @@ public class JFrameAdresse extends JFrame {
 					if ( etat.equals( "Facturation")) {
 						daoAdr.lierAdFacClt( adr, clientLogin, etat);
 					}
-					
 					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -312,10 +318,10 @@ public class JFrameAdresse extends JFrame {
 		btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText(), txtNom.getText(),
-						txtPrenom.getText(), txtNumRue.getText(), txtRue.getText(),
-						txtComplement.getText(), txtCP.getText(), txtVille.getText(),
-						txtPays.getText(), txtTelephone.getText(), "");
+				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText().replace("'", "''"), txtNom.getText().replace("'", "''"),
+						txtPrenom.getText().replace("'", "''"), txtNumRue.getText().replace("'", "''"), txtRue.getText().replace("'", "''"),
+						txtComplement.getText().replace("'", "''"), txtCP.getText().replace("'", "''"), txtVille.getText().replace("'", "''"),
+						txtPays.getText().replace("'", "''"), txtTelephone.getText().replace("'", "''"), "");
 				try {
 					daoAdr.ModifierAdresse( adr);
 					frameListeAd.refreshAdresse( adr);

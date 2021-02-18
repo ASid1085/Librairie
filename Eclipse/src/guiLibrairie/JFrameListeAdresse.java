@@ -84,14 +84,15 @@ public class JFrameListeAdresse extends JFrame {
 		try {
 			if ( etat.equals( "Livraison")) {
 				dtm = daoAdr.listeAdresseLivByLogin( clientLogin);
+				tableAdr.setModel( dtm);
 			}
 			if ( etat.equals( "Facturation")) {
 				dtm = daoAdr.listeAdresseFacByLogin( clientLogin);
+				tableAdr.setModel( dtm);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		tableAdr.setModel( dtm);
 		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
@@ -102,11 +103,13 @@ public class JFrameListeAdresse extends JFrame {
 				try {
 					if ( etat.equals( "Livraison")) {
 						adrSel = (String) dtm.getValueAt( rowSel, 0);
+						JFad = new JFrameAdresse( clientLogin, thisJF, adrSel, "Livraison");
 					}
 					if ( etat.equals( "Facturation")) {
 						adrSel = (String) dtm.getValueAt( rowSel, 0);
+						JFad = new JFrameAdresse( clientLogin, thisJF, adrSel, "Facturation");
 					}
-					JFad = new JFrameAdresse( clientLogin, thisJF, adrSel, etat);
+					
 					JFad.setLocationRelativeTo( null);
 					JFad.setVisible( true);
 					setVisible( false);
@@ -139,17 +142,27 @@ public class JFrameListeAdresse extends JFrame {
 		btnAjouter.setBounds(41, 285, 118, 41);
 		contentPane.add(btnAjouter);
 		
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.addActionListener(new ActionListener() {
+		JButton btnRafraichir = new JButton("Rafraichir");
+		btnRafraichir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible( false);
-				dispose();
+				try {
+					if ( etat.equals( "Livraison")) {
+						dtm = daoAdr.listeAdresseLivByLogin( clientLogin);
+						tableAdr.setModel( dtm);
+					}
+					if ( etat.equals( "Facturation")) {
+						dtm = daoAdr.listeAdresseFacByLogin( clientLogin);
+						tableAdr.setModel( dtm);
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
-		btnAnnuler.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAnnuler.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAnnuler.setBounds(561, 285, 118, 41);
-		contentPane.add(btnAnnuler);
+		btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnRafraichir.setBounds(561, 285, 118, 41);
+		contentPane.add(btnRafraichir);
 
 		JButton btnSelectionner = new JButton("Selectionner");
 		btnSelectionner.addActionListener(new ActionListener() {

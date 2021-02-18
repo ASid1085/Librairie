@@ -91,7 +91,6 @@ public class JFrameListeClient extends JFrame {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
 		JComboBox cmbBxLoginClient = new JComboBox( vLog);
 		cmbBxLoginClient.setSelectedIndex(-1);
 		cmbBxLoginClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -200,23 +199,29 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 		btnCdeLiee.setBounds(234, 451, 124, 41);
 		contentPane.add(btnCdeLiee);
 		
+		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String clientLogSelect = "";
+
+				String login = "";
 				String nom = txtNomClient.getText();
-				String login = (String) cmbBxLoginClient.getSelectedItem();
+				String clientLogSelect = "";
 				try {
+					if ( nom.equals( "") && login.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
+					}
 					if( !nom.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
 						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
 					}
-					if ( !login.equals( "--")) {
+					if ( clientLogSelect.equals( login)) {
+						login = (String) cmbBxLoginClient.getSelectedItem();
 						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
-						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
-					}
-					if ( nom.equals( "") && login.equals( "--")) {
-						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
 						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
 					}
 					JFcl.setLocationRelativeTo( null);
@@ -232,30 +237,35 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnModifier.setBounds(591, 452, 124, 41);
 		contentPane.add(btnModifier);
-		
+
 		JButton btnConsulter = new JButton("Consulter");
 		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String clientLogSelect = "";
+				
+				String login = "";
 				String nom = txtNomClient.getText();
-				String login = (String) cmbBxLoginClient.getSelectedItem();
+				String clientLogSelect = "";
 				try {
+					if ( nom.equals( "") && login.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
+					}
 					if( !nom.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
 						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
 					}
-					if ( !login.equals( "--")) {
+					if ( clientLogSelect.equals( login)) {
+						login = (String) cmbBxLoginClient.getSelectedItem();
 						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
-						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
-					}
-					if ( nom.equals( "") && login.equals( "--")) {
-						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
 						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
 					}
 					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}

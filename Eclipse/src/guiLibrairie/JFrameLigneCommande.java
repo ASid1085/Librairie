@@ -9,6 +9,7 @@ import connexionLibrairie.Connexion;
 import daoLibrairie.daoCommande;
 import daoLibrairie.daoLigneCommande;
 import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
 import entitiesLibrairie.Commande;
 import entitiesLibrairie.LigneCommande;
 import entitiesLibrairie.LivreLilia;
@@ -48,6 +49,7 @@ public class JFrameLigneCommande extends JFrame {
 	private float totCdeHtApRem;
 	private float totCdeTtc;
 	private float remise;
+	private Vector<Commande> vStatutCde;
 	private JFrameListeClient JFListClt;
 	private static int nbRow = 0;
 	private static JFrameListeAdresse JFAdr;
@@ -55,11 +57,11 @@ public class JFrameLigneCommande extends JFrame {
 	private static JDialogCommentaireCommande JDcde;
 	private DecimalFormat df = new DecimalFormat("##.00");
 	private DateFormat datef = new SimpleDateFormat( "yyyy.MM.dd");
+	private Vector<String> vLivre = new Vector<>();
 	private DefaultTableModel dtm = new DefaultTableModel( dtm(), 100);
 	private daoCommande daoCde = new daoCommande();
 	private daoLigneCommande daoLigCde = new daoLigneCommande();
-	private String tabPaiement [] = { "--", "en CB", "en magasin"};
-	private DefaultComboBoxModel<String> dcmPai = new DefaultComboBoxModel( tabPaiement);
+	//private String tabPaiement [] = { "--", };
 	private Container parent = this;
 	private JFrameLigneCommande thisJF = (JFrameLigneCommande) parent;
 	
@@ -160,11 +162,6 @@ public class JFrameLigneCommande extends JFrame {
 		return vLiv;
 	}
 
-	public DefaultComboBoxModel<String> listeLivre() throws SQLException {
-
-		return new DefaultComboBoxModel<>( vectorListLivre());
-	}
-
 	public Float recupPrixHt(String titre) throws SQLException {
 		Float tarif = null;
 
@@ -240,14 +237,17 @@ public class JFrameLigneCommande extends JFrame {
 		lblPrixHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPrixHt.setBounds(471, 6, 77, 20);
 		panelHaut.add(lblPrixHt);
-		
-		JComboBox cmbBoxLivre = new JComboBox();
-		cmbBoxLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+
+
 		try {
-			cmbBoxLivre.setModel( listeLivre());
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+			vLivre = vectorListLivre();
+		} catch (SQLException e3) {
+			// TODO Bloc catch généré automatiquement
+			e3.printStackTrace();
+		} 
+		JComboBox cmbBoxLivre = new JComboBox( vLivre);
+		cmbBoxLivre.setMaximumRowCount(1000);
+		cmbBoxLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		cmbBoxLivre.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String selectLiv = (String) cmbBoxLivre.getSelectedItem();
@@ -667,7 +667,6 @@ public class JFrameLigneCommande extends JFrame {
 		JButton btnFindAdreFact = new JButton("");
 		btnFindAdreFact.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				if ( !txtLoginClient.getText().equals( "")) {
 					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, "Facturation");
 					JFAdr.setLocationRelativeTo( null);
@@ -727,7 +726,8 @@ public class JFrameLigneCommande extends JFrame {
 		panelBas.add(lblPaiement);
 		lblPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		
-		JComboBox cmbBoxPaiement = new JComboBox( new DefaultComboBoxModel(new String[] {"en CB", "en magasin"}));
+		JComboBox cmbBoxPaiement = new JComboBox( );
+		cmbBoxPaiement.setModel(new DefaultComboBoxModel(new String[] {"en CB", "en magasin"}));
 		cmbBoxPaiement.setSelectedIndex(-1);
 		cmbBoxPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 10));
 		cmbBoxPaiement.setBounds(655, 218, 103, 36);
@@ -782,18 +782,19 @@ public class JFrameLigneCommande extends JFrame {
 		txtDateStatut.setBounds(361, 44, 90, 26);
 		panelBas.add(txtDateStatut);
 		
-		JComboBox cmbBoxStatut = new JComboBox();
+		try {
+			vStatutCde = daoCde.vectorCBStatutCde();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		JComboBox cmbBoxStatut = new JComboBox( vStatutCde);
+		cmbBoxStatut.setSelectedIndex(-1);
 		cmbBoxStatut.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				Date d = new Date( Calendar.getInstance().getTime().getTime());
 				txtDateStatut.setText( datef.format( d));
 			}
 		});
-		try {
-			cmbBoxStatut.setModel( daoCde.statutCommande());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		cmbBoxStatut.setFont(new Font("Avenir Next", Font.PLAIN, 10));
 		cmbBoxStatut.setBounds(104, 42, 180, 36);
 		panelBas.add(cmbBoxStatut);

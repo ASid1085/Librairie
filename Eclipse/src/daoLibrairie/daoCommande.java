@@ -206,7 +206,7 @@ public class daoCommande implements iDaoCommande {
 							+ " from COMMANDE as cde"
 							+ " INNER JOIN CLIENT as clt ON cde.CLIENTLOGIN = clt.CLIENTLOGIN"
 							+ " INNER JOIN STATUT as sta ON cde.STATUTID = sta.STATUTID"
-							+ " where clt.CLIENTLOGIN ='"+ clientLogin +"';"; 
+							+ " where clt.CLIENTLOGIN like '%"+ clientLogin +"%';"; 
 
 		try {
 			stmt = myConnexion.createStatement();
@@ -250,7 +250,7 @@ public class daoCommande implements iDaoCommande {
 							+ " from COMMANDE as cde"
 							+ " INNER JOIN CLIENT as clt ON cde.CLIENTLOGIN = clt.CLIENTLOGIN"
 							+ " INNER JOIN STATUT as sta ON cde.STATUTID = sta.STATUTID"
-							+ " where cde.COMMANDENUM ='"+ CdeNum +"';"; 
+							+ " where cde.COMMANDENUM like '%"+ CdeNum +"%';"; 
 
 		try {
 			stmt = myConnexion.createStatement();
@@ -294,7 +294,7 @@ public class daoCommande implements iDaoCommande {
 				+ " from COMMANDE as cde"
 				+ " INNER JOIN CLIENT as clt ON cde.CLIENTLOGIN = clt.CLIENTLOGIN"
 				+ " INNER JOIN STATUT as sta ON cde.STATUTID = sta.STATUTID"
-				+ " where sta.STATUTLIBELLE ='"+ StatutLibelle +"';"; 
+				+ " where sta.STATUTLIBELLE like '%"+ StatutLibelle +"%';"; 
 
 		try {
 			stmt = myConnexion.createStatement();
