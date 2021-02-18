@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoGenre;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 
 import javax.swing.JTabbedPane;
 import java.awt.Font;

@@ -53,10 +53,11 @@ public class ThemeDAO implements IThemeDAO {
 	public Vector<Vector> rechercherTheme(String string) throws SQLException {
 		Vector <Vector> vecteur = new Vector <Vector> ();
 		stmt = myConnection.createStatement();
-		String query = "SELECT THEMENOM FROM THEME WHERE THEMENOM = '" + string + "';";
+		String query = "SELECT THEMEID, THEMENOM FROM THEME WHERE THEMENOM LIKE '%" + string + "%';";
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
 			Vector <String> vectorString = new Vector();
+			vectorString.add(res.getString("THEMEID"));
 			vectorString.add(res.getString("THEMENOM")) ;
 			vecteur.add(vectorString);
 		}
@@ -67,10 +68,11 @@ public class ThemeDAO implements IThemeDAO {
 	public Vector<Vector> afficherTheme() throws SQLException {
 		Vector <Vector> vecteur = new Vector <Vector> ();
 		stmt = myConnection.createStatement();
-		String query = "SELECT THEMENOM FROM THEME;";
+		String query = "SELECT THEMEID, THEMENOM FROM THEME;";
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
 			Vector <String> vectorString = new Vector();
+			vectorString.add(res.getString("THEMEID"));
 			vectorString.add(res.getString("THEMENOM")) ;
 			vecteur.add(vectorString);
 		}
@@ -78,26 +80,19 @@ public class ThemeDAO implements IThemeDAO {
 	};
 
 	@Override
-	public void modifierTheme(Theme theme, String nom)  throws SQLException{
+	public void modifierTheme(String id, String nom)  throws SQLException{
 		// TODO Auto-generated method stub
 		
-		String themeID = "";
-		stmt = myConnection.createStatement();
-		String queryId = "SELECT THEMEID FROM THEME WHERE THEMENOM = '" +theme.getThemeId()+"';";
-		ResultSet result = stmt.executeQuery(queryId);
-		while(result.next()) {
-			themeID = result.getString("THEMEID");
-		}
-		String query = "UPDATE THEME SET THEMENOM = '" +nom+"' WHERE THEMEID = '"+themeID+"';";
+		String query = "UPDATE THEME SET THEMENOM = '" +nom+"' WHERE THEMEID = '"+id+"';";
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
-		System.out.println(query);
+
 	}
 
 	@Override
-	public void supprimerTheme(String nom) throws SQLException {
+	public void supprimerTheme(String id) throws SQLException {
 		// TODO Auto-generated method stub
-		String query = "DELETE FROM THEME WHERE THEMENOM = '" +nom+ "';";
+		String query = "DELETE FROM THEME WHERE THEMEID = '" +id+ "';";
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
 	}

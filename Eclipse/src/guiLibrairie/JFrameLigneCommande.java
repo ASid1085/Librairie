@@ -6,8 +6,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Adresse;
-import entitesLibrairie.Client;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
+
 import java.awt.event.*;
 import java.sql.*;
 import java.sql.Statement;

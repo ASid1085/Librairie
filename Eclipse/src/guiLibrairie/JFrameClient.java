@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoClient;
-import entitesLibrairie.Client;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Genre;
 
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;

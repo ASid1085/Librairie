@@ -30,7 +30,7 @@ public class Commentaire {
 	
 	
 	
-	public Commentaire(String commentaireId, String clientLogin, String livreISBN, String commentaireTexte,
+	/*public Commentaire(String commentaireId, String clientLogin, String livreISBN, String commentaireTexte,
 			String commentaireNote, String commentaireIp, String commentaireStatut, Date commentaireDate,
 			String commandeNum, String ligneCommandeId, String employeId, Date dateModeration, String livreTitre) {
 		super();
@@ -47,7 +47,7 @@ public class Commentaire {
 		this.employeId = employeId;
 		this.dateModeration = dateModeration;
 		this.livreTitre = livreTitre;
-	}
+	}*/
 
 
 
@@ -55,7 +55,7 @@ public class Commentaire {
 
 
 
-	public Commentaire(String commentaireId, String clientLogin, String livreTitre, String commentaireTexte,
+	/*public Commentaire(String commentaireId, String clientLogin, String livreTitre, String commentaireTexte,
 			String commentaireNote, String commentaireIp, String commentaireStatut, Date commentaireDate,
 			String commandeNum, String ligneCommandeId, String employeId, Date dateModeration) {
 		super();
@@ -71,7 +71,7 @@ public class Commentaire {
 		this.ligneCommandeId = ligneCommandeId;
 		this.employeId = employeId;
 		this.dateModeration = dateModeration;
-	}
+	}*/
 
 
 
@@ -79,7 +79,7 @@ public class Commentaire {
 
 
 
-	public Commentaire(String commentaireId,  String clientLogin, String livreTitre, String commentaireTexte, String commentaireNote,
+	/*public Commentaire(String commentaireId,  String clientLogin, String livreTitre, String commentaireTexte, String commentaireNote,
 			String commentaireStatut, Date commentaireDate, String commandeNum, String employeId, Date dateModeration) {
 		super();
 		this.commentaireId = commentaireId;
@@ -93,7 +93,7 @@ public class Commentaire {
 		this.employeId = employeId;
 		this.dateModeration = dateModeration;
 
-	}
+	}*/
 
 
 
@@ -101,12 +101,12 @@ public class Commentaire {
 
 
 
-	public Commentaire(String commentaireId, String livreTitre, String clientLogin, String commentaireTexte,
+	public Commentaire(String commentaireId,String clientLogin,String livreTitre,  String commentaireTexte,
 			String commentaireNote, String commentaireStatut, Date commentaireDate, Date dateModeration) {
 		super();
 		this.commentaireId = commentaireId;
-		this.livreTitre = livreTitre;
 		this.clientLogin = clientLogin;
+		this.livreTitre = livreTitre;
 		this.commentaireTexte = commentaireTexte;
 		this.commentaireNote = commentaireNote;
 		this.commentaireStatut = commentaireStatut;
@@ -120,7 +120,7 @@ public class Commentaire {
 
 
 
-	public Commentaire(String commentaireId, String clientLogin, String commentaireTexte, String commentaireNote,
+	/*public Commentaire(String commentaireId, String clientLogin, String commentaireTexte, String commentaireNote,
 			String commentaireStatut, Date commentaireDate, Date dateModeration) {
 		super();
 		this.commentaireId = commentaireId;
@@ -130,11 +130,32 @@ public class Commentaire {
 		this.commentaireStatut = commentaireStatut;
 		this.commentaireDate = commentaireDate;
 		this.dateModeration = dateModeration;
-	}
+	}*/
+	
+	
+	
 
 
 
-	public Commentaire(String commentaireId, String commentaireTexte, String commentaireNote, String commentaireStatut,
+	/*public Commentaire(String commentaireId, String clientLogin, String commentaireTexte, String commentaireNote,
+			String commentaireStatut, Date dateModeration, String livreTitre) {
+		super();
+		this.commentaireId = commentaireId;
+		this.clientLogin = clientLogin;
+		this.commentaireTexte = commentaireTexte;
+		this.commentaireNote = commentaireNote;
+		this.commentaireStatut = commentaireStatut;
+		this.dateModeration = dateModeration;
+		this.livreTitre = livreTitre;
+	}*/
+
+
+
+
+
+
+
+	/*public Commentaire(String commentaireId, String commentaireTexte, String commentaireNote, String commentaireStatut,
 			Date commentaireDate, Date dateModeration) {
 		super();
 		this.commentaireId = commentaireId;
@@ -143,7 +164,7 @@ public class Commentaire {
 		this.commentaireStatut = commentaireStatut;
 		this.commentaireDate = commentaireDate;
 		this.dateModeration = dateModeration;
-	}
+	}*/
 
 
 	public String getCommentaireId() {
@@ -285,7 +306,8 @@ public class Commentaire {
 		return "Commentaire numéro : " + commentaireId + ", \"" + commentaireTexte
 				+ "\", avec une note de :" + commentaireNote + "/5.\nCe commentaire "
 				+ "est traité comme : " + commentaireStatut + ".\nIl a été validé pour le livre : "
-				+ livreTitre + ".";
+				+ livreTitre + ".\n"
+				+ "Il a été posté par :" +clientLogin;
 	}
 
 
@@ -293,4 +315,3 @@ public class Commentaire {
 	
 
 }
-

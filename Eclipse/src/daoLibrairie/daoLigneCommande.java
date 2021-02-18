@@ -5,8 +5,8 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import entitesLibrairie.Adresse;
-import entitesLibrairie.LigneCommande;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.LigneCommande;
 import interfaceDaoLibrairie.iDaoLigneCommande;
 
 public class daoLigneCommande implements iDaoLigneCommande{

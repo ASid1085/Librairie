@@ -4,7 +4,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import daoLibrairie.*;
-import entitesLibrairie.Client;
+import entitiesLibrairie.Client;
+
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;

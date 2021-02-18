@@ -6,7 +6,7 @@ import javax.swing.border.*;
 import java.awt.event.*;
 import java.sql.*;
 import daoLibrairie.daoGenre;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 
 public class JFrameGenre extends JFrame {
 

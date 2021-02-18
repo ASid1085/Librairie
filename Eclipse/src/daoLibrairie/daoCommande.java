@@ -12,8 +12,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Client;
-import entitesLibrairie.Commande;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Commande;
 import interfaceDaoLibrairie.iDaoCommande;
 
 public class daoCommande implements iDaoCommande {

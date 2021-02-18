@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoGenre;
 
 public class daoGenre implements iDaoGenre {

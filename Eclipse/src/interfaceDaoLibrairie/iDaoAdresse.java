@@ -3,7 +3,8 @@ package interfaceDaoLibrairie;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import entitesLibrairie.Adresse;
+
+import entitiesLibrairie.Adresse;
 
 public interface iDaoAdresse {
 	

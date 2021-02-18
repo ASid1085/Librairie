@@ -14,9 +14,9 @@ public interface IThemeDAO {
 	
 	public Vector<Vector> rechercherTheme(String string) throws SQLException;
 	
-	public void modifierTheme(Theme theme, String nom) throws SQLException;
+	public void modifierTheme(String id, String nom) throws SQLException;
 	
-	public void supprimerTheme(String nom) throws SQLException;
+	public void supprimerTheme(String id) throws SQLException;
 
 
 	

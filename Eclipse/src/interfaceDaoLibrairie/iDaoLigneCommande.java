@@ -3,7 +3,8 @@ package interfaceDaoLibrairie;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import entitesLibrairie.LigneCommande;
+
+import entitiesLibrairie.LigneCommande;
 
 public interface iDaoLigneCommande {
 
