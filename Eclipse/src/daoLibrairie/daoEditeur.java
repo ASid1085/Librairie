@@ -74,7 +74,7 @@ public class daoEditeur implements iDaoEditeur {
 		
 		myConnexion = Connexion.getInstance();
 	
-		String query = "update EDITEUR set EDITEURCOMMENT='"+ commentaire.replace("'", "''") +"' where EDITEURNOM = '"+ editeurNom +"';";
+		String query = "update EDITEUR set EDITEURCOMMENT ='"+ commentaire.replace("'", "''") +"' where EDITEURNOM = '"+ editeurNom +"';";
 	
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();
@@ -109,7 +109,7 @@ public class daoEditeur implements iDaoEditeur {
 							+ "', EDITEURADRESSE = '" + editeur.getEditeurAdresse() + "', EDITEURTEL = '" + editeur.getEditeurTel()
 							+ "', EDITEURMAIL = '" + editeur.getEditeurMail() + "', EDITEURCONTACT = '" + editeur.getEditeurContact()
 							+ "', EDITEURCOMMENT = '" + editeur.getEditeurComment()
-							+ "' where GENREID = '" + editeur.getEditeurId() +"';";
+							+ "' where EDITEURID = '" + editeur.getEditeurId() +"';";
 		
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();
@@ -134,8 +134,9 @@ public class daoEditeur implements iDaoEditeur {
 				colonne.add( rs.getString( "EDITEURNOM"));
 				colonne.add( rs.getString( "EDITEURADRESSE"));
 				colonne.add( rs.getString( "EDITEURCONTACT"));
-				colonne.add( rs.getString( "EDITEURMAIL"));
 				colonne.add( rs.getString( "EDITEURTEL"));
+				colonne.add( rs.getString( "EDITEURMAIL"));
+				
 
 				vEditeur.add( colonne);
 			}
@@ -155,8 +156,9 @@ public class daoEditeur implements iDaoEditeur {
 		nomColonne.add( "Nom");
 		nomColonne.add( "Adresse");
 		nomColonne.add( "Contact");
-		nomColonne.add( "Mail");
 		nomColonne.add( "Téléphone");
+		nomColonne.add( "Mail");
+
 		
 		return new DefaultTableModel( vEditeur, nomColonne);
 	}
@@ -166,7 +168,7 @@ public class daoEditeur implements iDaoEditeur {
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from EDITEUR where EDITEURNOM = '" + editeurNom + "';";
+		String query = "select * from EDITEUR where EDITEURNOM like '%" + editeurNom + "%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
@@ -176,8 +178,9 @@ public class daoEditeur implements iDaoEditeur {
 				colonne.add( rs.getString( "EDITEURNOM"));
 				colonne.add( rs.getString( "EDITEURADRESSE"));
 				colonne.add( rs.getString( "EDITEURCONTACT"));
-				colonne.add( rs.getString( "EDITEURMAIL"));
 				colonne.add( rs.getString( "EDITEURTEL"));
+				colonne.add( rs.getString( "EDITEURMAIL"));
+				
 
 				vEditeur.add( colonne);
 			}
@@ -196,8 +199,9 @@ public class daoEditeur implements iDaoEditeur {
 		nomColonne.add( "Nom");
 		nomColonne.add( "Adresse");
 		nomColonne.add( "Contact");
-		nomColonne.add( "Mail");
 		nomColonne.add( "Téléphone");
+		nomColonne.add( "Mail");
+		
 		
 		return new DefaultTableModel( vEditeur, nomColonne);
 	}
@@ -208,7 +212,7 @@ public class daoEditeur implements iDaoEditeur {
 		myConnexion = Connexion.getInstance();
 
 		Editeur ed = new Editeur();
-		String query = "select * from EDITEUR where EDITEURNOM ='"+ editeurNom +"';";
+		String query = "select * from EDITEUR where EDITEURNOM like '%"+ editeurNom +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			ResultSet rs = stmt.executeQuery( query);

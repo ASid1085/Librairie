@@ -33,7 +33,7 @@ public class daoMotCle implements iDaoMotCle {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
 			while ( rs.next()) {
-				int numMotCle = rs.getInt( 1) +1 ;
+				int numMotCle = rs.getInt( 1) ;
 				if (numMotCle < 10) {
 					id = "0000" + numMotCle + "MOT";
 				} else if (numMotCle < 100) {
@@ -120,14 +120,14 @@ public class daoMotCle implements iDaoMotCle {
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from MOT_CLE where MOTCLELIBELLE = '" + motCleLib + "';";
+		String query = "select * from MOT_CLE where MOTCLELIBELLE like '%"+ motCleLib +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
 			while ( rs.next()) {
 				Vector colonne = new Vector();
 				colonne.add( rs.getString( "MOTCLEID"));
-				colonne.add( rs.getString( "MOTCLELEBELLE"));
+				colonne.add( rs.getString( "MOTCLELIBELLE"));
 
 				vMotCle.add( colonne);
 			}
@@ -154,7 +154,8 @@ public class daoMotCle implements iDaoMotCle {
 		myConnexion = Connexion.getInstance();
 
 		MotCle mc = new MotCle();
-		String query = "select * from MOT_CLE where MOTCLELIBELLE ='"+ motCleLibelle +"';";
+		String query = "select * from MOT_CLE where MOTCLELIBELLE like '%"+ motCleLibelle +"%';";
+		System.out.println( query);
 		try {
 			stmt = myConnexion.createStatement();
 			ResultSet rs = stmt.executeQuery( query);

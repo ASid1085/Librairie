@@ -348,6 +348,7 @@ public class JFrameLigneCommande extends JFrame {
 						txtTxTva.setText( "");
 						txtTotalTtc.setText( "");
 					}
+					nbRow --;
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog( null, "Merci de selectionner une ligne de commande à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
@@ -375,6 +376,7 @@ public class JFrameLigneCommande extends JFrame {
 				txtTotalHtApresRemise.setText( "");
 				txtTxTva.setText( "");
 				txtTotalTtc.setText( "");
+				nbRow = 0;
 			}
 		});
 		btnRemoveAll.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/delete.png"));
@@ -725,7 +727,8 @@ public class JFrameLigneCommande extends JFrame {
 		panelBas.add(lblPaiement);
 		lblPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		
-		JComboBox cmbBoxPaiement = new JComboBox( dcmPai);
+		JComboBox cmbBoxPaiement = new JComboBox( new DefaultComboBoxModel(new String[] {"en CB", "en magasin"}));
+		cmbBoxPaiement.setSelectedIndex(-1);
 		cmbBoxPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 10));
 		cmbBoxPaiement.setBounds(655, 218, 103, 36);
 		panelBas.add(cmbBoxPaiement);
@@ -848,6 +851,7 @@ public class JFrameLigneCommande extends JFrame {
 						daoLigCde.addLigneCommande( ligCde);
 						dispose();
 					}
+					JOptionPane.showMessageDialog(null, "La commande a bien été ajoutée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

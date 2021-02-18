@@ -80,7 +80,7 @@ public class JFrameListeCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new JFrameListeCommande();
+					frame = new JFrameListeCommande( "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -92,7 +92,8 @@ public class JFrameListeCommande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeCommande() {
+	public JFrameListeCommande( String clientLogin) {
+		
 		setTitle("Liste des commandes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 575);
@@ -193,7 +194,11 @@ public class JFrameListeCommande extends JFrame {
 		table.getTableHeader().setBounds(6, 6, 725, 299);
 		table.getTableHeader().setVisible( true);
 		try {
-			table.setModel( daoCde.listeCommande());
+			if ( !clientLogin.equals( "")) {
+				table.setModel( daoCde.listeCommandeByLogin( clientLogin));
+			} else {
+				table.setModel( daoCde.listeCommande());
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -246,7 +251,7 @@ public class JFrameListeCommande extends JFrame {
 		JButton btnConsulter = new JButton("Consulter");
 		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnConsulter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnConsulter.setBounds(310, 484, 173, 41);
+		btnConsulter.setBounds(290, 484, 173, 41);
 		contentPane.add(btnConsulter);
 		
 		JButton btnModifier = new JButton("Modifier");

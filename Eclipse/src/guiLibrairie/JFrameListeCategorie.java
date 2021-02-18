@@ -148,6 +148,7 @@ public class JFrameListeCategorie extends JFrame {
 				try {
 					auteurSelect = txtNomAuteur.getText();
 					tableAuteur.setModel( daoAu.listeAuteurByName( auteurSelect));
+					txtNomAuteur.setText( "");
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la recherche d'auteur par nom - Voir JFrameListeCategorie & daoAuteur");
 					e1.printStackTrace();
@@ -162,10 +163,8 @@ public class JFrameListeCategorie extends JFrame {
 		btnCreerAut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFaut = new JFrameAuteur( "");
-				JFaut.setLocationRelativeTo( JFaut.getParent());
+				JFaut.setLocationRelativeTo( null);
 				JFaut.setVisible( true);
-				setVisible( false);
-				dispose();
 			}
 		});
 		btnCreerAut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
@@ -181,14 +180,12 @@ public class JFrameListeCategorie extends JFrame {
 				try {
 					auteurNomSelect = (String) daoAu.listeAuteur().getValueAt( tableAuteur.getSelectedRow(), 1);
 					JFaut = new JFrameAuteur( auteurNomSelect);
-					JFaut.setLocationRelativeTo( JFaut.getParent());
+					JFaut.setLocationRelativeTo( null);
 					JFaut.setVisible( true);
-					setVisible( false);
-					dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un auteur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
-					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un auteur - Voir JFrameListeCategorie & daoAuteur");
+					System.err.println( "Oops : erreur avec la récupération du nom pour modification de l'auteur - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
 				}
 			}
@@ -218,6 +215,21 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerAut.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSupprimerAut.setBounds(510, 399, 129, 54);
 		paneAuteur.add(btnSupprimerAut);
+		
+		JButton btnRefreshAuteur = new JButton("");
+		btnRefreshAuteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tableAuteur.setModel( daoAu.listeAuteur());
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec l'affichage de la liste Auteur - Voir JFrameListeCategorie & daoAuteur");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshAuteur.setBounds(537, 31, 55, 55);
+		paneAuteur.add(btnRefreshAuteur);
 		tabbedPane.setBackgroundAt(0, Color.ORANGE);
 		tabbedPane.setForegroundAt(0, Color.DARK_GRAY);
 		
@@ -285,6 +297,7 @@ public class JFrameListeCategorie extends JFrame {
 				try {
 					editeurSelect = txtNomEditeur.getText();
 					tableEditeur.setModel( daoEd.listeEditeurByNom( editeurSelect));
+					txtNomEditeur.setText( "");
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la recherche d'auteur par nom - Voir JFrameListeCategorie & daoAuteur");
 					e1.printStackTrace();
@@ -300,7 +313,7 @@ public class JFrameListeCategorie extends JFrame {
 		btnCreerEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFed = new JFrameEditeur( "");
-				JFed.setLocationRelativeTo( JFed.getParent());
+				JFed.setLocationRelativeTo( null);
 				JFed.setVisible( true);
 				setVisible( false);
 				dispose();
@@ -356,6 +369,21 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerEditeur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSupprimerEditeur.setBounds(510, 399, 129, 54);
 		paneEditeur.add(btnSupprimerEditeur);
+		
+		JButton btnRefreshEditeUr = new JButton("");
+		btnRefreshEditeUr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tableEditeur.setModel( daoEd.listeEditeur());
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec l'affichage de la liste Editeur - Voir JFrameListeCategorie & daoEditeur");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnRefreshEditeUr.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshEditeUr.setBounds(537, 31, 55, 55);
+		paneEditeur.add(btnRefreshEditeUr);
 		tabbedPane.setForegroundAt(1, Color.DARK_GRAY);
 		tabbedPane.setBackgroundAt(1, Color.ORANGE);
 		
@@ -481,7 +509,9 @@ public class JFrameListeCategorie extends JFrame {
 				String motCleSelect = "";
 				try {
 					motCleSelect = txtLibMotCle.getText();
+					System.out.println( motCleSelect);
 					tableMotCle.setModel( daoMot.listeMotCleByLib( motCleSelect));
+					txtLibMotCle.setText( "");
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la recherche de mot-clé par libellé - Voir JFrameListeCategorie & daoMotCle");
 					e1.printStackTrace();
@@ -551,6 +581,21 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerMotCle.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSupprimerMotCle.setBounds(510, 399, 129, 54);
 		paneMotCle.add(btnSupprimerMotCle);
+		
+		JButton btnRefreshMotCle = new JButton("");
+		btnRefreshMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tableMotCle.setModel( daoMot.listeMotCle());
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec l'affichage de la liste Mot-clé - Voir JFrameListeCategorie & daoMotCle");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnRefreshMotCle.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshMotCle.setBounds(530, 31, 55, 55);
+		paneMotCle.add(btnRefreshMotCle);
 		tabbedPane.setForegroundAt(3, Color.DARK_GRAY);
 		tabbedPane.setBackgroundAt(3, Color.ORANGE);
 		
@@ -566,6 +611,7 @@ public class JFrameListeCategorie extends JFrame {
 				try {
 					genreSelect = txtNomGenre.getText();
 					tableGenre.setModel( daoG.listeGenreByName( genreSelect));
+					txtNomGenre.setText( "");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -634,5 +680,20 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerGenre.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSupprimerGenre.setBounds(510, 399, 129, 54);
 		paneGenre.add(btnSupprimerGenre);
+		
+		JButton btnRefreshGenre = new JButton("");
+		btnRefreshGenre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tableGenre.setModel( daoG.listeGenre());
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec l'affichage de la liste Genre - Voir JFrameListeCategorie & daoGenre");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnRefreshGenre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshGenre.setBounds(525, 31, 55, 55);
+		paneGenre.add(btnRefreshGenre);
 	}
 }

@@ -33,10 +33,7 @@ public class JFrameAccueil {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					// test window = new test();
-					//window.frame.setVisible(true);
-					
+				try {	
 					JFrameAccueil frame = new JFrameAccueil();
 					frame.frame.setVisible(true);
 				} catch (Exception e) {
@@ -119,8 +116,8 @@ public class JFrameAccueil {
 		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lcde = new JFrameListeCommande();
-				lcde.setLocationRelativeTo( lcde.getParent());
+				lcde = new JFrameListeCommande( "");
+				lcde.setLocationRelativeTo( null);
 				lcde.setVisible( true);
 			}
 		});

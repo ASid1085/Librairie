@@ -119,7 +119,7 @@ public class daoGenre implements iDaoGenre {
 		
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from GENRE where GENRENOM = '" + genreNom + "';";
+		String query = "select * from GENRE where GENRENOM like '%" + genreNom + "%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
@@ -154,7 +154,7 @@ public class daoGenre implements iDaoGenre {
 		myConnexion = Connexion.getInstance();
 		
 		Genre g = new Genre();
-		String query = "select * from GENRE where GENRENOM ='"+ genreNom +"';";
+		String query = "select * from GENRE where GENRENOM like '%"+ genreNom +"%';";
         try {
         	stmt = myConnexion.createStatement();
         	ResultSet rs = stmt.executeQuery( query);

@@ -57,8 +57,8 @@ public class daoAuteur implements iDaoAuteur{
 	public void ajouterAuteur(Auteur auteur) throws SQLException {
 		myConnexion = Connexion.getInstance();
 
-		String query = "insert into AUTEUR values ('" + auteur.getAuteurId() + "', '" + auteur.getAuteurNom()
-													  + auteur.getAuteurPrenom() + auteur.getAuteurPseudo() + "');";
+		String query = "insert into AUTEUR values ('" + auteur.getAuteurId() + "', '" + auteur.getAuteurNom() + "', '" 
+													  + auteur.getAuteurPrenom() + "', '" + auteur.getAuteurPseudo() + "');";
 
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();
@@ -78,7 +78,7 @@ public class daoAuteur implements iDaoAuteur{
 		
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();
-		
+
 		pstmt.close();
 		JOptionPane.showMessageDialog(null, "La modification de l'auteur a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
@@ -123,12 +123,12 @@ public class daoAuteur implements iDaoAuteur{
 		return new DefaultTableModel( vAuteur, nomColonne);
 	}
 	
-	public Vector<Auteur> vectorListAuteurBtName( String auteurNom) throws SQLException {
+	public Vector<Auteur> vectorListAuteurByName( String auteurNom) throws SQLException {
 		Vector vAuteur = new Vector<>();
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from AUTEUR where AUTEURNOM = '" + auteurNom + "';";
+		String query = "select * from AUTEUR where AUTEURNOM like '%" + auteurNom + "%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
@@ -151,7 +151,7 @@ public class daoAuteur implements iDaoAuteur{
 
 	public DefaultTableModel listeAuteurByName( String auteurNom) throws SQLException {
 		
-		Vector vAuteur = vectorListAuteurBtName( auteurNom);
+		Vector vAuteur = vectorListAuteurByName( auteurNom);
 		Vector nomColonne = new Vector<>();
 		nomColonne.add( "ID de l'auteur");
 		nomColonne.add( "Nom");
@@ -166,7 +166,7 @@ public class daoAuteur implements iDaoAuteur{
 		myConnexion = Connexion.getInstance();
 
 		Auteur au = new Auteur();
-		String query = "select * from AUTEUR where AUTEURNOM ='"+ auteurNom +"';";
+		String query = "select * from AUTEUR where AUTEURNOM like '%"+ auteurNom +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			ResultSet rs = stmt.executeQuery( query);

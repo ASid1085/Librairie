@@ -64,7 +64,6 @@ public class daoLigneCommande implements iDaoLigneCommande{
 		pstmt.executeUpdate();
 		
 		pstmt.close();
-		JOptionPane.showMessageDialog(null, "La commande à bien été Ajoutée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override

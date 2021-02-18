@@ -173,7 +173,7 @@ public class JFrameEditeur extends JFrame {
 						setVisible( false);
 						dispose();
 					} catch (SQLException e1) {
-						System.err.println( "Oops : erreur avec la validation d'un nouvel éditeur - Voir JFrameGenre & daoEditeur");
+						System.err.println( "Oops : erreur avec la validation d'un nouvel éditeur - Voir JFrameEditeur & daoEditeur");
 						e1.printStackTrace();
 					}
 				} 
@@ -182,11 +182,11 @@ public class JFrameEditeur extends JFrame {
 					setVisible( false);
 					dispose();
 					JFrameListeCategorie lc = new JFrameListeCategorie();
-					lc.setLocationRelativeTo( lc.getParent());
+					lc.setLocationRelativeTo( null);
 					lc.setVisible( true);
 
 				} catch (SQLException e1) {
-					System.err.println( "Oops : erreur avec la modification d'un nouvel éditeur - Voir JFrameGenre & daoGenre");
+					System.err.println( "Oops : erreur avec la modification d'un nouvel éditeur - Voir JFrameEditeur & daoEditeur");
 					e1.printStackTrace();
 				}
 			}
@@ -217,7 +217,7 @@ public class JFrameEditeur extends JFrame {
 		contentPane.add(txtPersContact);
 		
 		txtEditeurId = new JTextField();
-		txtEditeurId.setText("00017GEN");
+		txtEditeurId.setText( daoEd.ajoutIdEditeur());
 		txtEditeurId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtEditeurId.setEnabled(false);
 		txtEditeurId.setColumns(10);

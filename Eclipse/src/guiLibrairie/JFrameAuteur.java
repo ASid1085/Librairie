@@ -93,28 +93,25 @@ public class JFrameAuteur extends JFrame {
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Auteur au = new Auteur( txtAuteurId.getText(), txtAuteurNom.getText(), txtAuteurPrenom.getText(), txtAuteurPseudo.getText());
-				if (auteurNom.equals( "")) {
+				if ( auteurNom.equals( "")) {
 					try {
 						daoAu.ajouterAuteur( au);
-						setVisible( false);
 						dispose();
 					} catch (SQLException e1) {
 						System.err.println( "Oops : erreur avec la validation d'un nouvel auteur - Voir JFrameAuteur & daoAuteur");
 						e1.printStackTrace();
 					}
 				} 
-				try {
-					daoAu.modifierAuteur( au, auteurNom);
-					setVisible( false);
-					dispose();
-					JFrameListeCategorie lc = new JFrameListeCategorie();
-					lc.setLocationRelativeTo( lc.getParent());
-					lc.setVisible( true);
-
-				} catch (SQLException e1) {
-					System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
-					e1.printStackTrace();
+				if ( !auteurNom.equals( "")) {
+					try {
+						daoAu.modifierAuteur( au, auteurNom);
+						dispose();
+					} catch (SQLException e1) {
+						System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
+						e1.printStackTrace();
+					}
 				}
+				
 			}
 		});
 		btnValider.setFont(new Font("Avenir Next", Font.PLAIN, 15));

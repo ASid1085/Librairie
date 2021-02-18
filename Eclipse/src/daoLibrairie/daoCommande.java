@@ -170,7 +170,7 @@ public class daoCommande implements iDaoCommande {
 		nomColonne.add( "Statut de la commande");
 
 		return new DefaultTableModel( vCde, nomColonne);
-	}
+	}	
 
 	public Vector<Commande> vectorCBStatutCde() throws SQLException {
 		Vector vStatut =  new Vector<>();

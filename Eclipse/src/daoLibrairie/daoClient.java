@@ -134,7 +134,7 @@ public class daoClient implements iDaoClient{
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from CLIENT where CLIENTLOGIN ='"+ clientLogin +"';";
+		String query = "select * from CLIENT where CLIENTLOGIN like '%"+ clientLogin +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
@@ -173,7 +173,7 @@ public class daoClient implements iDaoClient{
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from CLIENT where CLIENTLOGIN ='"+ clientNom +"';";
+		String query = "select * from CLIENT where CLIENTNOM like '%"+ clientNom +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
@@ -266,7 +266,7 @@ public class daoClient implements iDaoClient{
 		myConnexion = Connexion.getInstance();
 
 
-		String query = "select * from CLIENT where CLIENTLOGIN ='"+ clientNom +"';";
+		String query = "select * from CLIENT where CLIENTNOM like '%"+ clientNom +"%';";
 		try {
 			stmt = myConnexion.createStatement();
 			ResultSet rs = stmt.executeQuery( query);

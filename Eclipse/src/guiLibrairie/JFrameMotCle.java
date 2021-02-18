@@ -102,17 +102,19 @@ public class JFrameMotCle extends JFrame {
 						e1.printStackTrace();
 					}
 				} 
-				try {
-					daoMc.modifierMotCle( mc, motCleLib);
-					setVisible( false);
-					dispose();
-					JFrameListeCategorie lc = new JFrameListeCategorie();
-					lc.setLocationRelativeTo( lc.getParent());
-					lc.setVisible( true);
+				if ( !motCleLib.equals( "")) {
+					try {
+						daoMc.modifierMotCle( mc, motCleLib);
+						setVisible( false);
+						dispose();
+						JFrameListeCategorie lc = new JFrameListeCategorie();
+						lc.setLocationRelativeTo( lc.getParent());
+						lc.setVisible( true);
 
-				} catch (SQLException e1) {
-					System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
-					e1.printStackTrace();
+					} catch (SQLException e1) {
+						System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
