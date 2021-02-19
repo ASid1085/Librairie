@@ -126,7 +126,7 @@ public class EvenementDAO implements IEvenementDAO {
 				+ "WHERE EVENEMENTID = '" + evenement.getEvenementId()+"';";
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
-		System.out.println(query);
+
 	}
 	
 

@@ -1,86 +1,102 @@
-
 package entitiesLibrairie;
 
-
 public class Editeur {
-    
-    private String id;
-    private String nom;
-    private String adresse;
-    private String telephone;
-    private String mail;
-    private String contact;
-    private String comment;
+	
+	private String editeurId;
+	private String editeurNom;
+	private String editeurAdresse;
+	private String editeurTel;
+	private String editeurMail;
+	private String editeurContact;
+	private String editeurComment;
+	
+	public Editeur() {
+		super();
+	}
 
-    public Editeur() {
-    }
+	public Editeur(String editeurId, String editeurNom, String editeurAdresse, String editeurTel, String editeurMail,
+			String editeurContact, String editeurComment) {
+		super();
+		this.editeurId = editeurId;
+		this.editeurNom = editeurNom;
+		this.editeurAdresse = editeurAdresse;
+		this.editeurTel = editeurTel;
+		this.editeurMail = editeurMail;
+		this.editeurContact = editeurContact;
+		this.editeurComment = editeurComment;
+	}
 
-    public Editeur(String id, String nom) {
-        this.id = id;
-        this.nom = nom;
-    }
+	public Editeur(String editeurId, String editeurNom, String editeurAdresse, String editeurTel, String editeurMail,
+			String editeurContact) {
+		super();
+		this.editeurId = editeurId;
+		this.editeurNom = editeurNom;
+		this.editeurAdresse = editeurAdresse;
+		this.editeurTel = editeurTel;
+		this.editeurMail = editeurMail;
+		this.editeurContact = editeurContact;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public Editeur(String editeurId, String editeurNom) {
+		super();
+		this.editeurId = editeurId;
+		this.editeurNom = editeurNom;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getEditeurId() {
+		return editeurId;
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	public void setEditeurId(String editeurId) {
+		this.editeurId = editeurId;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public String getEditeurNom() {
+		return editeurNom;
+	}
 
-    public String getAdresse() {
-        return adresse;
-    }
+	public void setEditeurNom(String editeurNom) {
+		this.editeurNom = editeurNom;
+	}
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
+	public String getEditeurAdresse() {
+		return editeurAdresse;
+	}
 
-    public String getTelephone() {
-        return telephone;
-    }
+	public void setEditeurAdresse(String editeurAdresse) {
+		this.editeurAdresse = editeurAdresse;
+	}
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+	public String getEditeurTel() {
+		return editeurTel;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public void setEditeurTel(String editeurTel) {
+		this.editeurTel = editeurTel;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public String getEditeurMail() {
+		return editeurMail;
+	}
 
-    public String getContact() {
-        return contact;
-    }
+	public void setEditeurMail(String editeurMail) {
+		this.editeurMail = editeurMail;
+	}
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
+	public String getEditeurContact() {
+		return editeurContact;
+	}
 
-    public String getComment() {
-        return comment;
-    }
+	public void setEditeurContact(String editeurContact) {
+		this.editeurContact = editeurContact;
+	}
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+	public String getEditeurComment() {
+		return editeurComment;
+	}
 
-    @Override
-    public String toString() {
-        return "Editeur{" + "id=" + id + ", nom=" + nom + ", adresse=" + adresse + ", telephone=" + telephone + ", mail=" + mail + ", contact=" + contact + ", comment=" + comment + '}';
-    }
-    
-    
-    
+	public void setEditeurComment(String editeurComment) {
+		this.editeurComment = editeurComment;
+	}
+
 }

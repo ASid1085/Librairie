@@ -58,7 +58,6 @@ public class JDialogEmployeAffichage extends JDialog {
 	public JDialogEmployeAffichage(Employe employeATraiter) {
 		
 		this.employe = employeATraiter;
-		System.out.println(employe);
 		
 		setBounds(100, 100, 850, 600);
 		getContentPane().setLayout(new BorderLayout());

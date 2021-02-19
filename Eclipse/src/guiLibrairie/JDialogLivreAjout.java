@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.EmployeDAO;
 import daoLibrairie.LivreDAO;
@@ -68,14 +69,71 @@ public class JDialogLivreAjout extends JDialog {
 	private String statut;
 	private JLabel lblEditeurRecup;
 	private JList listTheme;
+	private JList listAuteur;
+	private JList listMotCle;
+	private JList listGenre;
 	private String statutFrame = "AJOUT LIVRE";
 	//private DefaultListModel modelThemmeeee;
 	private DefaultListModel modelTheme2 ;
+	private DefaultTableModel modelAuteur2 = new DefaultTableModel() ;
+	private String modelEditeur2 ;
+	private DefaultListModel modelMotCle2 ;
+	private DefaultListModel modelGenre2 ;
 	private JTable tableAuteur;
 	private SimpleDateFormat formater = null;
 	private Date currentDate ;
 
 	
+	
+	public DefaultTableModel refreshAuteur (DefaultTableModel modelAuteur) {
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				//lblThèmeRecup.setText(theme.getThemeNom());
+				tableAuteur.setModel(modelAuteur);
+			}
+		});
+		this.modelAuteur2 = modelAuteur;
+		return modelAuteur2;
+	}
+	
+	
+	public String refreshEditeur (String modelEditeur) {
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				//lblThèmeRecup.setText(theme.getThemeNom());
+				lblEditeurRecup.setText(modelEditeur);
+				System.out.println(modelEditeur);
+}
+		});
+		this.modelEditeur2 = modelEditeur;
+		return modelEditeur2;
+	}
+	
+	public DefaultListModel refreshGenre (DefaultListModel modelGenre) {
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				//lblThèmeRecup.setText(theme.getThemeNom());
+				listGenre.setModel(modelGenre);
+				System.out.println(modelGenre);
+
+			}
+		});
+		this.modelGenre2 = modelGenre;
+		return modelGenre2;
+	}
+	
+	public DefaultListModel refreshMotCle (DefaultListModel modelMotCle) {
+		addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent e) {
+				//lblThèmeRecup.setText(theme.getThemeNom());
+				listMotCle.setModel(modelMotCle);
+				System.out.println(modelMotCle);
+
+			}
+		});
+		this.modelMotCle2 = modelMotCle;
+		return modelMotCle2;
+	}
 	
 	public DefaultListModel refreshTheme (DefaultListModel modelTheme) {
 		addWindowListener(new WindowAdapter() {
@@ -365,7 +423,7 @@ public class JDialogLivreAjout extends JDialog {
 		scrollPane_1.setBounds(644, 459, 137, 37);
 		contentPanel.add(scrollPane_1);
 		
-		JList listMotCle = new JList();
+		listMotCle = new JList();
 		listMotCle.setForeground(new Color(128, 0, 0));
 		listMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 12));
 		listMotCle.setBackground(new Color(255, 248, 220));
@@ -374,11 +432,16 @@ public class JDialogLivreAjout extends JDialog {
 		
 //JTABLE //////////////////////////////////////////////////////////////////////////////////////////////				
 		JScrollPane scrollPaneAuteur = new JScrollPane();
-		scrollPaneAuteur.setBounds(256, 459, 171, 37);
+		scrollPaneAuteur.setBounds(256, 445, 171, 51);
 		contentPanel.add(scrollPaneAuteur);
 		
 		tableAuteur = new JTable();
+		tableAuteur.setModel(modelAuteur2);
 		tableAuteur.setBackground(new Color(255, 248, 220));
+		tableAuteur.setForeground(new Color(128, 0, 0));
+		tableAuteur.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		tableAuteur.getTableHeader().setBounds(0, 0, 171, 61);
+		tableAuteur.getTableHeader().setVisible(false);
 		scrollPaneAuteur.setViewportView(tableAuteur);
 		
 //BOUTON MODIFIER //////////////////////////////////////////////////////////////////////////////////////////////		
@@ -413,6 +476,42 @@ public class JDialogLivreAjout extends JDialog {
 				}
 				
 				
+				tableAuteur.setModel(modelAuteur2);
+				for (int index = 0; index < tableAuteur.getRowCount() ; index ++) {
+					String auteur = (String) tableAuteur.getValueAt(index,0);
+					try {
+						livreDAO.lierLivreAuteur(auteur, isbn);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+				
+				
+				listMotCle.setModel(modelMotCle2);
+				for (int index = 0; index < modelMotCle2.size() ; index++) {
+					try {
+							livreDAO.lierLivreMotCle(modelMotCle2.getElementAt(index).toString(), isbn);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+				
+				
+				lblEditeurRecup.setText(modelEditeur2);
+					try {
+							livreDAO.lierLivreEditeur(modelEditeur2, isbn);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+					
+				
+				
 				listTheme.setModel(modelTheme2);
 				for (int index = 0; index < modelTheme2.size() ; index++) {
 					try {
@@ -440,6 +539,13 @@ public class JDialogLivreAjout extends JDialog {
 		
 //BOUTON AUTEUR //////////////////////////////////////////////////////////////////////////////////////////////			
 		JButton btnAuteur = new JButton("Auteur");
+		btnAuteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrameListeCategorie jfCategories = new JFrameListeCategorie (jdLA, statutFrame);
+				jfCategories.setVisible(true);
+			}
+		});
 		btnAuteur.setForeground(new Color(128, 0, 0));
 		btnAuteur.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnAuteur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -452,6 +558,13 @@ public class JDialogLivreAjout extends JDialog {
 		
 //BOUTON EDITEUR //////////////////////////////////////////////////////////////////////////////////////////////	
 		JButton btnEditeur = new JButton("Editeur");
+		btnEditeur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrameListeCategorie jfCategories = new JFrameListeCategorie (jdLA, statutFrame);
+				jfCategories.setVisible(true);
+			}
+		});
 		btnEditeur.setForeground(new Color(128, 0, 0));
 		btnEditeur.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnEditeur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -464,6 +577,13 @@ public class JDialogLivreAjout extends JDialog {
 //BOUTON MOT CLE //////////////////////////////////////////////////////////////////////////////////////////////	
 		
 		JButton btnMotcle = new JButton("Mot-clé");
+		btnMotcle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrameListeCategorie jfCategories = new JFrameListeCategorie (jdLA, statutFrame);
+				jfCategories.setVisible(true);
+			}
+		});
 		btnMotcle.setForeground(new Color(128, 0, 0));
 		btnMotcle.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnMotcle.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -480,8 +600,9 @@ public class JDialogLivreAjout extends JDialog {
 				
 		
 					//livre = livreDAO.ajouterLivre(isbn, titre, sousTitre, prix, tva, dateEdition, image, resume, nbrPages, stock, comment, statut);
-					JFrameTheme jfTheme = new JFrameTheme (jdLA, statutFrame);
-					jfTheme.setVisible(true);
+					JFrameListeCategorie jfCategories = new JFrameListeCategorie (jdLA, statutFrame);
+					jfCategories.setVisible(true);
+
 
 
 			}

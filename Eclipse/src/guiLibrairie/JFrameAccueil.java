@@ -127,9 +127,10 @@ public class JFrameAccueil extends JFrame {
 		btnGestionCategorie.setForeground(new Color(128, 0, 0));
 		btnGestionCategorie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//lcat = new JFrameListeCategorie();
-				//lcat.setLocationRelativeTo( lcat.getParent());
-				//lcat.setVisible( true);
+				String statut = "AFFICHAGE";
+				lcat = new JFrameListeCategorie(null, statut);
+				lcat.setLocationRelativeTo( lcat.getParent());
+				lcat.setVisible( true);
 			}
 		});
 		btnGestionCategorie.setFont(new Font("Avenir Next", Font.PLAIN, 30));

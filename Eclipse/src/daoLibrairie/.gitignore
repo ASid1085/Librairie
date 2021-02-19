@@ -2,3 +2,6 @@
 /EditeurDAO.class
 /MotDePasseDAO.class
 /MotCleDAO.class
+/daoAuteur.class
+/daoEditeur.class
+/daoMotCle.class

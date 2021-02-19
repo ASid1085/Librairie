@@ -129,11 +129,13 @@ public class JDialogLogin extends JDialog {
 							JOptionPane.showMessageDialog(null, "OOps - le mot de passe et/ou l'identifiant est incorrect", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
 						}
 						
-				} catch (SQLException e1) {
+					} 
+					catch (NullPointerException npe){
+						JOptionPane.showMessageDialog(null, "Ooops - le mot de passe et/ou l'identifiant est incorrect", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
+					}catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "OOps - le mot de passe et/ou l'identifiant est incorrect", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
-					}
+					} 
 				}
 			});
 			okButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));

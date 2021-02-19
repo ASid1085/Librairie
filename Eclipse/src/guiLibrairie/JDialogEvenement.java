@@ -176,7 +176,7 @@ public class JDialogEvenement extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						String nom = txtSaisieNom.getText();
 						Date debut = Date.valueOf(txtSaisieDateDebut.getText());
-						System.out.println(debut);
+						
 						Date fin = Date.valueOf(txtSaisieDateFin.getText());
 						Float pourcentage = Float.parseFloat(txtSaisiePourcentage.getText());
 						String codePromo = txtSaisieCodePromo.getText();

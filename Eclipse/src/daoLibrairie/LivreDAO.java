@@ -112,7 +112,6 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, auteurALier);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
 	}
 
 
@@ -133,7 +132,6 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, editeurALier);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
 	}
 
 
@@ -199,7 +197,6 @@ public class LivreDAO implements ILivreDAO{
             livre.add(res.getString("LIVRESOUSTITRE"));
             livre.add(res.getFloat("LIVREPRIXHT"));
             livre.add(res.getString("TVATAUX"));
-            //livre.setLivrePrixTTC(res.getFloat("TVATAUX")*1.055);
             livre.add(res.getString("LIVREDATEEDITION"));
             livre.add(res.getString("LIVREIMAGE"));
             livre.add(res.getString("LIVRERESUME"));
@@ -207,9 +204,6 @@ public class LivreDAO implements ILivreDAO{
             livre.add(res.getString("LIVRESTOCK"));
             livre.add(res.getString("LIVRECOMMENT"));
             livre.add(res.getString("LIVRESTATUT"));
-           // Auteur auteur = new Auteur(res.getString("AUTEURID"), res.getString("AUTEURNOM"), res.getString("AUTEURPRENOM"), res.getString("AUTEURPSEUDO"));
-          //  livre.setAuteur(auteur);
-           // livre.setEditeur(new Editeur(res.getString("EDITEURID"), res.getString("EDITEURNOM")));
             livres.add(livre);
             
             

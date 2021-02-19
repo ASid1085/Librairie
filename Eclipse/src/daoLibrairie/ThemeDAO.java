@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import connexionLibrairie.Connexion;
 import entitiesLibrairie.Theme;
 import interfaceDaoLibrairie.IThemeDAO;
@@ -24,26 +26,12 @@ public class ThemeDAO implements IThemeDAO {
 	}
 
 	@Override
-	public void ajouterTheme(String nom) throws SQLException {
+	public void ajouterTheme(String id, String nom) throws SQLException {
 		// TODO Auto-generated method stub
-		String idNouveau = "";
-		String id="";
-		Statement stmtt = myConnection.createStatement();
-		String queryy = "SELECT THEMEID FROM THEME ORDER BY THEMEID;";
-		ResultSet resultt = stmtt.executeQuery(queryy);
-		while(resultt.next()) {
-			id = resultt.getString("THEMEID");
-		}
-		
-		id = id.substring(0, 5);
-		
-		int change= Integer.parseInt(id);
-		change = change + 1;
-		idNouveau = "000" + change + "THE";
 		
 		String query = "INSERT INTO THEME (THEMEID, THEMENOM) VALUES ( ?, ?);";
 		ptsmt = myConnection.prepareStatement(query);
-		ptsmt.setString(1, idNouveau);
+		ptsmt.setString(1, id);
 		ptsmt.setString(2, nom);
 		int result = ptsmt.executeUpdate();
 
@@ -96,5 +84,48 @@ public class ThemeDAO implements IThemeDAO {
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
 	}
+	
+	
+	@Override
+	public String ajoutIdTheme() throws SQLException {
+		String id = null;
+		stmt = myConnection.createStatement();
+		String query = "SELECT COUNT(*) FROM THEME;";
+		ResultSet rs = stmt.executeQuery( query);
+		while ( rs.next()) {
+			int numTheme = rs.getInt( 1) +1 ;
+			if (numTheme < 10) {
+				id = "0000" + numTheme + "GEN";
+			} else if (numTheme < 100) {
+				id = "000" + numTheme + "GEN";
+			} else if (numTheme < 1000) {
+				id = "00" + numTheme + "GEN";
+			} else if (numTheme < 10000) {
+				id = "0" + numTheme + "GEN";
+			} if (numTheme > 99999) {
+				JOptionPane.showMessageDialog(null, "Vous ne pouvez plus ajouter de nouveau Theme !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+
+		return id;
+	}
+
+	@Override
+	public Theme rechercherUnTheme(String id) throws SQLException {
+		// TODO Auto-generated method stub
+		Theme theme = new Theme();
+		stmt = myConnection.createStatement();
+		String query = "SELECT THEMEID, THEMENOM FROM THEME WHERE THEMEID = '" + id + "';";
+		ResultSet res = stmt.executeQuery(query);
+		while (res.next()) {
+			theme.setThemeId(res.getString("THEMEID"));
+			theme.setThemeNom(res.getString("THEMENOM")) ;
+		}
+	
+		return theme;
+	}
+
+	
+
 
 }

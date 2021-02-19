@@ -1,61 +1,54 @@
-
 package entitiesLibrairie;
 
-
 public class Auteur {
-    
-     private String id;
-     private String nom; 
-     private String prenom;
-     private String pseudo;
+	
+	private String auteurId;
+	private String auteurNom;
+	private String auteurPrenom;
+	private String auteurPseudo;
+	
+	public Auteur() {
+		super();
+	}
 
-    public Auteur() {
-    }
-    
-    public Auteur(String id, String nom, String prenom,  String pseudo){
-        this.id= id;
-        this. nom= nom;
-        this.prenom= prenom;
-        this.pseudo= pseudo;
-    }
+	public Auteur(String auteurId, String auteurNom, String auteurPrenom, String auteurPseudo) {
+		super();
+		this.auteurId = auteurId;
+		this.auteurNom = auteurNom;
+		this.auteurPrenom = auteurPrenom;
+		this.auteurPseudo = auteurPseudo;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getAuteurId() {
+		return auteurId;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setAuteurId(String auteurId) {
+		this.auteurId = auteurId;
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	public String getAuteurNom() {
+		return auteurNom;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public void setAuteurNom(String auteurNom) {
+		this.auteurNom = auteurNom;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public String getAuteurPrenom() {
+		return auteurPrenom;
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public void setAuteurPrenom(String auteurPrenom) {
+		this.auteurPrenom = auteurPrenom;
+	}
 
-    public String getPseudo() {
-        return pseudo;
-    }
+	public String getAuteurPseudo() {
+		return auteurPseudo;
+	}
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
+	public void setAuteurPseudo(String auteurPseudo) {
+		this.auteurPseudo = auteurPseudo;
+	}
 
-    @Override
-    public String toString() {
-        return "Auteur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", pseudo=" + pseudo + '}';
-    }
-     
-     
-    
 }

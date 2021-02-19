@@ -276,9 +276,9 @@ public class JDialogEvenementAjout extends JDialog {
 					String finEvent = comboBoxAnnee_1.getSelectedItem()+ "-"+ comboBoxMois_1.getSelectedItem() + "-" +comboBoxJour_1.getSelectedItem().toString();
 					Date fin = Date.valueOf(finEvent);
 					String value = spinner.getValue().toString();
-					System.out.println(value);
+					
 					Float pourcentage = Float.parseFloat(value);
-					System.out.println(pourcentage);
+					
 					String codePromo = txtSaisieCodePromo.getText();
 					String image = txtSaisieImage.getText();
 					String comment = txtSaisieCommentaire.getText();
