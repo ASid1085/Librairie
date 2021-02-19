@@ -42,7 +42,7 @@ public interface ILivreDAO {
 	
 	public Vector findByParameter(String champs, String valeurChamps) throws SQLException;
 	
-	public String modifyBook(Livre livre) throws SQLException;
+	public void modifierLivre(Livre livre, String tva) throws SQLException;
 	
 	public Vector recupererAuteur(String isbn) throws SQLException;
 	
@@ -64,7 +64,7 @@ public interface ILivreDAO {
 	
 	public Vector rechercheLivreparPrixHT(String prixHT) throws SQLException;
 	
-	public Vector rechercheLivreparPrixTTC(float prixTTC) throws SQLException;
+	public Vector rechercheLivreparPrixTTC(String prixTTC) throws SQLException;
 	
 	public Vector rechercheLivreparTheme(String theme) throws SQLException;
 	
@@ -73,6 +73,8 @@ public interface ILivreDAO {
 	public Vector rechercheLivreparMotCle(String motCle) throws SQLException;
 	
 	public Vector rechercheLivreparStock(String stock) throws SQLException;
+	
+	public Livre afficherLivre(String isbn) throws SQLException;
 
 	
 	

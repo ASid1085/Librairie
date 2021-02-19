@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -36,6 +39,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class JDialogLivreAjout extends JDialog {
 
@@ -62,13 +66,14 @@ public class JDialogLivreAjout extends JDialog {
 	private String stock;
 	private String comment; 
 	private String statut;
-	private JLabel lblAuteurRecup;
 	private JLabel lblEditeurRecup;
-	private JLabel lblMotCleRecup;
-	private JList list;
+	private JList listTheme;
 	private String statutFrame = "AJOUT LIVRE";
-	private DefaultListModel modelThemmeeee;
+	//private DefaultListModel modelThemmeeee;
 	private DefaultListModel modelTheme2 ;
+	private JTable tableAuteur;
+	private SimpleDateFormat formater = null;
+	private Date currentDate ;
 
 	
 	
@@ -76,7 +81,7 @@ public class JDialogLivreAjout extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent e) {
 				//lblThèmeRecup.setText(theme.getThemeNom());
-				list.setModel(modelTheme);
+				listTheme.setModel(modelTheme);
 				System.out.println(modelTheme);
 
 			}
@@ -196,24 +201,11 @@ public class JDialogLivreAjout extends JDialog {
 		lblPages.setBounds(458, 240, 160, 16);
 		contentPanel.add(lblPages);
 		
-		
-		lblMotCleRecup = new JLabel("");
-		lblMotCleRecup.setForeground(new Color(128, 0, 0));
-		lblMotCleRecup.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		lblMotCleRecup.setBounds(642, 469, 163, 16);
-		contentPanel.add(lblMotCleRecup);
-		
 		lblEditeurRecup = new JLabel("");
 		lblEditeurRecup.setForeground(new Color(128, 0, 0));
-		lblEditeurRecup.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblEditeurRecup.setFont(new Font("Avenir Next", Font.PLAIN, 12));
 		lblEditeurRecup.setBounds(252, 521, 163, 16);
 		contentPanel.add(lblEditeurRecup);
-		
-		lblAuteurRecup = new JLabel("");
-		lblAuteurRecup.setForeground(new Color(128, 0, 0));
-		lblAuteurRecup.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		lblAuteurRecup.setBounds(252, 469, 163, 16);
-		contentPanel.add(lblAuteurRecup);
 		
 		
 //JTEXTFIELDS //////////////////////////////////////////////////////////////////////////////////////////////		
@@ -291,8 +283,13 @@ public class JDialogLivreAjout extends JDialog {
 		//cmbBxTva.setEnabled(false);
 		contentPanel.add(cmbBxTva);
 		
+		formater = new SimpleDateFormat("yyyy");
+		currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		String anneeCourante = formater.format(currentDate);
+		int anneeEnCours = Integer.parseInt(anneeCourante);
+		
 		Vector annee = new Vector();
-		for(int i=1950; i<2030; i++) {
+		for(int i=anneeEnCours; i>1850; i--) {
 			annee.add(i);
 		}
 		
@@ -352,18 +349,37 @@ public class JDialogLivreAjout extends JDialog {
 		spinnerPrix.setBounds(138, 281, 234, 35);
 		contentPanel.add(spinnerPrix);
 		
-		
-//JLIST /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		
+//JLIST//////////////////////////////////////////////////////////////////////////////////////////////	
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(644, 511, 137, 36);
 		contentPanel.add(scrollPane);
 		
-		list = new JList();
-		scrollPane.setViewportView(list);
+		listTheme = new JList();
+		listTheme.setBackground(new Color(255, 248, 220));
+		listTheme.setForeground(new Color(128, 0, 0));
+		listTheme.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		scrollPane.setViewportView(listTheme);
 		
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(644, 459, 137, 37);
+		contentPanel.add(scrollPane_1);
+		
+		JList listMotCle = new JList();
+		listMotCle.setForeground(new Color(128, 0, 0));
+		listMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		listMotCle.setBackground(new Color(255, 248, 220));
+		scrollPane_1.setViewportView(listMotCle);
+		
+		
+//JTABLE //////////////////////////////////////////////////////////////////////////////////////////////				
+		JScrollPane scrollPaneAuteur = new JScrollPane();
+		scrollPaneAuteur.setBounds(256, 459, 171, 37);
+		contentPanel.add(scrollPaneAuteur);
+		
+		tableAuteur = new JTable();
+		tableAuteur.setBackground(new Color(255, 248, 220));
+		scrollPaneAuteur.setViewportView(tableAuteur);
 		
 //BOUTON MODIFIER //////////////////////////////////////////////////////////////////////////////////////////////		
 		JButton btnAjouter = new JButton("Ajouter");
@@ -397,7 +413,7 @@ public class JDialogLivreAjout extends JDialog {
 				}
 				
 				
-				list.setModel(modelTheme2);
+				listTheme.setModel(modelTheme2);
 				for (int index = 0; index < modelTheme2.size() ; index++) {
 					try {
 							livreDAO.lierLivreTheme(modelTheme2.getElementAt(index).toString(), isbn);
@@ -482,11 +498,15 @@ public class JDialogLivreAjout extends JDialog {
 
 		
 
+		
+
+		
+
+		
+
 
 
 		
 		
 	}
-	
-
 }

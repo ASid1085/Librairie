@@ -285,6 +285,7 @@ public class JFrameTheme extends JFrame {
 				jdLA.refreshTheme(vecteurTheme);
 				jdLA.repaint();
 				jdLA.setVisible(true);
+				dispose();
 			}
 		});
 		btnSelectionner.setForeground(new Color(128, 0, 0));

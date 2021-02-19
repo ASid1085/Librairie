@@ -37,11 +37,12 @@ public class JFrameAccueil extends JFrame {
 	private JPanel contentPane;
 	private SimpleDateFormat formater = null;
 	private Date currentDate ;
-	//private static JFrameListeCommande lcde;
-	//private static JFrameListeClient lclt;
-	//private static JFrameListeCategorie lcat;
+	private static JFrameListeCommande lcde;
+	private static JFrameListeClient lclt;
+	private static JFrameListeCategorie lcat;
 	private static JFrameEvenement levt;
 	private static JFrameEmploye lemp;
+	private static JFrameLivre lliv;
 	private Employe employe;
 	private static Employe empl;
 	private EmployeDAO employeDAO;
@@ -161,9 +162,9 @@ public class JFrameAccueil extends JFrame {
 		btnGestionClient.setForeground(new Color(128, 0, 0));
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//lclt = new JFrameListeClient();
-				//lclt.setLocationRelativeTo( lclt.getParent());
-				//lclt.setVisible( true);
+				lclt = new JFrameListeClient();
+				lclt.setLocationRelativeTo( lclt.getParent());
+				lclt.setVisible( true);
 			}
 		});
 		btnGestionClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestClient.png"));
@@ -176,6 +177,12 @@ public class JFrameAccueil extends JFrame {
 		
 //BOUTON OUVRAGES//////////////////////////////////////////////////////////////////////
 		JButton btnGestionOuvrage = new JButton("<html><center>Gestion<br>ouvrages</center></html>");
+		btnGestionOuvrage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lliv = new JFrameLivre();
+				lliv.setVisible(true);
+			}
+		});
 		btnGestionOuvrage.setForeground(new Color(128, 0, 0));
 		btnGestionOuvrage.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestOuvrage.png"));
 		btnGestionOuvrage.setFont(new Font("Avenir Next", Font.PLAIN, 30));
@@ -190,8 +197,8 @@ public class JFrameAccueil extends JFrame {
 		btnGestionEmployé.setForeground(new Color(128, 0, 0));
 		btnGestionEmployé.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Employe employe = new Employe();
-				lemp = new JFrameEmploye(/*employe*/);
+				Employe employe = new Employe();
+				lemp = new JFrameEmploye();
 				lemp.setVisible(true);
 			}
 		});
@@ -209,9 +216,9 @@ public class JFrameAccueil extends JFrame {
 		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//lcde = new JFrameListeCommande();
-				//lcde.setLocationRelativeTo( lcde.getParent());
-				//lcde.setVisible( true);
+				lcde = new JFrameListeCommande();
+				lcde.setLocationRelativeTo( lcde.getParent());
+				lcde.setVisible( true);
 			}
 		});
 		btnGestionCommande.setFont(new Font("Avenir Next", Font.PLAIN, 30));

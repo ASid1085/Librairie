@@ -263,72 +263,37 @@ public class LivreDAO implements ILivreDAO{
        
   }  
 
-	   
   
- /* public void rattacherAuteur( String idAuteur, String ISBN ){
-            try {
-                String requeteaexecuter2= "INSERT INTO ECRIRE VALUES (?,?)";
-                PreparedStatement pstmt = myConnection.prepareStatement(requeteaexecuter2);
-                pstmt.setString(1, ISBN);
-                pstmt.setString(2, idAuteur); 
-                int result1 = pstmt.executeUpdate();
-                System.out.println("baba2");
-        } catch (SQLException ex) {
-            Logger.getLogger(LivreDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-  }*/
-  
-  /*public void rattacherEditeur(String idEditeur, String ISBN){
+  public void modifierLivre(Livre livre, String tva) throws SQLException{
+	  	String tvaID = null;
       
-       try {
-                String requeteaexecuter3= "INSERT INTO EDITER VALUES (?,?)";
-                PreparedStatement pstmt = myConnection.prepareStatement(requeteaexecuter3);
-                pstmt.setString(1, ISBN);
-                pstmt.setString(2, idEditeur); 
-                int result3 = pstmt.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(LivreDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-  }*/
-  
-  public String modifyBook(Livre livre){
-      String tvaID=null;
-      
-        try {
-            String requeteIdTVA= "SELECT TVAID FROM TVA WHERE TVATAUX = ?";
-            PreparedStatement pstmt1 = myConnection.prepareStatement(requeteIdTVA);
-            pstmt1.setString(1, livre.getTvaId());
-            ResultSet res = pstmt1.executeQuery();
-            while(res.next()){
-                tvaID= res.getString("TVAID");
-            }
-            String requeteAExectuer= "UPDATE LIVRE SET LIVRETITRE=?, LIVRESOUSTITRE= ?, LIVREPRIXHT= ?, TVAID= ?, LivreDateEdition =?, LivreImage= ?,"
-                    + " LivreNbrePage=?, LivreStock=?, LivreStatut= ?, LivreComment= ?, LivreResume= ? where LIVREISBN=? ";
-            PreparedStatement pstmt = myConnection.prepareStatement(requeteAExectuer);
-            pstmt.setString(1,  livre.getLivreTitre());
-            pstmt.setString(2, livre.getSousTitre());
-            pstmt.setFloat(3, livre.getLivrePrixHT());
-            pstmt.setString(4, tvaID); 
-            pstmt.setString(5, livre.getLivreDateEdition());
-            pstmt.setString(6, livre.getLivreImage());
-            pstmt.setFloat(7, livre.getLivreNbrePage());
-            pstmt.setString(8, livre.getLivreStock());
-            pstmt.setString(9, livre.getLivreStatut());
-            pstmt.setString(10, livre.getLivreComment());
-            pstmt.setString(11, livre.getLivreResume());
-            pstmt.setString(12, livre.getLivreISBN());
+	  	stmt = myConnection.createStatement();
+	    String requeteIdTVA= "SELECT TVAID FROM TVA WHERE TVATAUX = '"+tva+"';";
+	    ResultSet res = stmt.executeQuery(requeteIdTVA);
+	    while(res.next()){
+	        tvaID= res.getString("TVAID");
+	    }
+	    
+	    
+	    String requeteAExecuter= "UPDATE LIVRE SET LIVRETITRE = '"+livre.getLivreTitre()+"', "
+	    		+ "LIVRESOUSTITRE = '"+livre.getSousTitre()+"', "
+	    		+ "LIVREPRIXHT = '"+livre.getLivrePrixHT()+"', "
+	    		+ "TVAID = '"+tvaID+"', "
+	    		+ "LIVREDATEEDITION = '"+livre.getLivreDateEdition()+"', "
+	    		+ "LIVREIMAGE = '"+livre.getLivreImage()+"', "
+	    	    + "LIVRERESUME = \""+livre.getLivreResume()+"\", "
+	            + "LIVRENBREPAGE = '"+livre.getLivreNbrePage()+"', "
+	            + "LIVRESTOCK = '"+livre.getLivreStock()+"', "
+	    	    + "LIVRECOMMENT = '"+livre.getLivreComment()+"', "
+	            + "LIVRESTATUT = '"+livre.getLivreStatut()+"' "
+	            + "WHERE LIVREISBN = '"+livre.getLivreISBN()+"';";
+	    PreparedStatement pstmt = myConnection.prepareStatement(requeteAExecuter);
+
+	    
+	    int result = pstmt.executeUpdate();
             
-            int result = pstmt.executeUpdate();
-            
-            if(result > 0) {
-                return "Le livre a été modifié avec succès";
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(LivreDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return "Echec de l'update";
-        }
-      return null;
+
+
   }
 	  
 
@@ -543,16 +508,18 @@ public class LivreDAO implements ILivreDAO{
 	
 	
 	@Override
-	public Vector rechercheLivreparPrixTTC(float prixTTC) throws SQLException {
+	public Vector rechercheLivreparPrixTTC(String prixTTC) throws SQLException {
 		// TODO Auto-generated method stub
+		float convert = Float.parseFloat(prixTTC);
 		float prixHT = 00.00f;
+		float tauxTVA= 00.00f;
 		Statement stmtt = myConnection.createStatement();
 		String queryy = "SELECT TVATAUX FROM TVA;";
 		ResultSet result = stmtt.executeQuery(queryy);
 		while (result.next()) {
 			float tva = result.getFloat("TVATAUX");
-			float tauxTVA = 1+(tva/100);
-			prixHT = prixTTC / tauxTVA;
+			tauxTVA = 1+(tva/100);
+			prixHT = convert / tauxTVA;
 		}
 		
 		
@@ -564,7 +531,7 @@ public class LivreDAO implements ILivreDAO{
 	            + "LIVRESTOCK, LIVRECOMMENT, LIVRESTATUT "
 	            + "FROM LIVRE L "
 	            + "INNER JOIN TVA T ON T.TVAID= L.TVAID "
-	            + "WHERE LIVREPRIXHT <= '"+prixHT+"';";
+	            + "WHERE LIVREPRIXHT <= '"+prixHT*tauxTVA+"';";
 		ResultSet res = stmt.executeQuery(query);
 		   while (res.next()) {
 		       Vector livre = new Vector();
@@ -700,7 +667,7 @@ public class LivreDAO implements ILivreDAO{
 	            + "LIVRESTOCK, LIVRECOMMENT, LIVRESTATUT "
 	            + "FROM LIVRE L "
 	            + "INNER JOIN TVA T ON T.TVAID= L.TVAID "
-	            + "WHERE LIVRESTOCK >= "+stock+";";
+	            + "WHERE LIVRESTOCK <= "+stock+";";
 		ResultSet res = stmt.executeQuery(query);
 		   while (res.next()) {
 		       Vector livre = new Vector();
@@ -734,7 +701,7 @@ public class LivreDAO implements ILivreDAO{
 	            + "INNER JOIN TVA T ON T.TVAID= L.TVAID "
 	            + "INNER JOIN EDITER E ON E.LIVREISBN = L.LIVREISBN "
 	            + "INNER JOIN EDITEUR EDIT ON EDIT.EDITEURID = E.EDITEURID "
-	            + "WHERE EDITEURNOM = '"+editeur+"';";
+	            + "WHERE EDITEURNOM LIKE '%"+editeur+"%';";
 		ResultSet res = stmt.executeQuery(query);
 		   while (res.next()) {
 		       Vector livre = new Vector();
@@ -769,7 +736,7 @@ public class LivreDAO implements ILivreDAO{
 		ResultSet result = stmt.executeQuery(query);
 		while (result.next()) {
 			Vector <String> auteur = new Vector();
-			auteur.add(result.getString("AUTEURNOM"));
+			auteur.add(result.getString("AUTEURNOM").toUpperCase());
 			auteur.add(result.getString("AUTEURPRENOM"));
 			auteur.add(result.getString("AUTEURPSEUDO"));
 			livres.add(auteur);
@@ -837,6 +804,37 @@ public class LivreDAO implements ILivreDAO{
 			livres.add(theme);
 		}
 		return livres;
+	}
+
+
+	@Override
+	public Livre afficherLivre(String isbn) throws SQLException {
+		// TODO Auto-generated method stub
+		Livre livre = null;
+		stmt = myConnection.createStatement();
+		String query = "SELECT L.LIVREISBN ,LIVRETITRE, LIVRESOUSTITRE, LIVREPRIXHT, TVATAUX, "
+	            + "LIVREDATEEDITION, LIVREIMAGE, LIVRERESUME, LIVRENBREPAGE, "
+	            + "LIVRESTOCK, LIVRECOMMENT, LIVRESTATUT "
+	            + "FROM LIVRE L "
+	            + "INNER JOIN TVA T ON T.TVAID= L.TVAID "
+	            + "WHERE LIVREISBN = '"+isbn+"';";
+		ResultSet res = stmt.executeQuery(query);
+		while (res.next()) {
+			 livre.setLivreISBN(res.getString("LIVREISBN"));
+	         livre.setLivreTitre(res.getString("LIVRETITRE"));
+	         livre.setSousTitre(res.getString("LIVRESOUSTITRE"));
+	         livre.setLivrePrixHT(res.getFloat("LIVREPRIXHT"));
+	         livre.setTvaId(res.getString("TVATAUX"));
+	         livre.setLivreDateEdition(res.getString("LIVREDATEEDITION"));
+	         livre.setLivreImage(res.getString("LIVREIMAGE"));
+	         livre.setLivreResume(res.getString("LIVRERESUME"));
+	         livre.setLivreNbrePage(res.getFloat("LIVRENBREPAGE"));
+	         livre.setLivreStock(res.getString("LIVRESTOCK"));
+	         livre.setLivreComment(res.getString("LIVRECOMMENT"));
+	         livre.setLivreStatut(res.getString("LIVRESTATUT"));
+		}
+	            
+		return livre;
 	}
 
 
