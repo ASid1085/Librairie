@@ -3,6 +3,7 @@ package guiLibrairie;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -57,7 +58,7 @@ public class JDialogEmployeAjout extends JDialog {
 	public JDialogEmployeAjout() {
 		setBounds(100, 100, 850, 600);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.DARK_GRAY);
+		contentPanel.setBackground(new Color(255, 248, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -68,44 +69,44 @@ public class JDialogEmployeAjout extends JDialog {
 		JLabel lblTitre = new JLabel("AJOUT NOUVEL UTILISATEUR");
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitre.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
-		lblTitre.setForeground(Color.WHITE);
-		lblTitre.setBounds(70, 61, 711, 37);
+		lblTitre.setForeground(new Color(255, 215, 0));
+		lblTitre.setBounds(70, 44, 711, 37);
 		contentPanel.add(lblTitre);
 		
 		
 		JLabel lblSaisieNom = new JLabel("Saisir le nom");
-		lblSaisieNom.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisieNom.setForeground(Color.WHITE);
+		lblSaisieNom.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisieNom.setForeground(new Color(128, 0, 0));
 		lblSaisieNom.setBounds(158, 125, 160, 16);
 		contentPanel.add(lblSaisieNom);
 		
 		JLabel lblSaisiePrenom = new JLabel("Saisir le prénom");
-		lblSaisiePrenom.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisiePrenom.setForeground(Color.WHITE);
+		lblSaisiePrenom.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisiePrenom.setForeground(new Color(128, 0, 0));
 		lblSaisiePrenom.setBounds(158, 180, 178, 16);
 		contentPanel.add(lblSaisiePrenom);
 		
 		JLabel lblSaisiePoste = new JLabel("Saisir le poste occupé");
-		lblSaisiePoste.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisiePoste.setForeground(Color.WHITE);
+		lblSaisiePoste.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisiePoste.setForeground(new Color(128, 0, 0));
 		lblSaisiePoste.setBounds(158, 235, 178, 16);
 		contentPanel.add(lblSaisiePoste);
 		
 		JLabel lblSaisieDroit = new JLabel("Sélectionner le droit d'accès");
-		lblSaisieDroit.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisieDroit.setForeground(Color.WHITE);
+		lblSaisieDroit.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisieDroit.setForeground(new Color(128, 0, 0));
 		lblSaisieDroit.setBounds(158, 290, 225, 16);
 		contentPanel.add(lblSaisieDroit);
 		
 		JLabel lblSaisieLogin = new JLabel("Saisir un login");
-		lblSaisieLogin.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisieLogin.setForeground(Color.WHITE);
+		lblSaisieLogin.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisieLogin.setForeground(new Color(128, 0, 0));
 		lblSaisieLogin.setBounds(158, 345, 178, 16);
 		contentPanel.add(lblSaisieLogin);
 		
 		JLabel lblSaisieMDP = new JLabel("Saisir un mot de passe");
-		lblSaisieMDP.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-		lblSaisieMDP.setForeground(Color.WHITE);
+		lblSaisieMDP.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblSaisieMDP.setForeground(new Color(128, 0, 0));
 		lblSaisieMDP.setBounds(158, 400, 178, 16);
 		contentPanel.add(lblSaisieMDP);
 		
@@ -113,26 +114,36 @@ public class JDialogEmployeAjout extends JDialog {
 //JTEXTFIELDS //////////////////////////////////////////////////////////////////////////////////////////////		
 		
 		txtSaisieNom = new JTextField();
+		txtSaisieNom.setForeground(new Color(128, 0, 0));
+		txtSaisieNom.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisieNom.setBounds(395, 120, 300, 26);
 		contentPanel.add(txtSaisieNom);
 		txtSaisieNom.setColumns(10);
 		
 		txtSaisiePrenom = new JTextField();
+		txtSaisiePrenom.setForeground(new Color(128, 0, 0));
+		txtSaisiePrenom.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisiePrenom.setColumns(10);
 		txtSaisiePrenom.setBounds(395, 175, 300, 26);
 		contentPanel.add(txtSaisiePrenom);
 		
 		txtSaisiePoste = new JTextField();
+		txtSaisiePoste.setForeground(new Color(128, 0, 0));
+		txtSaisiePoste.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisiePoste.setColumns(10);
 		txtSaisiePoste.setBounds(395, 230, 300, 26);
 		contentPanel.add(txtSaisiePoste);
 		
 		txtSaisieLogin = new JTextField();
+		txtSaisieLogin.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		txtSaisieLogin.setForeground(new Color(128, 0, 0));
 		txtSaisieLogin.setColumns(10);
 		txtSaisieLogin.setBounds(395, 340, 300, 26);
 		contentPanel.add(txtSaisieLogin);
 		
 		txtSaisieMDP = new JTextField();
+		txtSaisieMDP.setForeground(new Color(128, 0, 0));
+		txtSaisieMDP.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisieMDP.setColumns(10);
 		txtSaisieMDP.setBounds(395, 395, 300, 26);
 		contentPanel.add(txtSaisieMDP);
@@ -152,62 +163,63 @@ public class JDialogEmployeAjout extends JDialog {
 		}
 		
 		JComboBox cmbBxAcces = new JComboBox(cmbBxAccesModel);
+		cmbBxAcces.setSelectedIndex(-1);
+		cmbBxAcces.setForeground(new Color(128, 0, 0));
+		cmbBxAcces.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		cmbBxAcces.setBounds(395, 285, 300, 27);
 		contentPanel.add(cmbBxAcces);
-
+		{
+			JButton okButton = new JButton("OK");
+			okButton.setBounds(624, 488, 71, 37);
+			contentPanel.add(okButton);
+			okButton.setForeground(new Color(128, 0, 0));
+			okButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+			okButton.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String acces = cmbBxAcces.getSelectedItem().toString();
+					String nom = txtSaisieNom.getText().toString();
+					String prenom = txtSaisiePrenom.getText().toString();
+					String poste = txtSaisiePoste.getText().toString();
+					String log = txtSaisieLogin.getText().toString();
+					String mdp = txtSaisieMDP.getText().toString();
+					if(!acces.isEmpty() && !nom.isEmpty() && !prenom.isEmpty() && !poste.isEmpty() && !log.isEmpty() && !mdp.isEmpty()) {
+						try {
+								employeDao.ajouterEmploye(acces, nom, prenom, poste, log, mdp);
+								JOptionPane.showMessageDialog(null, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							//e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(new JDialogEmployeAjout(), "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			});
+			okButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
 		
-//JBUTTON //////////////////////////////////////////////////////////////////////////////////////////////		
+		
+		
 		
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 488, 800, 39);
-			contentPanel.add(buttonPane);
-			buttonPane.setBackground(Color.DARK_GRAY);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String acces = cmbBxAcces.getSelectedItem().toString();
-						String nom = txtSaisieNom.getText().toString();
-						String prenom = txtSaisiePrenom.getText().toString();
-						String poste = txtSaisiePoste.getText().toString();
-						String log = txtSaisieLogin.getText().toString();
-						String mdp = txtSaisieMDP.getText().toString();
-						if(!acces.isEmpty() && !nom.isEmpty() && !prenom.isEmpty() && !poste.isEmpty() && !log.isEmpty() && !mdp.isEmpty()) {
-							try {
-									employeDao.ajouterEmploye(acces, nom, prenom, poste, log, mdp);
-									JOptionPane.showMessageDialog(null, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								//e1.printStackTrace();
-								JOptionPane.showMessageDialog(null, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
-							}
-						}else {
-							JOptionPane.showMessageDialog(new JDialogEmployeAjout(), "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
-						}
-					}
-				});
-				okButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			
-			
-			
-			
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setBounds(710, 488, 71, 37);
+			contentPanel.add(cancelButton);
+			cancelButton.setForeground(new Color(128, 0, 0));
+			cancelButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+			cancelButton.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			cancelButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
+			cancelButton.setActionCommand("Cancel");
 		}
 	}
 }

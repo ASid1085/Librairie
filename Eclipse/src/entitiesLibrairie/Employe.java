@@ -25,7 +25,14 @@ public class Employe {
 	}
 
 
-	
+	/*public Employe (String droitsAcces, String employeNom, String employePrenom, String employePoste) {
+		this.droitsAcces = droitsAcces;
+		this.employeNom = employeNom;
+		this.employePrenom = employePrenom;
+		this.employePoste = employePoste;
+		this.employeLog = employeLog;
+		this.employeMdp = employeMdp;
+	}*/
 
 
 	public Employe(String droitsAcces, String employeNom, String employePrenom, String employePoste, String employeLog,
@@ -38,20 +45,32 @@ public class Employe {
 		this.employeLog = employeLog;
 		this.employeMdp = employeMdp;
 	}
-
-
-
-	public Employe(String employeId, String droitDaccesId, String employeNom, String employePrenom, String employePoste,
-			String employeLog, String employeMdp) {
+	
+	public Employe(String employeId, String employeNom, String employePrenom, String employePoste, String employeLog,
+			String employeMdp, String droitsAcces) {
 		super();
 		this.employeId = employeId;
-		this.droitDaccesId = droitDaccesId;
 		this.employeNom = employeNom;
 		this.employePrenom = employePrenom;
 		this.employePoste = employePoste;
 		this.employeLog = employeLog;
 		this.employeMdp = employeMdp;
+		this.droitsAcces = droitsAcces;
 	}
+
+
+
+	/*public Employe(String employeId, String employeNom, String employePrenom, String employePoste,
+			String employeLog, String employeMdp, String droitsAcces) {
+		super();
+		this.employeId = employeId;
+		this.employeNom = employeNom;
+		this.employePrenom = employePrenom;
+		this.employePoste = employePoste;
+		this.employeLog = employeLog;
+		this.employeMdp = employeMdp;
+		this.droitsAcces = droitsAcces;
+	}*/
 
 
 	public String getEmployeId() {

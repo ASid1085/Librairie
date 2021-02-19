@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoClient;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

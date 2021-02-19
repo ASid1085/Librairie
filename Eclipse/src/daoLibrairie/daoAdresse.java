@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Adresse;
-import entitesLibrairie.Commande;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Commande;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoAdresse;
 
 public class daoAdresse implements iDaoAdresse {

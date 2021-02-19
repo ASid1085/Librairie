@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 
 
 public interface iDaoGenre {

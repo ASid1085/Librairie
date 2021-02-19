@@ -4,7 +4,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import entitesLibrairie.Commande;
+
+import entitiesLibrairie.Commande;
 
 public interface iDaoCommande {
 

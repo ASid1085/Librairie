@@ -38,7 +38,6 @@ public class EvenementDAO implements IEvenementDAO {
 			id = result.getString("EVENEMENTID");
 		}
 		id = id.substring(0, 5);
-		System.out.println(id);
 		int change= Integer.parseInt(id);
 		change = change + 1;
 		idNouveau = "0000" + change + "EVE";
@@ -60,7 +59,7 @@ public class EvenementDAO implements IEvenementDAO {
 	}
 
 	@Override
-	public Vector<Vector> afficherEvenement() throws SQLException {
+	public Vector<Vector> afficherEvenements() throws SQLException {
 		// TODO Auto-generated method stub
 		Vector<Vector> vecteur = new  Vector();
 		stmt = myConnection.createStatement();
@@ -112,18 +111,9 @@ public class EvenementDAO implements IEvenementDAO {
 	}
 
 	@Override
-	public void modifierEvenement(Evenement evenement, String nom)  throws SQLException{
+	public void modifierEvenement(Evenement evenement, String id)  throws SQLException{
 		// TODO Auto-generated method stub
-		
-		Statement stmtt = myConnection.createStatement();
-		String queryy = "SELECT EVENEMENTID FROM EVENEMENT E"
-				+ " INNER JOIN VIEW_INTERVALLE V"
-				+ " ON E.EVENEMENTNOM = V.EVENEMENTNOM"
-				+ " WHERE V.EVENEMENTNOM ='" +nom+"';";
-		ResultSet resultt = stmtt.executeQuery(queryy);
-		while (resultt.next()) {
-			evenement.setEvenementId(resultt.getString("EVENEMENTID"));
-		}
+
 		
 		String query = "UPDATE EVENEMENT SET "
 				+ "EVENEMENTNOM = '" + evenement.getEvenementNom() + "', "
@@ -136,14 +126,52 @@ public class EvenementDAO implements IEvenementDAO {
 				+ "WHERE EVENEMENTID = '" + evenement.getEvenementId()+"';";
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
+
 	}
+	
 
 	@Override
 	public void supprimerEvenement(String nom) throws SQLException {
 		// TODO Auto-generated method stub
-		String query = "DELETE FROM EVENEMENT WHERE EVENEMENTNOM ='" + nom + "';";
+		String query = "DELETE FROM EVENEMENT WHERE EVENEMENTNOM =\"" + nom + "\";";
 		ptsmt = myConnection.prepareStatement(query);
 		ptsmt.executeUpdate();
+	}
+
+	@Override
+	public Evenement afficherEvenement(String nom) throws SQLException {
+		
+		Evenement evenement = new Evenement();
+		String id = "";
+		Statement stmtt = myConnection.createStatement();
+		String queryy = "SELECT EVENEMENTID FROM EVENEMENT E"
+				+ " INNER JOIN VIEW_INTERVALLE V"
+				+ " ON E.EVENEMENTNOM = V.EVENEMENTNOM"
+				+ " WHERE V.EVENEMENTNOM ='" +nom+"';";
+		ResultSet resultt = stmtt.executeQuery(queryy);
+		while (resultt.next()) {
+			id = resultt.getString("EVENEMENTID");
+		}
+		
+		
+		Statement stmt = myConnection.createStatement();
+		String query = "SELECT EVENEMENTID, EVENEMENTNOM, EVENEMENTDATEDEBUT, EVENEMENTDATEFIN, "
+				+ "EVENEMENTPOURCENTAGE, EVENMENTCODEPROMO, EVENEMENTIMAGE, EVENEMENTCOMMENT "
+				+ "FROM EVENEMENT WHERE EVENEMENTID = '" +id+ "';";
+		ResultSet res = stmt.executeQuery(query);
+		while(res.next()) {
+			evenement.setEvenementId(id);
+			evenement.setEvenementNom(res.getString("EVENEMENTNOM"));
+			evenement.setEvenementDateDebut(res.getDate("EVENEMENTDATEDEBUT"));
+			evenement.setEvenementDateFin(res.getDate("EVENEMENTDATEFIN"));
+			evenement.setEvenementPourcentage(res.getFloat("EVENEMENTPOURCENTAGE"));
+			evenement.setEvenementCodePromo(res.getString("EVENMENTCODEPROMO"));
+			evenement.setEvenementImage(res.getString("EVENEMENTIMAGE"));
+			evenement.setEvenementComment(res.getString("EVENEMENTCOMMENT"));
+		}
+		
+	
+		return evenement;
 	}
 
 

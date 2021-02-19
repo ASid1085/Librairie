@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import daoLibrairie.daoAdresse;
-import entitesLibrairie.Adresse;
+import entitiesLibrairie.Adresse;
 
 public class JFrameListeAdresse extends JFrame {
 

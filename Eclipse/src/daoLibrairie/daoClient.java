@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Client;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Client;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoClient;
 
 public class daoClient implements iDaoClient{

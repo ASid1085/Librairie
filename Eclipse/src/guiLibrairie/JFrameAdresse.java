@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoAdresse;
-import entitesLibrairie.Adresse;
-import entitesLibrairie.Client;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
 
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
