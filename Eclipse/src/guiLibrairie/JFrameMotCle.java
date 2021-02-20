@@ -107,9 +107,9 @@ public class JFrameMotCle extends JFrame {
 						daoMc.modifierMotCle( mc, motCleLib);
 						setVisible( false);
 						dispose();
-						JFrameListeCategorie lc = new JFrameListeCategorie();
-						lc.setLocationRelativeTo( lc.getParent());
-						lc.setVisible( true);
+						//JFrameListeCategorie lc = new JFrameListeCategorie();
+						//lc.setLocationRelativeTo( lc.getParent());
+						//lc.setVisible( true);
 
 					} catch (SQLException e1) {
 						System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");

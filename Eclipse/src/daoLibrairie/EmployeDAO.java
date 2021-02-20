@@ -66,7 +66,7 @@ public class EmployeDAO implements IEmployeDAO {
 	
 	
 	@Override
-	public Vector<Vector> afficherEmploye() throws SQLException {
+	public Vector<Vector> afficherEmployes() throws SQLException {
 		// TODO Auto-generated method stub
 		Vector <Vector> vecteur = new Vector <Vector> ();
 		stmt = myConnection.createStatement();
@@ -178,6 +178,7 @@ public class EmployeDAO implements IEmployeDAO {
 		while(result.next()) {
 			employe.setDroitDaccesId(result.getString("DROITDACCESID"));
 		}
+		
 
 		Statement stmtt = myConnection.createStatement();
 		String queryy = "SELECT EMPLOYEID FROM EMPLOYE WHERE EMPLOYELOG ='" +log+"';";
@@ -185,6 +186,7 @@ public class EmployeDAO implements IEmployeDAO {
 		while (resultt.next()) {
 			employe.setEmployeId(resultt.getString("EMPLOYEID"));
 		}
+		
 	
 		String update = "UPDATE EMPLOYE "
 				+ "SET DROITDACCESID ='"+ employe.getDroitDaccesId() + "', "
@@ -196,31 +198,56 @@ public class EmployeDAO implements IEmployeDAO {
 				+ "WHERE EMPLOYEID = '" + employe.getEmployeId() + "';";
 		ptsmt = myConnection.prepareStatement(update);
 		ptsmt.executeUpdate();
+		
 	}
 
 	@Override
-	public void supprimerEmploye(String log) throws SQLException{
+	public void supprimerEmploye(String nom, String prenom) throws SQLException{
 		// TODO Auto-generated method stub
-		String delete = "DELETE FROM EMPLOYE WHERE EMPLOYELOG = '" + log +"';";
+		String log = "";
+		stmt = myConnection.createStatement();
+		String query = "SELECT EMPLOYELOG FROM EMPLOYE WHERE EMPLOYENOM ='" + nom+ "' AND EMPLOYEPRENOM = '" +prenom+ "';";
+		ResultSet result = stmt.executeQuery(query);
+		while(result.next()) {
+			log = result.getString("EMPLOYELOG");
+		}
+
+		
+		String id = "";
+		Statement stmtt = myConnection.createStatement();
+		String queryy = "SELECT EMPLOYEID FROM EMPLOYE WHERE EMPLOYELOG ='" +log+"';";
+		ResultSet resultt = stmtt.executeQuery(queryy);
+		while (resultt.next()) {
+			id = resultt.getString("EMPLOYEID");
+		}
+
+		
+		String delete = "DELETE FROM EMPLOYE WHERE EMPLOYEID = '" + id +"';";
 		ptsmt = myConnection.prepareStatement(delete);
 		ptsmt.executeUpdate();
+
 	}
 
 	@Override
-	public Employe authentification(String id, String mdp) throws SQLException{
+	public Employe authentification(String log, String mdp) throws SQLException{
 		// TODO Auto-generated method stub
 		stmt = myConnection.createStatement();
+		//String query = "SELECT EMPLOYEID, EMPLOYENOM, EMPLOYEPRENOM, EMPLOYEPOSTE, EMPLOYELOG, EMPLOYEMDP, DROITDACCESLIBELLE "
 		String query = "SELECT EMPLOYELOG, EMPLOYEMDP, DROITDACCESLIBELLE "
 				+ "FROM EMPLOYE E "
 				+ "JOIN DROITS_D_ACCES D "
 				+ "ON E.DROITDACCESID = D.DROITDACCESID "
-				+ "WHERE EMPLOYELOG ='" +id+"' AND EMPLOYEMDP ='" +mdp+ "';";
+				+ "WHERE EMPLOYELOG ='" +log+"' AND EMPLOYEMDP ='" +mdp+ "';";
 		ResultSet result = stmt.executeQuery(query);
 		while (result.next()) {
-			id = result.getString("EMPLOYELOG"); 
-			mdp = result.getString("EMPLOYEMDP"); 
+			//String id = result.getString("EMPLOYEID");
+			//String nom = result.getString("EMPLOYENOM");
+			//String prenom = result.getString("EMPLOYEPRENOM");
+			//String poste = result.getString("EMPLOYEPOSTE");
+			String login = result.getString("EMPLOYELOG"); 
+			String pass = result.getString("EMPLOYEMDP"); 
 			String acces = result.getString("DROITDACCESLIBELLE");
-			employe = new Employe (id, mdp, acces);
+			employe = new Employe (/*id, nom, prenom,*/ login, pass, acces);
 			
 		}
 		return employe;
@@ -240,6 +267,54 @@ public class EmployeDAO implements IEmployeDAO {
 		}
 		return vecteur;
 	}
+
+	@Override
+	public Employe afficherEmploye (String nom, String prenom) throws SQLException {
+		Employe employe = new Employe();
+		stmt = myConnection.createStatement();
+		String query = "SELECT DROITDACCESLIBELLE, EMPLOYENOM, EMPLOYEPRENOM, EMPLOYEPOSTE, EMPLOYELOG, EMPLOYEMDP"
+				+ " FROM EMPLOYE E"
+				+ " JOIN DROITS_D_ACCES D"
+				+ " ON E.DROITDACCESID = D.DROITDACCESID "
+				+ " WHERE EMPLOYENOM = '" +nom+ "' AND EMPLOYEPRENOM = '"+prenom+"';";
+		ResultSet res = stmt.executeQuery(query);
+		while (res.next()) {
+			employe.setDroitsAcces(res.getString("DROITDACCESLIBELLE")) ;
+			employe.setEmployeNom(res.getString("EMPLOYENOM")) ;
+			employe.setEmployePrenom(res.getString("EMPLOYEPRENOM"));
+			employe.setEmployePoste(res.getString("EMPLOYEPOSTE"));
+			employe.setEmployeLog(res.getString("EMPLOYELOG"));
+			employe.setEmployeMdp(res.getString("EMPLOYEMDP"));
+		}
+		
+		return employe;
+	}
+
+	/*@Override
+	public Employe employeATraiter(String login, String mdp) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		Employe employe = new Employe();
+
+		Statement stmtt = myConnection.createStatement();
+		String queryy = "SELECT EMPLOYEID, DROITDACCESLIBELLE, EMPLOYENOM, EMPLOYEPRENOM, EMPLOYEPOSTE, EMPLOYELOG, EMPLOYEMDP"
+				+ "FROM EMPLOYE E "
+				+ "JOIN DROITS_D_ACCES D "
+				+ "ON E.DROITDACCESID = D.DROITDACCESID  "
+				+ "WHERE EMPLOYELOG = '" +login+ "' AND EMPLOYEMDP = '"+mdp+"';";
+		ResultSet res = stmtt.executeQuery(queryy);
+		while (res.next()) {
+			employe.setEmployeId(res.getString("EMPLOYEID"));
+			employe.setDroitsAcces(res.getString("DROITDACCESLIBELLE")) ;
+			employe.setEmployeNom(res.getString("EMPLOYENOM")) ;
+			employe.setEmployePrenom(res.getString("EMPLOYEPRENOM"));
+			employe.setEmployePoste(res.getString("EMPLOYEPOSTE"));
+			employe.setEmployeLog(res.getString("EMPLOYELOG"));
+			employe.setEmployeMdp(res.getString("EMPLOYEMDP"));
+		}
+		
+		return employe;
+	}*/
 
 
 	

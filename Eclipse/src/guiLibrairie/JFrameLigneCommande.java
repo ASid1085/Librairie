@@ -13,6 +13,8 @@ import entitiesLibrairie.Client;
 import entitiesLibrairie.Commande;
 import entitiesLibrairie.LigneCommande;
 import entitiesLibrairie.LivreLilia;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
 
 import java.awt.event.*;
 import java.sql.*;

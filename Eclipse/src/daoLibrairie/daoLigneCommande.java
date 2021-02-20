@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
+import entitiesLibrairie.Adresse;
 import entitiesLibrairie.LigneCommande;
 import interfaceDaoLibrairie.iDaoLigneCommande;
 
