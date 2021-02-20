@@ -42,13 +42,24 @@ public class daoGenre implements iDaoGenre {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		return id;
 	}
 
+	public void lierGenreTheme( String idTheme, String idGenre) throws SQLException {
 
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into POSSEDER values ('" + idTheme + "', '" + idTheme + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+
+	
 	@Override
 	public void ajouterGenre( Genre genre) throws SQLException {
 		

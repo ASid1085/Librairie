@@ -24,6 +24,7 @@ public class LigneCommande {
 		this.ligneCdeTvaAppliquee = ligneCdeTvaAppliquee;
 		this.ligneCdeRemise = ligneCdeRemise;
 		this.clientLogin = clientLogin;
+	}
 	
 	public LigneCommande(String ligneCdeId, float ligneCdeQte, float ligneCdePrixHt, float ligneCdeTvaAppliquee) {
 		super();

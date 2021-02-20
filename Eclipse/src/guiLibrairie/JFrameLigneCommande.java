@@ -6,12 +6,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
+import daoLibrairie.EvenementDAO;
+import daoLibrairie.LivreDAO;
 import daoLibrairie.daoCommande;
 import daoLibrairie.daoLigneCommande;
 import entitiesLibrairie.Adresse;
 import entitiesLibrairie.Client;
 import entitiesLibrairie.Commande;
 import entitiesLibrairie.LigneCommande;
+import entitiesLibrairie.Livre;
 import entitiesLibrairie.LivreLilia;
 import entitiesLibrairie.Adresse;
 import entitiesLibrairie.Client;
@@ -31,9 +34,12 @@ public class JFrameLigneCommande extends JFrame {
 	private JTextField txtPortHt;
 	private JTextField txtRemiseHt;
 	private JTextField txtTotalHtApresRemise;
-	private JTextField txtTxTva;
 	private JTextField txtTotalTtc;
 	private JTextField txtLoginClient;
+	private JTextField txtTotalHtAvtRemise;
+	private JTextField txtNumCde;
+	private JTextField txtCdeDate;
+	private JTextField txtDateStatut;
 	private JLabel lblNomAdrFact;
 	private JLabel lblRueAdrFact;
 	private JLabel lblComplAdrFact;
@@ -63,6 +69,8 @@ public class JFrameLigneCommande extends JFrame {
 	private DefaultTableModel dtm = new DefaultTableModel( dtm(), 100);
 	private daoCommande daoCde = new daoCommande();
 	private daoLigneCommande daoLigCde = new daoLigneCommande();
+	private LivreDAO daoLivre = new LivreDAO();
+	private EvenementDAO daoEve = new EvenementDAO();
 	//private String tabPaiement [] = { "--", };
 	private Container parent = this;
 	private JFrameLigneCommande thisJF = (JFrameLigneCommande) parent;
@@ -72,6 +80,7 @@ public class JFrameLigneCommande extends JFrame {
 		nomColonne.add( "n° ISBN");
 		nomColonne.add( "Livre");
 		nomColonne.add( "Tarif unitaire HT");
+		nomColonne.add( "Remise");
 		nomColonne.add( "Qté");
 		nomColonne.add( "Total HT");
 		return nomColonne;
@@ -131,84 +140,6 @@ public class JFrameLigneCommande extends JFrame {
 	}
 	
 	/**
-	 * Méthode à supprimer une fois la mise en commun effectué
-	 */
-	
-	private Statement stmt;
-	private ResultSet rs;
-	private PreparedStatement pstmt;
-	static private Connection myConnexion;
-	private JTextField txtTotalHtAvtRemise;
-	private JTextField txtNumCde;
-	private JTextField txtCdeDate;
-	private JTextField txtDateStatut;
-	
-	public Vector<String> vectorListLivre() throws SQLException {
-		Vector<String> vLiv = new Vector<>();
-
-		myConnexion = Connexion.getInstance();
-		
-		String query =	"select * from LIVRE order by LIVRETITRE;";
-
-		try {
-			stmt = myConnexion.createStatement();
-			rs = stmt.executeQuery( query);
-			while ( rs.next()) {
-				vLiv.add( rs.getString( "LIVRETITRE"));
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return vLiv;
-	}
-
-	public Float recupPrixHt(String titre) throws SQLException {
-		Float tarif = null;
-
-		myConnexion = Connexion.getInstance();
-
-		String query = "select LIVREPRIXHT from LIVRE where LIVRETITRE = '" + titre.replace( "'", "''") + "';";
-		try {
-			stmt = myConnexion.createStatement();
-			ResultSet rs = stmt.executeQuery( query);
-			while ( rs.next()) {
-				tarif = rs.getFloat( "LIVREPRIXHT");
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException ex) {
-			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
-		}
-		return tarif;
-	}
-	
-	public String recupIsbn(String titre) throws SQLException {
-		String isbn = null;
-
-		myConnexion = Connexion.getInstance();
-
-		String query = "select LIVREISBN from LIVRE where LIVRETITRE = '" + titre.replace( "'", "''") + "';";
-		try {
-			stmt = myConnexion.createStatement();
-			ResultSet rs = stmt.executeQuery( query);
-			while ( rs.next()) {
-				isbn = rs.getString( "LIVREISBN");
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException ex) {
-			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
-		}
-		return isbn;
-	}
-	
-	
-	/*********************************************************************/
-	
-	
-	/**
 	 * Create the frame.
 	 */
 	public JFrameLigneCommande( String etat) {
@@ -240,25 +171,24 @@ public class JFrameLigneCommande extends JFrame {
 		lblPrixHt.setBounds(471, 6, 77, 20);
 		panelHaut.add(lblPrixHt);
 
-
 		try {
-			vLivre = vectorListLivre();
+			vLivre = daoLivre.vectorListLivre();
 		} catch (SQLException e3) {
-			// TODO Bloc catch généré automatiquement
 			e3.printStackTrace();
 		} 
 		JComboBox cmbBoxLivre = new JComboBox( vLivre);
+		cmbBoxLivre.setSelectedIndex(-1);
 		cmbBoxLivre.setMaximumRowCount(1000);
 		cmbBoxLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		cmbBoxLivre.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String selectLiv = (String) cmbBoxLivre.getSelectedItem();
-				LivreLilia liv = new LivreLilia();
 				try {
-					Float prixUnitHt = recupPrixHt( selectLiv);
-					//Float prixUnitTtc = prixUnitHt * (110/100);
+					Float prixUnitHt = daoLivre.recupPrixHt( selectLiv);
+					Float txTva = daoLivre.recupererTVA( selectLiv.replace( "'", "''"));
+					Float prixUnitTtc = prixUnitHt * (1 + txTva/100);
 					lblPrixHt.setText( df.format( prixUnitHt));
-					lblPrixTtc.setText( df.format( prixUnitHt * 110/100));
+					lblPrixTtc.setText( df.format( prixUnitTtc));
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -269,7 +199,6 @@ public class JFrameLigneCommande extends JFrame {
 		
 		JLabel lblPrixUnitHt = new JLabel("Tarif HT :");
 		lblPrixUnitHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		
 		lblPrixUnitHt.setBounds(416, 6, 59, 20);
 		panelHaut.add(lblPrixUnitHt);
 		
@@ -311,31 +240,46 @@ public class JFrameLigneCommande extends JFrame {
 					String sRecupTotHtSupp = (String) table.getValueAt( rowSelect, 4);
 					float recupTotHtSupp = Float.parseFloat( sRecupTotHtSupp.replace(",", "."));
 					float recupTotCdeHt = Float.parseFloat( sRecupTotCdeHt.replace(",", "."));
+					String sRecupLivre = (String) table.getValueAt( rowSelect, 1);
+					float txTva = 0;
+					try {
+						txTva = daoLivre.recupererTVA( sRecupLivre);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					String sTxTva = String.valueOf( txTva).replace( ".", ",") + "€";
 					
 					dtm.removeRow( rowSelect);
-					totCdeHtAvRem =  recupTotCdeHt - recupTotHtSupp;
+					totCdeHtAvRem = recupTotCdeHt - recupTotHtSupp;
 					txtTotalHtAvtRemise.setText( df.format( totCdeHtAvRem));
 					totCdeHtApRem = totCdeHtAvRem;
 					txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-					txtTxTva.setText( "10 %");
-					totCdeTtc = totCdeHtApRem * 110/100;
+					totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 					txtTotalTtc.setText( df.format( totCdeTtc));
 					if ( totCdeHtAvRem < 30.0) {
 						txtTotalHtAvtRemise.setText( df.format( totCdeHtAvRem));
 						txtRemiseHt.setText( "0,00");
-						remise = Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
+						try {
+							remise = daoEve.recupRemise();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						} //Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
 						totCdeHtApRem = (totCdeHtAvRem - (totCdeHtAvRem * remise/100)) + 10;
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					} else {
 						txtTotalHtAvtRemise.setText( df.format( totCdeHtAvRem));
 						txtPortHt.setText( "0,00");
 						txtRemiseHt.setText( "5,00");
-						remise = Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
+						try {
+							remise = daoEve.recupRemise();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
 						totCdeHtApRem = (totCdeHtAvRem - (totCdeHtAvRem * remise/100));
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					}
 					if ( txtTotalHtAvtRemise.getText().equals( ",00")) {
@@ -347,14 +291,12 @@ public class JFrameLigneCommande extends JFrame {
 						txtTotalHtAvtRemise.setText( "");
 						txtRemiseHt.setText( "");
 						txtTotalHtApresRemise.setText( "");
-						txtTxTva.setText( "");
 						txtTotalTtc.setText( "");
 					}
 					nbRow --;
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog( null, "Merci de selectionner une ligne de commande à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
-				
 			}
 		});
 		btnRemoveLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/moins12px.png"));
@@ -376,7 +318,6 @@ public class JFrameLigneCommande extends JFrame {
 				txtTotalHtAvtRemise.setText( "");
 				txtRemiseHt.setText( "");
 				txtTotalHtApresRemise.setText( "");
-				txtTxTva.setText( "");
 				txtTotalTtc.setText( "");
 				nbRow = 0;
 			}
@@ -477,65 +418,52 @@ public class JFrameLigneCommande extends JFrame {
 		JLabel lblPortHt = new JLabel("Frais port HT :");
 		lblPortHt.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPortHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblPortHt.setBounds(557, 50, 103, 16);
+		lblPortHt.setBounds(557, 56, 103, 16);
 		panelBas.add(lblPortHt);
 		
 		txtPortHt = new JTextField();
 		txtPortHt.setEditable(false);
 		txtPortHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtPortHt.setBounds(672, 45, 77, 26);
+		txtPortHt.setBounds(672, 51, 77, 26);
 		panelBas.add(txtPortHt);
 		txtPortHt.setColumns(10);
 		
 		JLabel lblRemise = new JLabel("Remise % :");
 		lblRemise.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRemise.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblRemise.setBounds(564, 84, 96, 16);
+		lblRemise.setBounds(564, 94, 96, 16);
 		panelBas.add(lblRemise);
 		
 		txtRemiseHt = new JTextField();
 		txtRemiseHt.setEditable(false);
 		txtRemiseHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtRemiseHt.setBounds(675, 79, 77, 26);
+		txtRemiseHt.setBounds(672, 89, 77, 26);
 		panelBas.add(txtRemiseHt);
 		txtRemiseHt.setColumns(10);
 		
 		JLabel lblTotalHT = new JLabel("Total HT après remise :");
 		lblTotalHT.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalHT.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTotalHT.setBounds(515, 116, 145, 26);
+		lblTotalHT.setBounds(515, 127, 145, 31);
 		panelBas.add(lblTotalHT);
 		
 		txtTotalHtApresRemise = new JTextField();
 		txtTotalHtApresRemise.setEditable(false);
 		txtTotalHtApresRemise.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTotalHtApresRemise.setBounds(675, 116, 77, 26);
+		txtTotalHtApresRemise.setBounds(672, 127, 77, 26);
 		panelBas.add(txtTotalHtApresRemise);
 		txtTotalHtApresRemise.setColumns(10);
-		
-		JLabel lblTxTva = new JLabel("Taux TVA :");
-		lblTxTva.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTxTva.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTxTva.setBounds(557, 149, 103, 26);
-		panelBas.add(lblTxTva);
-		
-		txtTxTva = new JTextField();
-		txtTxTva.setEditable(false);
-		txtTxTva.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTxTva.setBounds(675, 149, 77, 26);
-		panelBas.add(txtTxTva);
-		txtTxTva.setColumns(10);
 		
 		JLabel lblTotalTtc = new JLabel("Total TTC :");
 		lblTotalTtc.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTotalTtc.setBounds(557, 187, 103, 16);
+		lblTotalTtc.setBounds(557, 165, 103, 16);
 		panelBas.add(lblTotalTtc);
 		
 		txtTotalTtc = new JTextField();
 		txtTotalTtc.setEditable(false);
 		txtTotalTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtTotalTtc.setBounds(675, 185, 77, 26);
+		txtTotalTtc.setBounds(672, 160, 77, 26);
 		panelBas.add(txtTotalTtc);
 		txtTotalTtc.setColumns(10);
 		
@@ -544,24 +472,22 @@ public class JFrameLigneCommande extends JFrame {
 		btnAddLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plus32px.png"));
 		btnAddLivre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				String sLivre = (String) cmbBoxLivre.getSelectedItem();
 				String sIsbn = "";
 				try {
-					sIsbn = recupIsbn( sLivre);
+					sIsbn = daoLivre.recupIsbn( sLivre);
 				} catch (SQLException e2) {
 					e2.printStackTrace();
 				}
 				int iQte = (int) spinner.getValue();
 				float prixHt = 0;
 				try {
-					prixHt = recupPrixHt( sLivre);
+					prixHt = daoLivre.recupPrixHt( sLivre);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
 				
 				if ( !sLivre.equals( "") && (Integer) spinner.getValue() > 0) {
-
 					boolean doublon = false;
 					int indexDoub = 0;
 					if ( table.getRowCount() >=0) {
@@ -576,7 +502,14 @@ public class JFrameLigneCommande extends JFrame {
 					}
 					totCdeHtAvRem = 0;
 					totCdeHtApRem = 0;
-					totCdeTtc = 0;
+					String sRecupLivre = (String) table.getValueAt( indexDoub, 1);
+					float txTva = 0;
+					try {
+						txTva = daoLivre.recupererTVA( sRecupLivre);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					String sTxTva = String.valueOf( txTva).replace( ".", ",");
 					
 					if ( !doublon) {
 						table.setValueAt( sIsbn, nbRow, 0);
@@ -591,8 +524,7 @@ public class JFrameLigneCommande extends JFrame {
 						txtTotalHtAvtRemise.setText( df.format( totCdeHtAvRem));
 						totCdeHtApRem = totCdeHtAvRem;
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						txtTxTva.setText( "10 %");
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 						nbRow ++;
 					}
@@ -606,29 +538,35 @@ public class JFrameLigneCommande extends JFrame {
 						txtTotalHtAvtRemise.setText( df.format( totCdeHtAvRem));
 						totCdeHtApRem = totCdeHtAvRem;
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						txtTxTva.setText( "10 %");
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					}
 					
 					String recupTotCdeHt = txtTotalHtAvtRemise.getText().replace(",", ".");
 					
 					if ( Float.parseFloat( recupTotCdeHt) < 30.0) {
-
 						txtPortHt.setText( "10,00");
 						txtRemiseHt.setText( "0,00");
-						remise = Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
+						try {
+							remise = daoEve.recupRemise();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						} //Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
 						totCdeHtApRem = (totCdeHtAvRem - (totCdeHtAvRem * remise/100)) + 10;
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					} else {
 						txtPortHt.setText( "0,00");
 						txtRemiseHt.setText( "5,00");
-						remise = Float.parseFloat( txtRemiseHt.getText().replace( ",", "."));
+						try {
+							remise = daoEve.recupRemise();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
 						totCdeHtApRem = (totCdeHtAvRem - (totCdeHtAvRem * remise/100));
 						txtTotalHtApresRemise.setText( df.format( totCdeHtApRem));
-						totCdeTtc = totCdeHtApRem * 110/100;
+						totCdeTtc = totCdeHtApRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					}
 				}
@@ -687,7 +625,7 @@ public class JFrameLigneCommande extends JFrame {
 		JButton btnFindClt = new JButton("");
 		btnFindClt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFListClt = new JFrameListeClient( thisJF);
+				JFListClt = new JFrameListeClient( thisJF, "ChoixLogin");
 				JFListClt.setLocationRelativeTo( null);
 				JFListClt.setVisible( true);
 			}
@@ -724,7 +662,7 @@ public class JFrameLigneCommande extends JFrame {
 		panelBas.add(txtTotalHtAvtRemise);
 		
 		JLabel lblPaiement = new JLabel("Paiement :");
-		lblPaiement.setBounds(593, 226, 67, 16);
+		lblPaiement.setBounds(583, 208, 67, 16);
 		panelBas.add(lblPaiement);
 		lblPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		
@@ -732,7 +670,7 @@ public class JFrameLigneCommande extends JFrame {
 		cmbBoxPaiement.setModel(new DefaultComboBoxModel(new String[] {"en CB", "en magasin"}));
 		cmbBoxPaiement.setSelectedIndex(-1);
 		cmbBoxPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 10));
-		cmbBoxPaiement.setBounds(655, 218, 103, 36);
+		cmbBoxPaiement.setBounds(649, 198, 103, 36);
 		panelBas.add(cmbBoxPaiement);
 		
 		JLabel lblNumCde = new JLabel("N° de cde :");

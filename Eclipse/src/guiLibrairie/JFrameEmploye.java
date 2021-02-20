@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class JFrameEmploye extends JFrame {
 
@@ -256,10 +257,11 @@ public class JFrameEmploye extends JFrame {
 		
 
 //BOUTON RECHERCHER///////////////////////////////////////////////////////////////////////////////////////
-		JButton btnRechercher = new JButton("Rechercher");
-		btnRechercher.setForeground(new Color(128, 0, 0));
-		btnRechercher.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRechercher.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRechercher = new JButton("");
+		btnRechercher.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/search.png"));
+		//btnRechercher.setForeground(new Color(128, 0, 0));
+		//btnRechercher.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRechercher.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtSaisieNom.getText().length() > 0) {
@@ -288,7 +290,7 @@ public class JFrameEmploye extends JFrame {
 				
 			}
 		});
-		btnRechercher.setBounds(783, 94, 148, 61);
+		btnRechercher.setBounds(832, 94, 80, 57);
 		contentPane.add(btnRechercher);
 
 		
@@ -312,7 +314,8 @@ public class JFrameEmploye extends JFrame {
 		
 //BOUTON RAFRAICHIR ///////////////////////////////////////////////////////////////////////////////////
 		
-		JButton btnRafraichir = new JButton("Rafraichir");
+		JButton btnRafraichir = new JButton("");
+		btnRafraichir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
 		btnRafraichir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -330,10 +333,10 @@ public class JFrameEmploye extends JFrame {
 				scrollPane.setViewportView(tableEmployes);
 			}
 		});
-		btnRafraichir.setForeground(new Color(128, 0, 0));
-		btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnRafraichir.setBounds(81, 103, 117, 48);
+		//btnRafraichir.setForeground(new Color(128, 0, 0));
+		//btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnRafraichir.setBounds(81, 94, 80, 57);
 		contentPane.add(btnRafraichir);
 
 		

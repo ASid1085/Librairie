@@ -176,34 +176,53 @@ public class JFrameListeAdresse extends JFrame {
 						rowSel = tableAdr.getSelectedRow();
 						adrSelect = (String) dtm.getValueAt( rowSel, 0);
 						adr = daoAdr.findAdresseLivById( adrSelect);
-						if ( !frameCde.equals( null)) {
+						
+						try {
 							frameCde.refreshAdresseLiv( adr);
 							frameCde.repaint();
 							frameCde.setVisible( true);
-						} else {
+						} catch ( NullPointerException npe) {
+							System.out.println( "La fenêtre commande en attribut de la frame est null");
+						}
+						
+						try {
 							frameLigCde.refreshAdresseLiv( adr);
 							frameLigCde.repaint();
 							frameLigCde.setVisible( true);
+						} catch ( NullPointerException npe) {
+							System.out.println( "La fenêtre ligne de commande en attribut de la frame est null");
 						}
+						
+						
+					
 					}
 					if ( etat.equals( "Facturation")) {
 						rowSel = tableAdr.getSelectedRow();
 						adrSelect = (String) dtm.getValueAt( rowSel, 0);
 						adr = daoAdr.findAdresseFacById( adrSelect);
-						if ( !frameCde.equals( null)) {
+						
+						try {
 							frameCde.refreshAdresseFact( adr);
 							frameCde.repaint();
 							frameCde.setVisible( true);
-						} else {
+						} catch ( NullPointerException npe) {
+							System.out.println( "La fenêtre commande en attribut de la frame est null");
+						}
+						
+						try {
 							frameLigCde.refreshAdresseFact( adr);
 							frameLigCde.repaint();
 							frameLigCde.setVisible( true);
+						} catch ( NullPointerException npe) {
+							System.out.println( "La fenêtre ligne de commande en attribut de la frame est null");
 						}
+						
 					}
 					if ( tableAdr.getRowCount() > 0) {
 						dispose();
 					}
-				} catch (ArrayIndexOutOfBoundsException aioobe) {
+				} 
+				catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();

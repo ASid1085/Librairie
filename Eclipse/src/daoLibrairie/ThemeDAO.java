@@ -85,7 +85,6 @@ public class ThemeDAO implements IThemeDAO {
 		ptsmt.executeUpdate();
 	}
 	
-	
 	@Override
 	public String ajoutIdTheme() throws SQLException {
 		String id = null;
@@ -124,8 +123,39 @@ public class ThemeDAO implements IThemeDAO {
 	
 		return theme;
 	}
-
 	
+	public Vector<String> vectorListTheme() throws SQLException {
+		Vector<String> vTheme = new Vector<>();
 
+		
+		String query =	"select * from THEME order by THEMENOM;";
+
+		try {
+			stmt = myConnection.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				vTheme.add( rs.getString( "THEMENOM"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vTheme;
+	}
+	
+	public String recupIdTheme( String nomTheme) throws SQLException {
+		String id = "";
+		
+		stmt = myConnection.createStatement();
+		String query = "select THEMEID from THEME where THEMENOM = '" + nomTheme + "';";
+		ResultSet rs = stmt.executeQuery( query);
+		
+		while ( rs.next()) {
+			id = rs.getString( "THEMEID");
+		}
+
+		return id;
+	}
 
 }
