@@ -334,11 +334,7 @@ public class daoAdresse implements iDaoAdresse {
 		
 		myConnexion = Connexion.getInstance();
 
-		String query = "select * from ADRESSE as adr inner join FACTURER as fac on adr.ADRESSEID = fac.ADRESSEID"
-							+ " inner join FAIRE_LIVRER as liv on adr.ADRESSEID = liv.ADRESSEID"
-							+ " inner join CLIENT as clt on fac.CLIENTLOGIN = clt.CLIENTLOGIN"
-							+ " inner join FACTURER as fact on fact.CLIENTLOGIN = clt.CLIENTLOGIN"
-							+ " where adr.ADRESSEID = '" + id + "';";
+		String query = "select * from ADRESSE as adr where adr.ADRESSEID = '" + id + "';";
 		try {
 			stmt = myConnexion.createStatement();
 			ResultSet rs = stmt.executeQuery( query);

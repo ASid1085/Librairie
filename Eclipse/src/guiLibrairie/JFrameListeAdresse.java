@@ -27,7 +27,7 @@ public class JFrameListeAdresse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeAdresse frame = new JFrameListeAdresse( "", null, "");
+					JFrameListeAdresse frame = new JFrameListeAdresse( "", null, null, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class JFrameListeAdresse extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeAdresse( String clientLogin, JFrameLigneCommande frameLigCde, String etat) {
+	public JFrameListeAdresse( String clientLogin, JFrameLigneCommande frameLigCde, JFrameCommande frameCde, String etat) {
 		
 		setTitle("Liste des adresses");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -176,16 +176,30 @@ public class JFrameListeAdresse extends JFrame {
 						rowSel = tableAdr.getSelectedRow();
 						adrSelect = (String) dtm.getValueAt( rowSel, 0);
 						adr = daoAdr.findAdresseLivById( adrSelect);
-						frameLigCde.refreshAdresseLiv( adr);
+						if ( !frameCde.equals( null)) {
+							frameCde.refreshAdresseLiv( adr);
+							frameCde.repaint();
+							frameCde.setVisible( true);
+						} else {
+							frameLigCde.refreshAdresseLiv( adr);
+							frameLigCde.repaint();
+							frameLigCde.setVisible( true);
+						}
 					}
 					if ( etat.equals( "Facturation")) {
 						rowSel = tableAdr.getSelectedRow();
 						adrSelect = (String) dtm.getValueAt( rowSel, 0);
 						adr = daoAdr.findAdresseFacById( adrSelect);
-						frameLigCde.refreshAdresseFact( adr);
+						if ( !frameCde.equals( null)) {
+							frameCde.refreshAdresseFact( adr);
+							frameCde.repaint();
+							frameCde.setVisible( true);
+						} else {
+							frameLigCde.refreshAdresseFact( adr);
+							frameLigCde.repaint();
+							frameLigCde.setVisible( true);
+						}
 					}
-					frameLigCde.repaint();
-					frameLigCde.setVisible( true);
 					if ( tableAdr.getRowCount() > 0) {
 						dispose();
 					}

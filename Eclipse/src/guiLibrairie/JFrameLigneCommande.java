@@ -650,7 +650,7 @@ public class JFrameLigneCommande extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if ( !txtLoginClient.getText().equals( "")) {
-					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, "Livraison");
+					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, null, "Livraison");
 					JFAdr.setLocationRelativeTo( null);
 					JFAdr.setVisible( true);
 					setVisible( false);
@@ -668,7 +668,7 @@ public class JFrameLigneCommande extends JFrame {
 		btnFindAdreFact.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ( !txtLoginClient.getText().equals( "")) {
-					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, "Facturation");
+					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, null, "Facturation");
 					JFAdr.setLocationRelativeTo( null);
 					JFAdr.setVisible( true);
 					setVisible( false);

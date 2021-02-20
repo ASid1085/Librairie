@@ -33,6 +33,7 @@ public class JFrameListeCommande extends JFrame {
 	private JTable table;
 	private JTextField txtLoginClient;
 	private JFrameLigneCommande JFlc;
+	private JFrameCommande JFcde;
 
 	
 	/**
@@ -253,12 +254,28 @@ public class JFrameListeCommande extends JFrame {
 		contentPane.add(btnAjouter);
 		
 		JButton btnConsulter = new JButton("Consulter");
+		btnConsulter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
+				JFcde = new JFrameCommande( cdeSelect, "Consulter");
+				JFcde.setLocationRelativeTo( null);
+				JFcde.setVisible( true);
+			}
+		});
 		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnConsulter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnConsulter.setBounds(290, 484, 173, 41);
 		contentPane.add(btnConsulter);
 		
 		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
+				JFcde = new JFrameCommande( cdeSelect, "Modifier");
+				JFcde.setLocationRelativeTo( null);
+				JFcde.setVisible( true);
+			}
+		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnModifier.setBounds(564, 484, 173, 41);
