@@ -61,9 +61,6 @@ public class JFrameAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// test window = new test();
-					//window.frame.setVisible(true);
-					
 					JFrameAccueil frame = new JFrameAccueil(empl);
 					frame.frame.setVisible(true);
 				} catch (Exception e) {
@@ -163,7 +160,7 @@ public class JFrameAccueil extends JFrame {
 		btnGestionClient.setForeground(new Color(128, 0, 0));
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lclt = new JFrameListeClient();
+				lclt = new JFrameListeClient( null);
 				lclt.setLocationRelativeTo( lclt.getParent());
 				lclt.setVisible( true);
 			}
@@ -217,8 +214,8 @@ public class JFrameAccueil extends JFrame {
 		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lcde = new JFrameListeCommande();
-				lcde.setLocationRelativeTo( lcde.getParent());
+				lcde = new JFrameListeCommande( "");
+				lcde.setLocationRelativeTo( null);
 				lcde.setVisible( true);
 			}
 		});

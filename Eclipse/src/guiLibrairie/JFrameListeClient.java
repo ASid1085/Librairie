@@ -18,25 +18,32 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.daoClient;
+import entitiesLibrairie.Client;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class JFrameListeClient extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNomClient;
 	private daoClient daoClt = new daoClient();
-	private DefaultComboBoxModel dcbm = new DefaultComboBoxModel<>();
+	//private DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<>();
+	private Vector<Client> vLog = new Vector<>();
 	private JTable table;
-	private String sDoubleClick;
+	private DefaultTableModel dtm;
 	private static JFrameClient JFcl;
+	private static JFrameListeCommande JFlcde;
 
 	/**
 	 * Launch the application.
@@ -45,7 +52,7 @@ public class JFrameListeClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeClient frame = new JFrameListeClient();
+					JFrameListeClient frame = new JFrameListeClient( null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,26 +61,10 @@ public class JFrameListeClient extends JFrame {
 		});
 	}
 
-	public String recupClient() {
-		String s = sDoubleClick;
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e){
-				//action que tu veux faire en cas de double clic
-				if (e.getClickCount()>1){
-					try {
-						sDoubleClick = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}	
-				}
-			}
-		});
-		return s;
-	}
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeClient() {
+	public JFrameListeClient( JFrameLigneCommande frameLigCde) {
 		setTitle("Liste des clients");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 544);
@@ -93,24 +84,27 @@ public class JFrameListeClient extends JFrame {
 		lblLogin.setBounds(47, 61, 82, 16);
 		contentPane.add(lblLogin);
 		
+		
 		try {
-			dcbm = daoClt.ClientLogin();
+			vLog = daoClt.vectorCBLoginClient(); 
+			//dcbm = daoClt.ClientLogin();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		JComboBox cmbBxLoginClient = new JComboBox( dcbm);
+		JComboBox cmbBxLoginClient = new JComboBox( vLog);
+		cmbBxLoginClient.setSelectedIndex(-1);
 		cmbBxLoginClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		cmbBxLoginClient.setBounds(127, 57, 180, 27);
 		contentPane.add(cmbBxLoginClient);
 		
 		JLabel lblNomClient = new JLabel("Nom client :");
 		lblNomClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblNomClient.setBounds(398, 61, 82, 16);
+		lblNomClient.setBounds(354, 61, 82, 16);
 		contentPane.add(lblNomClient);
 		
 		txtNomClient = new JTextField();
 		txtNomClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		txtNomClient.setBounds(478, 55, 162, 26);
+		txtNomClient.setBounds(430, 56, 162, 26);
 		contentPane.add(txtNomClient);
 		txtNomClient.setColumns(10);
 		
@@ -137,7 +131,8 @@ public class JFrameListeClient extends JFrame {
 		table.getTableHeader().setBounds(6, 6, 725, 299);
 		table.getTableHeader().setVisible( true);
 		try {
-			table.setModel( daoClt.listeClient());
+			dtm = daoClt.listeClient();
+			table.setModel( dtm);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -145,11 +140,10 @@ public class JFrameListeClient extends JFrame {
 		JButton btnLoupe = new JButton("");
 		btnLoupe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String clientLogSelect = new String();
+				String clientLogSelect = "";
 				try {
 					if ( txtNomClient.getText().equals( "") ) {	
 						clientLogSelect = (String) cmbBxLoginClient.getSelectedItem();
-						System.out.println( clientLogSelect);
 						table.setModel( daoClt.listeClientByLogin( clientLogSelect));
 						table.repaint();
 					} else {
@@ -163,27 +157,74 @@ public class JFrameListeClient extends JFrame {
 			}
 		});
 		btnLoupe.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
-		btnLoupe.setBounds(703, 43, 55, 55);
+		btnLoupe.setBounds(615, 40, 55, 55);
 		contentPane.add(btnLoupe);
 		
 		JButton btnCdeLiee = new JButton("Commande liée");
 		btnCdeLiee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String login = "";
+				String nom = txtNomClient.getText();
+				String clientLogSelect = "";
+				try {
+					if ( nom.equals( "") && login.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect);
+	 				}
+					if( !nom.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
+System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect);
+					}
+					if ( clientLogSelect.equals( login)) {
+						login = (String) cmbBxLoginClient.getSelectedItem();
+						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
+System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect);
+					} 
+					JFlcde.setLocationRelativeTo( null);
+					JFlcde.setVisible( true);
+					cmbBxLoginClient.setSelectedIndex( -1);
+					txtNomClient.setText( "");
+				} catch (ArrayIndexOutOfBoundsException aioobe) {
+					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client !", "Erreur", JOptionPane.WARNING_MESSAGE);
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 		btnCdeLiee.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnCdeLiee.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnCdeLiee.setBounds(56, 452, 173, 41);
+		btnCdeLiee.setBounds(234, 451, 124, 41);
 		contentPane.add(btnCdeLiee);
+		
 		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String login = "";
+				String nom = txtNomClient.getText();
 				String clientLogSelect = "";
 				try {
-					clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					JFcl = new JFrameClient( clientLogSelect, "Modifier");
-					JFcl.setLocationRelativeTo( JFcl.getParent());
+					if ( nom.equals( "") && login.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
+					}
+					if( !nom.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
+					}
+					if ( clientLogSelect.equals( login)) {
+						login = (String) cmbBxLoginClient.getSelectedItem();
+						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Modifier");
+					}
+					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -194,20 +235,37 @@ public class JFrameListeClient extends JFrame {
 		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.setBounds(542, 452, 173, 41);
+		btnModifier.setBounds(591, 452, 124, 41);
 		contentPane.add(btnModifier);
-		
+
 		JButton btnConsulter = new JButton("Consulter");
 		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String login = "";
+				String nom = txtNomClient.getText();
 				String clientLogSelect = "";
 				try {
-					clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-					JFcl = new JFrameClient( clientLogSelect, "Consulter");
-					JFcl.setLocationRelativeTo( JFcl.getParent());
+					if ( nom.equals( "") && login.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
+					}
+					if( !nom.equals( "")) {
+						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
+					}
+					if ( clientLogSelect.equals( login)) {
+						login = (String) cmbBxLoginClient.getSelectedItem();
+						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
+						System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
+						JFcl = new JFrameClient( clientLogSelect, null, "Consulter");
+					}
+					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -215,7 +273,41 @@ public class JFrameListeClient extends JFrame {
 		});
 		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnConsulter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnConsulter.setBounds(296, 452, 173, 41);
+		btnConsulter.setBounds(412, 452, 124, 41);
 		contentPane.add(btnConsulter);
+		
+		JButton btnSelectionner = new JButton("Sélectionner");
+		btnSelectionner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int rowSel = table.getSelectedRow();
+				String clientSel = (String) dtm.getValueAt( rowSel, 0);
+				frameLigCde.refreshCltLogin( clientSel);
+				frameLigCde.repaint();
+				frameLigCde.setVisible( true);
+			}
+		});
+		btnSelectionner.setVisible( false);
+		btnSelectionner.setEnabled( false);
+		btnSelectionner.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnSelectionner.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnSelectionner.setBounds(50, 451, 124, 41);
+		contentPane.add(btnSelectionner);
+		
+		JButton btnRefreshAuteur = new JButton("");
+		btnRefreshAuteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					dtm = daoClt.listeClient();
+					table.setModel( dtm);
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				cmbBxLoginClient.setSelectedIndex( -1);
+				txtNomClient.setText( "");
+			}
+		});
+		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshAuteur.setBounds(687, 40, 55, 55);
+		contentPane.add(btnRefreshAuteur);
 	}
 }

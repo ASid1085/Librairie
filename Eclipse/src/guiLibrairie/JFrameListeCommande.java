@@ -5,24 +5,77 @@ import javax.swing.border.*;
 
 import daoLibrairie.*;
 import entitiesLibrairie.Client;
+import entitiesLibrairie.Commande;
 
 import javax.swing.table.*;
+
+import connexionLibrairie.Connexion;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class JFrameListeCommande extends JFrame {
 
+	private static JFrameListeCommande frame;
 	private JPanel contentPane;
 	private JTextField txtNumCde;
 	private JTextField txtDateCde;
-	private JComboBox cmbBxStatutLivre;;
+	private JComboBox cmbBxStatutLivre;
+	private Vector<Commande> vStatut = new Vector();
+	private Vector<String> vLivre = new Vector<>();
 	private daoCommande daoCde = new daoCommande();
 	private JTable table;
 	private JTextField txtLoginClient;
 	private JFrameLigneCommande JFlc;
+	private JFrameCommande JFcde;
 
+	
+	/**
+	 * Méthode à supprimer une fois la mise en commun effectué
+	 */
+	
+	private Statement stmt;
+	private ResultSet rs;
+	private PreparedStatement pstmt;
+	static private Connection myConnexion;
+
+	
+	public Vector<String> vectorListLivre() throws SQLException {
+		Vector<String> vLiv = new Vector<>();
+
+		myConnexion = Connexion.getInstance();
+		
+		String query =	"select * from LIVRE order by LIVRETITRE;";
+
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				vLiv.add( rs.getString( "LIVRETITRE"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vLiv;
+	}
+
+	public DefaultComboBoxModel<String> listeLivre() throws SQLException {
+
+		return new DefaultComboBoxModel<>( vectorListLivre());
+	}
+	/*
+	 * 
+	 */
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -30,7 +83,7 @@ public class JFrameListeCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeCommande frame = new JFrameListeCommande();
+					frame = new JFrameListeCommande( "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +95,8 @@ public class JFrameListeCommande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeCommande() {
+	public JFrameListeCommande( String clientLogin) {
+		
 		setTitle("Liste des commandes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 575);
@@ -58,62 +112,61 @@ public class JFrameListeCommande extends JFrame {
 		contentPane.add(lblRechercherPar);
 		
 		JLabel lblLogin = new JLabel("Login client :");
+		lblLogin.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLogin.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblLogin.setBounds(28, 54, 82, 16);
+		lblLogin.setBounds(54, 54, 82, 16);
 		contentPane.add(lblLogin);
 		
 		txtLoginClient = new JTextField();
 		txtLoginClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtLoginClient.setColumns(10);
-		txtLoginClient.setBounds(107, 52, 122, 20);
+		txtLoginClient.setBounds(137, 52, 122, 20);
 		contentPane.add(txtLoginClient);
 		
 		JLabel lblNumCde = new JLabel("n° de commande :");
 		lblNumCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblNumCde.setBounds(38, 82, 115, 16);
+		lblNumCde.setBounds(302, 54, 115, 16);
 		contentPane.add(lblNumCde);
 		
 		txtNumCde = new JTextField();
 		txtNumCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtNumCde.setColumns(10);
-		txtNumCde.setBounds(149, 80, 100, 20);
+		txtNumCde.setBounds(411, 52, 122, 20);
 		contentPane.add(txtNumCde);
 		
 		JLabel lblDateCde = new JLabel("Date commande :");
 		lblDateCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblDateCde.setBounds(261, 82, 115, 16);
+		lblDateCde.setBounds(28, 94, 115, 16);
 		contentPane.add(lblDateCde);
 		
 		txtDateCde = new JTextField();
 		txtDateCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtDateCde.setColumns(10);
-		txtDateCde.setBounds(370, 80, 100, 20);
+		txtDateCde.setBounds(137, 92, 122, 20);
 		contentPane.add(txtDateCde);
 		
 		JLabel lblStatutCommande = new JLabel("Statut commande :");
 		lblStatutCommande.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblStatutCommande.setBounds(80, 110, 122, 16);
+		lblStatutCommande.setBounds(295, 94, 122, 16);
 		contentPane.add(lblStatutCommande);
 		
-		cmbBxStatutLivre = new JComboBox();
 		try {
-			cmbBxStatutLivre.setModel( daoCde.statutCommande());
+			vStatut = daoCde.vectorCBStatutCde();
+			//cmbBxStatutLivre.setModel( daoCde.statutCommande());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		cmbBxStatutLivre = new JComboBox( vStatut);
+		cmbBxStatutLivre.setSelectedIndex(-1);
 		cmbBxStatutLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		cmbBxStatutLivre.setBounds(195, 106, 326, 27);
+		cmbBxStatutLivre.setBounds(411, 90, 326, 27);
 		contentPane.add(cmbBxStatutLivre);
 		
-		JLabel lblTitreLivre = new JLabel("Titre livre :");
-		lblTitreLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblTitreLivre.setBounds(241, 54, 70, 16);
-		contentPane.add(lblTitreLivre);
-		
-		JComboBox cmbBxTitreLivre = new JComboBox();
-		cmbBxTitreLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		cmbBxTitreLivre.setBounds(315, 50, 362, 27);
-		contentPane.add(cmbBxTitreLivre);
+		try {
+			vLivre = vectorListLivre();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		
 		JPanel panel = new JPanel();
 		panel.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -138,7 +191,11 @@ public class JFrameListeCommande extends JFrame {
 		table.getTableHeader().setBounds(6, 6, 725, 299);
 		table.getTableHeader().setVisible( true);
 		try {
-			table.setModel( daoCde.listeCommande());
+			if ( !clientLogin.equals( "")) {
+				table.setModel( daoCde.listeCommandeByLogin( clientLogin));
+			} else {
+				table.setModel( daoCde.listeCommande());
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -159,31 +216,34 @@ public class JFrameListeCommande extends JFrame {
 						table.setModel( daoCde.listeCommandeByCdeNum( nCde));
 						
 					} else if ( !txtDateCde.getText().equals( "")) {
-						//Date dCde =  format.df(txtDateCde.getText());
-						//daoCde.findCommandeByDateCde( dCde);
-						//table.setModel( daoCde.listeCommandeByDateCde( dCde));
+						//String 
 						
 					} else if ( txtLoginClient.getText().equals( "") && txtNumCde.getText().equals( "") && txtDateCde.getText().equals( "")) {
 						String statut = (String) cmbBxStatutLivre.getSelectedItem();
 						daoCde.findCommandeByStatut( statut);
 						table.setModel( daoCde.listeCommandeByStatut( statut));
+						
 					} else {
 						table.setModel( daoCde.listeCommande());
 					}
+					txtLoginClient.setText( "");
+					txtNumCde.setText( "");
+					txtDateCde.setText( "");
+					cmbBxStatutLivre.setSelectedIndex( -1);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
 		btnLoupe.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
-		btnLoupe.setBounds(700, 58, 55, 55);
+		btnLoupe.setBounds(618, 18, 55, 55);
 		contentPane.add(btnLoupe);
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFlc = new JFrameLigneCommande();
-				JFlc.setLocationRelativeTo( getParent());
+				JFlc = new JFrameLigneCommande( "Ajouter");
+				JFlc.setLocationRelativeTo( null);
 				JFlc.setVisible( true);
 				
 			}
@@ -194,15 +254,49 @@ public class JFrameListeCommande extends JFrame {
 		contentPane.add(btnAjouter);
 		
 		JButton btnConsulter = new JButton("Consulter");
+		btnConsulter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
+				JFcde = new JFrameCommande( cdeSelect, "Consulter");
+				JFcde.setLocationRelativeTo( null);
+				JFcde.setVisible( true);
+			}
+		});
 		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnConsulter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnConsulter.setBounds(310, 484, 173, 41);
+		btnConsulter.setBounds(290, 484, 173, 41);
 		contentPane.add(btnConsulter);
 		
 		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
+				JFcde = new JFrameCommande( cdeSelect, "Modifier");
+				JFcde.setLocationRelativeTo( null);
+				JFcde.setVisible( true);
+			}
+		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnModifier.setBounds(564, 484, 173, 41);
 		contentPane.add(btnModifier);
+		
+		JButton btnRefreshAuteur = new JButton("");
+		btnRefreshAuteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if ( !clientLogin.equals( "")) {
+						table.setModel( daoCde.listeCommandeByLogin( clientLogin));
+					} else {
+						table.setModel( daoCde.listeCommande());
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshAuteur.setBounds(685, 18, 55, 55);
+		contentPane.add(btnRefreshAuteur);
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.daoAdresse;
 import entitiesLibrairie.Adresse;
@@ -12,10 +13,12 @@ import entitiesLibrairie.Adresse;
 public class JFrameListeAdresse extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table = new JTable();
+	private JTable tableAdr = new JTable();
 	private daoAdresse daoAdr = new daoAdresse();
-	private static JFrameLigneCommande JFlc = new JFrameLigneCommande();
+	private Container parent = this;
+	private JFrameListeAdresse thisJF = (JFrameListeAdresse) parent;
 	private JFrameAdresse JFad;
+	private DefaultTableModel dtm;
 
 	/**
 	 * Launch the application.
@@ -24,7 +27,7 @@ public class JFrameListeAdresse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeAdresse frame = new JFrameListeAdresse( "");
+					JFrameListeAdresse frame = new JFrameListeAdresse( "", null, null, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,15 +35,25 @@ public class JFrameListeAdresse extends JFrame {
 			}
 		});
 	}
+	
+	public void refreshAdresse( Adresse adr) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				tableAdr.setModel( dtm);
+				tableAdr.repaint();
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeAdresse( String clientLogin) {
-
+	public JFrameListeAdresse( String clientLogin, JFrameLigneCommande frameLigCde, JFrameCommande frameCde, String etat) {
+		
 		setTitle("Liste des adresses");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 741, 386);
+		setBounds(100, 100, 712, 386);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,26 +63,33 @@ public class JFrameListeAdresse extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		panel.setBackground(new Color(255, 248, 220));
-		panel.setBounds(18, 6, 706, 267);
+		panel.setBounds(18, 6, 680, 267);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground(new Color(255, 248, 220));
-		scrollPane.setBounds(6, 6, 695, 255);
+		scrollPane.setBounds(6, 6, 668, 255);
 		panel.add(scrollPane);
 		
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBackground(new Color(255, 248, 220));
-		table.setFillsViewportHeight(true);
-		scrollPane.setViewportView( table);
-		table.setShowGrid( true);
-		table.setShowHorizontalLines( true);
-		table.setShowVerticalLines( true);
-		table.getTableHeader().setBounds(6, 6, 725, 299);
-		table.getTableHeader().setVisible( true);
+		tableAdr.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableAdr.setBackground(new Color(255, 248, 220));
+		tableAdr.setFillsViewportHeight(true);
+		scrollPane.setViewportView( tableAdr);
+		tableAdr.setShowGrid( true);
+		tableAdr.setShowHorizontalLines( true);
+		tableAdr.setShowVerticalLines( true);
+		tableAdr.getTableHeader().setBounds(6, 6, 725, 299);
+		tableAdr.getTableHeader().setVisible( true);
 		try {
-			table.setModel( daoAdr.listeAdresseByLogin( clientLogin));
+			if ( etat.equals( "Livraison")) {
+				dtm = daoAdr.listeAdresseLivByLogin( clientLogin);
+				tableAdr.setModel( dtm);
+			}
+			if ( etat.equals( "Facturation")) {
+				dtm = daoAdr.listeAdresseFacByLogin( clientLogin);
+				tableAdr.setModel( dtm);
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -77,31 +97,41 @@ public class JFrameListeAdresse extends JFrame {
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String adresseSelect = "";
+
+				String adrSel = "";
+				int rowSel = tableAdr.getSelectedRow();
 				try {
-					adresseSelect = (String) daoAdr.listeAdresseByLogin( clientLogin).getValueAt( table.getSelectedRow(), 0);
-					JFad = new JFrameAdresse( adresseSelect);
-					JFad.setLocationRelativeTo( JFad.getParent());
+					if ( etat.equals( "Livraison")) {
+						adrSel = (String) dtm.getValueAt( rowSel, 0);
+						JFad = new JFrameAdresse( clientLogin, thisJF, adrSel, "Livraison");
+					}
+					if ( etat.equals( "Facturation")) {
+						adrSel = (String) dtm.getValueAt( rowSel, 0);
+						JFad = new JFrameAdresse( clientLogin, thisJF, adrSel, "Facturation");
+					}
+					
+					JFad.setLocationRelativeTo( null);
 					JFad.setVisible( true);
+					setVisible( false);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
-				} catch (SQLException ex) {
-					ex.printStackTrace();
+
 				}
 			}
 		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.setBounds(164, 285, 118, 41);
+		btnModifier.setBounds(211, 285, 118, 41);
 		contentPane.add(btnModifier);
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					JFad = new JFrameAdresse( "");
-					JFad.setLocationRelativeTo( JFad.getParent());
+					JFad = new JFrameAdresse( clientLogin, thisJF, "", etat);
+					JFad.setLocationRelativeTo( null);
 					JFad.setVisible( true);
+					setVisible( false);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
@@ -109,58 +139,70 @@ public class JFrameListeAdresse extends JFrame {
 		});
 		btnAjouter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnAjouter.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAjouter.setBounds(18, 285, 118, 41);
+		btnAjouter.setBounds(41, 285, 118, 41);
 		contentPane.add(btnAjouter);
 		
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.addActionListener(new ActionListener() {
+		JButton btnRafraichir = new JButton("Rafraichir");
+		btnRafraichir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible( false);
-				dispose();
-			}
-		});
-		btnAnnuler.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAnnuler.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAnnuler.setBounds(606, 285, 118, 41);
-		contentPane.add(btnAnnuler);
-		
-		JButton btnAddAdFact = new JButton("Adr. Fact");
-		btnAddAdFact.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String adresseSelect;
 				try {
-					adresseSelect = (String) daoAdr.listeAdresseByLogin( clientLogin).getValueAt( table.getSelectedRow(), 0);
-						Adresse adr = daoAdr.findAdresseById( adresseSelect);
-						JFlc.refreshAdresseFact( adr);
-						//JFlc.setVisible( true);
-						JFlc.repaint();
-						JOptionPane.showMessageDialog(null, "Merci de choisir l'adresse de livraison !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+					if ( etat.equals( "Livraison")) {
+						dtm = daoAdr.listeAdresseLivByLogin( clientLogin);
+						tableAdr.setModel( dtm);
+					}
+					if ( etat.equals( "Facturation")) {
+						dtm = daoAdr.listeAdresseFacByLogin( clientLogin);
+						tableAdr.setModel( dtm);
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
-		btnAddAdFact.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAddAdFact.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAddAdFact.setBounds(312, 285, 118, 41);
-		contentPane.add(btnAddAdFact);
-		
-		JButton btnAddAdLiv = new JButton("Adr. Liv");
-		btnAddAdLiv.addActionListener(new ActionListener() {
+		btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnRafraichir.setBounds(561, 285, 118, 41);
+		contentPane.add(btnRafraichir);
+
+		JButton btnSelectionner = new JButton("Selectionner");
+		btnSelectionner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				String adresseSelect;
+
+				int rowSel = 0;
+				String adrSelect = "";
+				Adresse adr = null;
 				try {
-					adresseSelect = (String) daoAdr.listeAdresseByLogin( clientLogin).getValueAt( table.getSelectedRow(), 0);
-						Adresse adr = daoAdr.findAdresseById( adresseSelect);
-						JFlc.refreshAdresseLiv( adr);
-						JFlc.setVisible( true);
-						JFlc.repaint();
-						if ( table.getRowCount() > 0) {
-							dispose();
+					if ( etat.equals( "Livraison")) {
+						rowSel = tableAdr.getSelectedRow();
+						adrSelect = (String) dtm.getValueAt( rowSel, 0);
+						adr = daoAdr.findAdresseLivById( adrSelect);
+						if ( !frameCde.equals( null)) {
+							frameCde.refreshAdresseLiv( adr);
+							frameCde.repaint();
+							frameCde.setVisible( true);
+						} else {
+							frameLigCde.refreshAdresseLiv( adr);
+							frameLigCde.repaint();
+							frameLigCde.setVisible( true);
 						}
+					}
+					if ( etat.equals( "Facturation")) {
+						rowSel = tableAdr.getSelectedRow();
+						adrSelect = (String) dtm.getValueAt( rowSel, 0);
+						adr = daoAdr.findAdresseFacById( adrSelect);
+						if ( !frameCde.equals( null)) {
+							frameCde.refreshAdresseFact( adr);
+							frameCde.repaint();
+							frameCde.setVisible( true);
+						} else {
+							frameLigCde.refreshAdresseFact( adr);
+							frameLigCde.repaint();
+							frameLigCde.setVisible( true);
+						}
+					}
+					if ( tableAdr.getRowCount() > 0) {
+						dispose();
+					}
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(null, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
@@ -168,10 +210,10 @@ public class JFrameListeAdresse extends JFrame {
 				}
 			}
 		});
-		btnAddAdLiv.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAddAdLiv.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAddAdLiv.setBounds(461, 285, 118, 41);
-		contentPane.add(btnAddAdLiv);
+		btnSelectionner.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnSelectionner.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnSelectionner.setBounds(382, 285, 118, 41);
+		contentPane.add(btnSelectionner);
 	}
 
 }

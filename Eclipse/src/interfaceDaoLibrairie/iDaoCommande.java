@@ -9,9 +9,9 @@ import entitiesLibrairie.Commande;
 
 public interface iDaoCommande {
 
-	public void ajouterCommande(Commande cde, String ClientLog) throws SQLException;
+	public void ajouterCommande( Commande cde) throws SQLException;
 
-	public void modifierCommande(Commande cde) throws SQLException;
+	public void modifierCommande( Commande cde, String numCde) throws SQLException;
 
 	public Vector<Commande> vectorListCommande() throws SQLException;
 
