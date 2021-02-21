@@ -75,6 +75,7 @@ public class JFrameLigneCommande extends JFrame {
 	private Container parent = this;
 	private JFrameLigneCommande thisJF = (JFrameLigneCommande) parent;
 	
+	
 	public Vector dtm() {
 		Vector nomColonne = new Vector<>();
 		nomColonne.add( "n° ISBN");

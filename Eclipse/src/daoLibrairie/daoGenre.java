@@ -86,7 +86,7 @@ public class daoGenre implements iDaoGenre {
 		pstmt.executeUpdate();
 		
 		pstmt.close();
-		JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		//JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
