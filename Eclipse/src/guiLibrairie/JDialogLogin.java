@@ -120,9 +120,14 @@ public class JDialogLogin extends JDialog {
 					}*/
 
 					if ( i) {
+						
+						JDialogWelcome jdWelcome = new JDialogWelcome( employe);
+						dispose();
+						jdWelcome.setModal( true);
+						jdWelcome.setVisible( true);
 						JFrameAccueil jfAccueil = new JFrameAccueil( employe);
 						jfAccueil.setVisible(true);
-						dispose();
+						
 					} 
 
 				} catch (NullPointerException npe){
