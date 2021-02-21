@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import daoLibrairie.CommentaireDAO;
 import entitiesLibrairie.Commentaire;
 import entitiesLibrairie.Evenement;
+import guiLibrairie.*;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
