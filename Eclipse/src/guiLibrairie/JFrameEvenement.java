@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class JFrameEvenement extends JFrame {
 
@@ -199,7 +200,7 @@ public class JFrameEvenement extends JFrame {
 				int row = table.getSelectedRow();
 				String nom = (String) table.getValueAt(row, 0);
 				try {
-					evenement = evenementDAO.afficherEvenement(nom);
+					evenement = evenementDAO.afficherEvenement( nom);
 					JDialogEvenementAffichage jdEvenementAffichage = new JDialogEvenementAffichage(evenement);
 					jdEvenementAffichage.setVisible(true);
 				} catch (SQLException e1) {
@@ -240,10 +241,11 @@ public class JFrameEvenement extends JFrame {
 		
 		
 //BOUTON RAFRAICHIR//////////////////////////////////////////////////////////////////////////////////
-		JButton btnRetour = new JButton("Rafraichir");
-		btnRetour.setForeground(new Color(128, 0, 0));
-		btnRetour.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRetour.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRetour = new JButton("");
+		btnRetour.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
+		//btnRetour.setForeground(new Color(128, 0, 0));
+		//btnRetour.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRetour.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -257,7 +259,7 @@ public class JFrameEvenement extends JFrame {
 				}
 			}
 		});
-		btnRetour.setBounds(39, 110, 117, 32);
+		btnRetour.setBounds(39, 90, 64, 60);
 		contentPane.add(btnRetour);
 		
 		

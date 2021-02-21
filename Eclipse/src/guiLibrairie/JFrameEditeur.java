@@ -180,7 +180,7 @@ public class JFrameEditeur extends JFrame {
 				try {
 					daoEd.modifierEditeur( ed, editeurNom);
 					setVisible( false);
-					dispose()
+					dispose();
 					//JFrameListeCategorie lc = new JFrameListeCategorie();
 					//lc.setLocationRelativeTo( null);
 					//lc.setVisible( true);

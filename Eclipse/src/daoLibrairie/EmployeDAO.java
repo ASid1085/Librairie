@@ -126,10 +126,6 @@ public class EmployeDAO implements IEmployeDAO {
 	}
 	
 	
-	
-	
-	
-	
 	public Vector<Vector> rechercherEmployeparDroitAccess(String acces)throws SQLException {
 		Employe employe = null;
 		Vector <Vector> vecteur = new Vector();
@@ -230,24 +226,22 @@ public class EmployeDAO implements IEmployeDAO {
 
 	@Override
 	public Employe authentification(String log, String mdp) throws SQLException{
-		// TODO Auto-generated method stub
+		
 		stmt = myConnection.createStatement();
-		//String query = "SELECT EMPLOYEID, EMPLOYENOM, EMPLOYEPRENOM, EMPLOYEPOSTE, EMPLOYELOG, EMPLOYEMDP, DROITDACCESLIBELLE "
-		String query = "SELECT EMPLOYELOG, EMPLOYEMDP, DROITDACCESLIBELLE "
-				+ "FROM EMPLOYE E "
+		String query = "SELECT * FROM EMPLOYE E "
 				+ "JOIN DROITS_D_ACCES D "
 				+ "ON E.DROITDACCESID = D.DROITDACCESID "
-				+ "WHERE EMPLOYELOG ='" +log+"' AND EMPLOYEMDP ='" +mdp+ "';";
+				+ "WHERE EMPLOYELOG ='" + log +"' AND EMPLOYEMDP = '" + mdp + "';";
 		ResultSet result = stmt.executeQuery(query);
 		while (result.next()) {
-			//String id = result.getString("EMPLOYEID");
-			//String nom = result.getString("EMPLOYENOM");
-			//String prenom = result.getString("EMPLOYEPRENOM");
-			//String poste = result.getString("EMPLOYEPOSTE");
+			String id = result.getString("EMPLOYEID");
+			String nom = result.getString("EMPLOYENOM");
+			String prenom = result.getString("EMPLOYEPRENOM");
+			String poste = result.getString("EMPLOYEPOSTE");
 			String login = result.getString("EMPLOYELOG"); 
 			String pass = result.getString("EMPLOYEMDP"); 
 			String acces = result.getString("DROITDACCESLIBELLE");
-			employe = new Employe (/*id, nom, prenom,*/ login, pass, acces);
+			employe = new Employe (id, nom, prenom, poste, login, pass, acces);
 			
 		}
 		return employe;

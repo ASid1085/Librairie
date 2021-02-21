@@ -52,7 +52,7 @@ public class JFrameListeClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeClient frame = new JFrameListeClient( null);
+					JFrameListeClient frame = new JFrameListeClient( null, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +64,7 @@ public class JFrameListeClient extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeClient( JFrameLigneCommande frameLigCde) {
+	public JFrameListeClient( JFrameLigneCommande frameLigCde, String etat) {
 		setTitle("Liste des clients");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 544);
@@ -286,8 +286,14 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 				frameLigCde.setVisible( true);
 			}
 		});
-		btnSelectionner.setVisible( false);
-		btnSelectionner.setEnabled( false);
+		
+		if ( etat.equals( "")) {
+			btnSelectionner.setVisible( false);
+		} else {
+			btnCdeLiee.setVisible( false);
+			btnConsulter.setVisible( false);
+			btnModifier.setVisible( false);
+		}
 		btnSelectionner.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnSelectionner.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSelectionner.setBounds(50, 451, 124, 41);

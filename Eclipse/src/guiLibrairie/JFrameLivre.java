@@ -43,6 +43,7 @@ import entitiesLibrairie.Livre;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class JFrameLivre extends JFrame {
 
@@ -232,7 +233,7 @@ public class JFrameLivre extends JFrame {
 		jComboBoxLivre = new JComboBox();
 		jComboBoxLivre.setForeground(new Color(128, 0, 0));
 		jComboBoxLivre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		jComboBoxLivre.setBounds(39, 90, 129, 46);
+		jComboBoxLivre.setBounds(39, 66, 129, 46);
 		jComboBoxLivre.setModel(new DefaultComboBoxModel(new String[] { "TITRE", "ISBN", "AUTEUR", "EDITEUR", "THEME", "GENRE", "MOT CLE", "STOCK", "PRIX HT", "PRIX TTC" }));
 		contentPane.add(jComboBoxLivre);
 		
@@ -242,7 +243,7 @@ public class JFrameLivre extends JFrame {
 		jTextRecherche = new JTextField();
 		jTextRecherche.setForeground(new Color(128, 0, 0));
 		jTextRecherche.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		jTextRecherche.setBounds(180, 89, 646, 46);
+		jTextRecherche.setBounds(39, 108, 646, 46);
 		contentPane.add(jTextRecherche);
 		jTextRecherche.setColumns(10);
 		
@@ -282,13 +283,10 @@ public class JFrameLivre extends JFrame {
 		
 		
 //BOUTON OK//////////////////////////////////////////////////////////////////////////////////
-		JButton jButtonOK = new JButton("OK");
+		JButton jButtonOK = new JButton("");
+		jButtonOK.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/search.png"));
 		jButtonOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
-
-				
-				
 				String selection = jComboBoxLivre.getSelectedItem().toString();
 				switch (selection) {
 					case "TITRE" :
@@ -314,7 +312,6 @@ public class JFrameLivre extends JFrame {
 								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre avec ce titre.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						break;
@@ -593,10 +590,10 @@ public class JFrameLivre extends JFrame {
 			    
 			}
 		});
-		jButtonOK.setForeground(new Color(128, 0, 0));
-		jButtonOK.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		jButtonOK.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		jButtonOK.setBounds(843, 98, 117, 29);
+		//jButtonOK.setForeground(new Color(128, 0, 0));
+		//jButtonOK.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//jButtonOK.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		jButtonOK.setBounds(723, 95, 80, 57);
 		contentPane.add(jButtonOK);
 		
 
@@ -669,7 +666,8 @@ public class JFrameLivre extends JFrame {
 		
 		
 //BOUTON RAFRAICHIR//////////////////////////////////////////////////////////////////////////////////		
-		JButton jButtonRefresh = new JButton("Rafraichir");
+		JButton jButtonRefresh = new JButton("");
+		jButtonRefresh.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
 		jButtonRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -701,10 +699,10 @@ public class JFrameLivre extends JFrame {
 				jTextRecherche.setText("");
 			}
 		});
-		jButtonRefresh.setForeground(new Color(128, 0, 0));
-		jButtonRefresh.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		jButtonRefresh.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		jButtonRefresh.setBounds(39, 136, 117, 29);
+		//jButtonRefresh.setForeground(new Color(128, 0, 0));
+		//jButtonRefresh.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//jButtonRefresh.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		jButtonRefresh.setBounds(839, 95, 80, 57);
 		contentPane.add(jButtonRefresh);
 		
 

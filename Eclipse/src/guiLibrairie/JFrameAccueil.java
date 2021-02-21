@@ -1,6 +1,5 @@
 package guiLibrairie;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -8,27 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import daoLibrairie.EmployeDAO;
+import connexionLibrairie.Connexion;
 import entitiesLibrairie.Employe;
 
-import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 public class JFrameAccueil extends JFrame {
@@ -43,9 +34,7 @@ public class JFrameAccueil extends JFrame {
 	private static JFrameEvenement levt;
 	private static JFrameEmploye lemp;
 	private static JFrameLivre lliv;
-	private Employe employe;
-	private static Employe empl;
-	private EmployeDAO employeDAO;
+	private static Employe empl = new Employe();
 	
 
 	
@@ -61,7 +50,7 @@ public class JFrameAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameAccueil frame = new JFrameAccueil(empl);
+					JFrameAccueil frame = new JFrameAccueil( empl);
 					frame.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,35 +61,42 @@ public class JFrameAccueil extends JFrame {
 	
 	/**
 	 * Create the application.
-	 */
+	 *
 	public JFrameAccueil(Employe employeATraiter) {
 		frame = new JFrame();
-		frame.setTitle("Accueil");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(0, 0, 1400, 850);
-		frame.setVisible(true);
-		initialize(employeATraiter);
-	}
+		frame.
+		frame.
+		frame.
+		frame.
+		//initialize(employeATraiter);
+	}*/
+	
+	
 	/**
 	 * Create the frame.
 	 */
-	private void initialize(Employe employeATraiter) {
+	public JFrameAccueil(Employe employeATraiter) {
 		
-		this.employe = employeATraiter;
+		setTitle("Accueil");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 1400, 850);
+		setVisible(true);
+		
+		//employe = employeATraiter;
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(contentPane);
+		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		
 //JLABELS//////////////////////////////////////////////////////////////////////
-		JLabel lblAuthentification = new JLabel("Vous êtes connecté en tant que " +employe.getEmployeLog());
+		JLabel lblAuthentification = new JLabel("Vous êtes connecté en tant que " +employeATraiter.getEmployePrenom() + " " + employeATraiter.getEmployeNom());
 		lblAuthentification.setForeground(new Color(255, 215, 0));
 		lblAuthentification.setFont(new Font("Avenir Next", Font.PLAIN, 20));
 		lblAuthentification.setHorizontalAlignment(SwingConstants.LEFT);
-		lblAuthentification.setBounds(57, 54, 1278, 47);
+		lblAuthentification.setBounds(57, 54, 1079, 47);
 		contentPane.add(lblAuthentification);
 		
 		
@@ -132,7 +128,7 @@ public class JFrameAccueil extends JFrame {
 		});
 		btnGestionCategorie.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionCategorie.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnGestionCategorie.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCategorie.png"));
+		btnGestionCategorie.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/categories64px.png"));
 		btnGestionCategorie.setBounds(57, 164, 310, 133);
 		contentPane.add(btnGestionCategorie);
 		
@@ -147,7 +143,7 @@ public class JFrameAccueil extends JFrame {
 				levt.setVisible(true);
 			}
 		});
-		btnGestionEvenement.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestEvenement.png"));
+		btnGestionEvenement.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/firework64px.png"));
 		btnGestionEvenement.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionEvenement.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionEvenement.setBounds(557, 164, 310, 133);
@@ -160,12 +156,12 @@ public class JFrameAccueil extends JFrame {
 		btnGestionClient.setForeground(new Color(128, 0, 0));
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lclt = new JFrameListeClient( null);
+				lclt = new JFrameListeClient( null, "");
 				lclt.setLocationRelativeTo( lclt.getParent());
 				lclt.setVisible( true);
 			}
 		});
-		btnGestionClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestClient.png"));
+		btnGestionClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/rating64px.png"));
 		btnGestionClient.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionClient.setBounds(1025, 164, 310, 133);
@@ -182,7 +178,7 @@ public class JFrameAccueil extends JFrame {
 			}
 		});
 		btnGestionOuvrage.setForeground(new Color(128, 0, 0));
-		btnGestionOuvrage.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestOuvrage.png"));
+		btnGestionOuvrage.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/books64px.png"));
 		btnGestionOuvrage.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionOuvrage.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionOuvrage.setBounds(57, 414, 310, 133);
@@ -200,7 +196,7 @@ public class JFrameAccueil extends JFrame {
 				lemp.setVisible(true);
 			}
 		});
-		btnGestionEmployé.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestEmploye.png"));
+		btnGestionEmployé.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/work64px.png"));
 		btnGestionEmployé.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionEmployé.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionEmployé.setBounds(557, 414, 310, 133);
@@ -211,7 +207,7 @@ public class JFrameAccueil extends JFrame {
 //BOUTON COMMANDES//////////////////////////////////////////////////////////////////////
 		JButton btnGestionCommande = new JButton("<html><center>Gestion<br>commandes</center></html>");
 		btnGestionCommande.setForeground(new Color(128, 0, 0));
-		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
+		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/shopping-cart64px.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lcde = new JFrameListeCommande( "");
@@ -230,7 +226,7 @@ public class JFrameAccueil extends JFrame {
 //BOUTON CATALOGUE//////////////////////////////////////////////////////////////////////
 		JButton btnCatalogue = new JButton("Catalogue");
 		btnCatalogue.setForeground(new Color(128, 0, 0));
-		btnCatalogue.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnCatalogue.png"));
+		btnCatalogue.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/catalogue64px.png"));
 		btnCatalogue.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnCatalogue.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnCatalogue.setBounds(57, 659, 810, 133);
@@ -243,6 +239,7 @@ public class JFrameAccueil extends JFrame {
 		
 //BOUTON COMMENTAIRES//////////////////////////////////////////////////////////////////////
 		JButton btnGestionCommentaires = new JButton("<html><center>Gestion<br>commentaires</center></html>");
+		btnGestionCommentaires.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/chat64px.png"));
 		btnGestionCommentaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrameCommentaire jfCommentaire = new JFrameCommentaire();
@@ -258,7 +255,7 @@ public class JFrameAccueil extends JFrame {
 		
 		
 //ASSIGNATION DES DROITS////////////////////////////////////////////////////////////////////////
-		String droits = employe.getDroitsAcces();
+		String droits = employeATraiter.getDroitsAcces();
 		switch (droits) {
 		case "Administrateur" :
 			break;
@@ -283,16 +280,19 @@ public class JFrameAccueil extends JFrame {
 		
 		
 //BOUTON DECONNEXION//////////////////////////////////////////////////////////////////////
-		JButton btnDeconnexion = new JButton("X");
+		JButton btnDeconnexion = new JButton("");
+		btnDeconnexion.setBackground(new Color(255, 250, 250));
+		btnDeconnexion.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/logout64px.png"));
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Connexion.closeInstance();
 				System.exit(0);
 			}
 		});
-		btnDeconnexion.setForeground(new Color(128, 0, 0));
-		btnDeconnexion.setFont(new Font("Avenir Next", Font.PLAIN, 30));
-		btnDeconnexion.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnDeconnexion.setBounds(1317, 23, 57, 47);
+		//btnDeconnexion.setForeground(new Color(128, 0, 0));
+		//btnDeconnexion.setFont(new Font("Avenir Next", Font.PLAIN, 30));
+		//btnDeconnexion.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnDeconnexion.setBounds(1247, 33, 88, 88);
 		contentPane.add(btnDeconnexion);
 		
 

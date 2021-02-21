@@ -47,7 +47,6 @@ public class daoMotCle implements iDaoMotCle {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		return id;

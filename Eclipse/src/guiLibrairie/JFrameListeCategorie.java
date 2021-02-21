@@ -70,6 +70,7 @@ public class JFrameListeCategorie extends JFrame {
 	private DefaultTableModel modelAuteur = new DefaultTableModel();
 	private String vecteurEditeur;
 	private DefaultListModel vecteurTheme = new DefaultListModel();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,7 +78,7 @@ public class JFrameListeCategorie extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeCategorie frame = new JFrameListeCategorie(jdLAstatic, status);
+					JFrameListeCategorie frame = new JFrameListeCategorie(jdLAstatic, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -257,8 +258,8 @@ public class JFrameListeCategorie extends JFrame {
 		btnRefreshAuteur.setBounds(537, 31, 55, 55);
 		paneAuteur.add(btnRefreshAuteur);
 
-		//tabbedPane.setBackgroundAt(0, Color.ORANGE);
-		//tabbedPane.setForegroundAt(0, Color.DARK_GRAY);
+		tabbedPane.setBackgroundAt(0, Color.ORANGE);
+		tabbedPane.setForegroundAt(0, Color.DARK_GRAY);
 		if(statut.equals("AJOUT LIVRE")) {	
 			JButton btnSelectionnerAuteur = new JButton("Sélectionner");
 			btnSelectionnerAuteur.addActionListener(new ActionListener() {
