@@ -133,7 +133,7 @@ public class JFrameListeAdresse extends JFrame {
 					JFad.setVisible( true);
 					setVisible( false);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client à consulter !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -223,7 +223,7 @@ public class JFrameListeAdresse extends JFrame {
 					}
 				} 
 				catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner une adresse à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

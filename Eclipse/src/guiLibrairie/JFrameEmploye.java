@@ -104,7 +104,7 @@ public class JFrameEmploye extends JFrame {
 			vectorEmploye = employeDAO.afficherEmployes();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "Oops, petit problème technique", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(contentPane, "Oops, petit problème technique", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		
@@ -194,36 +194,14 @@ public class JFrameEmploye extends JFrame {
 				String prenom = (String) tableEmployes.getValueAt(row, 2);
 				try {
 					employe = employeDAO.afficherEmploye(nom, prenom);
-					System.out.println(employe);
+					
 					JDialogEmployeAffichage jdEmployeAffichage = new JDialogEmployeAffichage(employe);
 					jdEmployeAffichage.setVisible(true);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				/*int row = tableEmployes.getSelectedRow();
-				String droitacces = (String) tableEmployes.getValueAt(row, 0);
-				String nom = (String) tableEmployes.getValueAt(row, 1);
-				String prenom = (String) tableEmployes.getValueAt(row, 2);
-				String poste = (String) tableEmployes.getValueAt(row, 3);
-				String log = (String) tableEmployes.getValueAt(row, 4);
-				String mdp = (String) tableEmployes.getValueAt(row, 5);
 
-				tableEmployes.setValueAt(droitacces, row, 0);
-				tableEmployes.setValueAt(nom, row, 1);
-				tableEmployes.setValueAt(prenom, row, 2);
-				tableEmployes.setValueAt(poste, row, 3);
-				tableEmployes.setValueAt(log, row, 4);
-				tableEmployes.setValueAt(mdp, row, 5);
-				employe = new Employe(droitacces, nom, prenom, poste, log, mdp);
-				try {
-					employeDAO.modifierEmployer(employe, log);
-					JOptionPane.showMessageDialog(null, employe.toString(), "Vous avez modifié le profil de : ", JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				*/
 			}
 		});
 		btnModifier.setBounds(814, 282, 117, 48);
@@ -243,7 +221,7 @@ public class JFrameEmploye extends JFrame {
 				String prenom = (String) tableEmployes.getValueAt(row, 2);
 				try {
 					employeDAO.supprimerEmploye(nom, prenom);
-					JOptionPane.showMessageDialog(null, "Utilisateur supprimé avec succès", "SUPPRESSION UTILISATEUR", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Utilisateur supprimé avec succès", "SUPPRESSION UTILISATEUR", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -273,7 +251,7 @@ public class JFrameEmploye extends JFrame {
 						txtSaisieNom.setText("");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Oops, nous ne trouvons pas ce nom... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Oops, nous ne trouvons pas ce nom... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else if(cmbBxAcces.getSelectedIndex()>=0) {
 					try {
@@ -284,7 +262,7 @@ public class JFrameEmploye extends JFrame {
 						txtSaisieNom.setText("");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Oops, nous n'avons trouvé personne... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Oops, nous n'avons trouvé personne... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 				

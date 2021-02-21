@@ -185,14 +185,14 @@ public class JDialogEmployeAjout extends JDialog {
 				if(!acces.isEmpty() && !nom.isEmpty() && !prenom.isEmpty() && !poste.isEmpty() && !log.isEmpty() && !mdp.isEmpty()) {
 					try {
 						employeDao.ajouterEmploye(acces, nom, prenom, poste, log, mdp);
-						JOptionPane.showMessageDialog(null, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPanel, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					} catch (SQLException e1) {
 						//e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPanel, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}else {
-					JOptionPane.showMessageDialog(new JDialogEmployeAjout(), "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

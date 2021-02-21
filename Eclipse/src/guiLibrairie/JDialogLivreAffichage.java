@@ -417,7 +417,7 @@ public class JDialogLivreAffichage extends JDialog {
 				
 				try {
 					livreDAO.modifierLivre(livreModif, tva);
-					JOptionPane.showMessageDialog(null, "Livre modifié avec succès", "Modification réussie", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "Livre modifié avec succès", "Modification réussie", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

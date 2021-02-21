@@ -102,7 +102,7 @@ public class JDialogLivreAjout extends JDialog {
 			public void windowActivated(WindowEvent e) {
 				//lblThèmeRecup.setText(theme.getThemeNom());
 				lblEditeurRecup.setText(modelEditeur);
-				System.out.println(modelEditeur);
+				
 }
 		});
 		this.modelEditeur2 = modelEditeur;
@@ -127,7 +127,7 @@ public class JDialogLivreAjout extends JDialog {
 			public void windowActivated(WindowEvent e) {
 				//lblThèmeRecup.setText(theme.getThemeNom());
 				listMotCle.setModel(modelMotCle);
-				System.out.println(modelMotCle);
+				
 
 			}
 		});
@@ -140,7 +140,7 @@ public class JDialogLivreAjout extends JDialog {
 			public void windowActivated(WindowEvent e) {
 				//lblThèmeRecup.setText(theme.getThemeNom());
 				listTheme.setModel(modelTheme);
-				System.out.println(modelTheme);
+				
 
 			}
 		});
@@ -521,7 +521,7 @@ public class JDialogLivreAjout extends JDialog {
 						e1.printStackTrace();
 					}
 				}
-				JOptionPane.showMessageDialog(null, "Nouveau livre ajouté avec succès", "Ajout de livre", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(contentPanel, "Nouveau livre ajouté avec succès", "Ajout de livre", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnAjouter.setForeground(new Color(128, 0, 0));

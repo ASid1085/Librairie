@@ -100,7 +100,7 @@ public class JFrameGenre extends JFrame {
 				}
 				Genre g = new Genre( txtGenreId.getText(), txtGenreNom.getText());
 				String idMc = daoMC.ajoutIdMotCle();
-				MotCle mc = new MotCle( txtGenreId.getText(), idMc);
+				MotCle mc = new MotCle(idMc, txtGenreNom.getText());
 				if (genreNom.equals( "")) {
 					try {
 						daoG.ajouterGenre( g);

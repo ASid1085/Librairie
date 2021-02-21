@@ -121,11 +121,11 @@ public class JFrameNvTheme extends JFrame {
 				String nom = txtThemeLib.getText();
 				String id = txtThemeId.getText();
 				String idMc = daoMc.ajoutIdMotCle();
-				MotCle mc = new MotCle( nom, idMc);
+				MotCle mc = new MotCle( idMc, nom);
 				try {
 					themeDAO.ajouterTheme(id, nom);
 					daoMc.ajouterMotCle( mc);
-					JOptionPane.showMessageDialog(null, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();

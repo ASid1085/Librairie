@@ -296,7 +296,7 @@ public class JFrameLigneCommande extends JFrame {
 					}
 					nbRow --;
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog( null, "Merci de selectionner une ligne de commande à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( contentPane, "Merci de selectionner une ligne de commande à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -614,7 +614,7 @@ public class JFrameLigneCommande extends JFrame {
 					JFAdr.setVisible( true);
 					setVisible( false);
 				} else {
-					JOptionPane.showMessageDialog(null, "Merci de renseigner un login client !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de renseigner un login client !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -793,7 +793,7 @@ public class JFrameLigneCommande extends JFrame {
 						daoLigCde.addLigneCommande( ligCde);
 						dispose();
 					}
-					JOptionPane.showMessageDialog(null, "La commande a bien été ajoutée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "La commande a bien été ajoutée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

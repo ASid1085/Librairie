@@ -80,7 +80,7 @@ public class JDialogEvenementAffichage extends JDialog {
 	public JDialogEvenementAffichage(Evenement evenementATraiter) {
 		
 		this.evenement = evenementATraiter;
-		System.out.println(evenement.getEvenementId());
+		
 		
 		setBounds(100, 100, 850, 600);
 		getContentPane().setLayout(new BorderLayout());
@@ -384,31 +384,31 @@ public class JDialogEvenementAffichage extends JDialog {
 					if (!nom.isEmpty() && debut!=null && fin!=null && pourcentage!=null && !codePromo.isEmpty()) {
 						if ((anneeFin>anneeDebut)) {
 							evenementDAO.modifierEvenement(evenement, evenement.getEvenementId());
-							JOptionPane.showMessageDialog(null, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPanel, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
 							
 							
 						}else if((anneeFin==anneeDebut)) {
 							if ((moisFin>moisDebut)) {
 								evenementDAO.modifierEvenement(evenement, evenement.getEvenementId());
-								JOptionPane.showMessageDialog(null, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPanel, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
 							} else if (moisFin==moisDebut) {
 								if (jourFin>jourDebut) {
 									evenementDAO.modifierEvenement(evenement, evenement.getEvenementId());
-									JOptionPane.showMessageDialog(null, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPanel, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
 								} else if (jourFin==jourDebut) {
 									evenementDAO.modifierEvenement(evenement, evenement.getEvenementId());
-									JOptionPane.showMessageDialog(null, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPanel, evenement.toString(), "Evénement modifié : ", JOptionPane.INFORMATION_MESSAGE);
 								} else {
-									JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+									JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+								JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+							JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Veuillez saisir les champs obligatoires");
+						JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir les champs obligatoires");
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

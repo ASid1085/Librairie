@@ -33,7 +33,7 @@ public class daoMotCle implements iDaoMotCle {
 			stmt = myConnexion.createStatement();
 			rs = stmt.executeQuery( query);
 			while ( rs.next()) {
-				int numMotCle = rs.getInt( 1) ;
+				int numMotCle = rs.getInt( 1) +1;
 				if (numMotCle < 10) {
 					id = "0000" + numMotCle + "MOT";
 				} else if (numMotCle < 100) {

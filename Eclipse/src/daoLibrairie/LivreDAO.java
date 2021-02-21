@@ -155,7 +155,7 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, themeALier);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
+
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, motCleALier);
 		ptsmt.setString(2, isbn);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
+
 	}
 	    
     @Override
@@ -455,7 +455,7 @@ public class LivreDAO implements ILivreDAO{
 		       livre.add(res.getString("LIVRESTATUT"));
 		       livres.add(livre);
 		   }
-		   System.out.println(query);
+
 		return livres;
 		
 	}
