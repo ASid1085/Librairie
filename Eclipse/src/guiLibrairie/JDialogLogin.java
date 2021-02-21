@@ -120,18 +120,16 @@ public class JDialogLogin extends JDialog {
 					}*/
 
 					if ( i) {
-						
 						JDialogWelcome jdWelcome = new JDialogWelcome( employe);
 						dispose();
 						jdWelcome.setModal( true);
 						jdWelcome.setVisible( true);
 						JFrameAccueil jfAccueil = new JFrameAccueil( employe);
-						jfAccueil.setVisible(true);
-						
+						jfAccueil.setVisible( true);
 					} 
 
 				} catch (NullPointerException npe){
-					JOptionPane.showMessageDialog(null, "Ooops - le mot de passe et/ou l'identifiant est incorrect", "Erreur saisie", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Ooops - le mot de passe et/ou l'identifiant est incorrect", "Erreur saisie", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} 
