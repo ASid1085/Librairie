@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 public class JDialogCommentaireAffichage extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private static Commentaire comm;
 	private Commentaire commentaire;
 	private CommentaireDAO commentaireDAO = new CommentaireDAO();
 	private String id;
@@ -46,7 +45,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			JDialogCommentaireAffichage dialog = new JDialogCommentaireAffichage(comm);
+			JDialogCommentaireAffichage dialog = new JDialogCommentaireAffichage( null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
