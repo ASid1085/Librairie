@@ -41,7 +41,7 @@ public class JFrameCommentaire extends JFrame {
 	private JTextField txtSaisieClient;
 	private JTextField txtSaisieStatut;
 	private JButton btnSupprimer;
-	private JButton btnModifier;
+	private JButton btnConsulter;
 	private JButton btnQuitter;
 	private CommentaireDAO commentaireDAO = new CommentaireDAO();
 	private Commentaire commentaire = new Commentaire();
@@ -253,15 +253,17 @@ public class JFrameCommentaire extends JFrame {
 		
 		
 //BOUTON MODIFIER ///////////////////////////////////////////////////////////////////////////////////
-		btnModifier = new JButton("Consulter");
-		btnModifier.setForeground(new Color(128, 0, 0));
-		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnModifier.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.addActionListener(new ActionListener() {
+		btnConsulter = new JButton("Consulter");
+		btnConsulter.setForeground(new Color(128, 0, 0));
+		btnConsulter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnConsulter.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//System.out.println( " je clique sur mon bouton consulter");
 				int row = table.getSelectedRow();
-				
+//System.out.println( " le num de la ligne : " + row);
 				String titre = (String) table.getValueAt(row, 2); 
+//System.out.println( " le titre du livre est : " + titre);
 				try {
 					commentaire = commentaireDAO.afficherUnCommentaire(commentaire, titre);
 					jdAffichage = new JDialogCommentaireAffichage(commentaire);
@@ -270,12 +272,10 @@ public class JFrameCommentaire extends JFrame {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-					
-			
 			}
 		});
-		btnModifier.setBounds(82, 517, 117, 29);
-		contentPane.add(btnModifier);
+		btnConsulter.setBounds(82, 517, 117, 29);
+		contentPane.add(btnConsulter);
 		
 		
 		

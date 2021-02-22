@@ -46,7 +46,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			JDialogCommentaireAffichage dialog = new JDialogCommentaireAffichage(comm);
+			JDialogCommentaireAffichage dialog = new JDialogCommentaireAffichage( null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -59,16 +59,16 @@ public class JDialogCommentaireAffichage extends JDialog {
 	 */
 	public JDialogCommentaireAffichage(Commentaire commentaireAtraiter) {
 		
-		this.commentaire = commentaireAtraiter ;
+		//this.commentaire = commentaireAtraiter ;
 
-		id = commentaire.getCommentaireId();
-		titre = commentaire.getLivreTitre();
-		login = commentaire.getClientLogin();
-		texte = commentaire.getCommentaireTexte();
-		note = commentaire.getCommentaireNote();
-		statut = commentaire.getCommentaireStatut();
-		dateCom = commentaire.getCommentaireDate();
-		dateMode = commentaire.getDateModeration();
+		id = commentaireAtraiter.getCommentaireId();
+		titre = commentaireAtraiter.getLivreTitre();
+		login = commentaireAtraiter.getClientLogin();
+		texte = commentaireAtraiter.getCommentaireTexte();
+		note = commentaireAtraiter.getCommentaireNote();
+		statut = commentaireAtraiter.getCommentaireStatut();
+		dateCom = commentaireAtraiter.getCommentaireDate();
+		dateMode = commentaireAtraiter.getDateModeration();
 		
 		
 		
@@ -84,7 +84,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 		textArea.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		textArea.setBounds(92, 152, 319, 329);
 		//contentPanel.add(textArea);
-		textArea.setText(commentaire.getCommentaireTexte());
+		textArea.setText(commentaireAtraiter.getCommentaireTexte());
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(92, 152, 319, 329);
@@ -97,7 +97,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 		lblTitreCom.setForeground(new Color(128, 0, 0));
 		lblTitreCom.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		lblTitreCom.setBounds(92, 110, 658, 16);
-		lblTitreCom.setText("Commentaire numéro : " +commentaire.getCommentaireId() + " pour le livre " +commentaire.getLivreTitre());
+		lblTitreCom.setText("Commentaire numéro : " +commentaireAtraiter.getCommentaireId() + " pour le livre " +commentaireAtraiter.getLivreTitre());
 		contentPanel.add(lblTitreCom);
 	
 		JLabel lblNewLabel = new JLabel("COMMENTAIRE");
@@ -112,28 +112,28 @@ public class JDialogCommentaireAffichage extends JDialog {
 		lblDatePoste.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		lblDatePoste.setBounds(451, 228, 307, 16);
 		contentPanel.add(lblDatePoste);
-		lblDatePoste.setText("Commentaire posté le : "+commentaire.getCommentaireDate().toString());
+		lblDatePoste.setText("Commentaire posté le : "+commentaireAtraiter.getCommentaireDate().toString());
 	
 		JLabel lblStatut = new JLabel("New label");
 		lblStatut.setForeground(new Color(128, 0, 0));
 		lblStatut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		lblStatut.setBounds(451, 288, 307, 16);
 		contentPanel.add(lblStatut);
-		lblStatut.setText("Statut du commentaire : "+commentaire.getCommentaireStatut());
+		lblStatut.setText("Statut du commentaire : "+commentaireAtraiter.getCommentaireStatut());
 
 		JLabel lblClientLogin = new JLabel("New label");
 		lblClientLogin.setForeground(new Color(128, 0, 0));
 		lblClientLogin.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		lblClientLogin.setBounds(451, 349, 307, 16);
 		contentPanel.add(lblClientLogin);
-		lblClientLogin.setText("Commentaire posté par " +commentaire.getClientLogin());
+		lblClientLogin.setText("Commentaire posté par " +commentaireAtraiter.getClientLogin());
 	
 		JLabel lblDateModération = new JLabel("New label");
 		lblDateModération.setForeground(new Color(128, 0, 0));
 		lblDateModération.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		lblDateModération.setBounds(451, 409, 307, 16);
 		contentPanel.add(lblDateModération);
-		lblDateModération.setText("Date de modération : " +commentaire.getDateModeration());
+		lblDateModération.setText("Date de modération : " +commentaireAtraiter.getDateModeration());
 	
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
@@ -159,7 +159,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				commentaireTexte = textArea.getText(); 
 				try {
-					commentaire = commentaireDAO.afficherUnCommentaire(commentaire, titre);
+					commentaire = commentaireDAO.afficherUnCommentaire(commentaireAtraiter, titre);
 					commentaireDAO.modifierCommentaire(commentaire, id, commentaireTexte);
 					JOptionPane.showMessageDialog(contentPanel, "Commentaire modéré avec succès", "Modération", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
