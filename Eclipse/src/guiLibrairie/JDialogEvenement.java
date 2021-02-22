@@ -184,7 +184,7 @@ public class JDialogEvenement extends JDialog {
 						String comment = txtSaisieCommentaire.getText();
 						try {
 							evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-							JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block

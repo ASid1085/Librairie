@@ -5,15 +5,18 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.sql.*;
-import daoLibrairie.daoGenre;
-import entitiesLibrairie.Genre;
+import daoLibrairie.*;
+import entitiesLibrairie.*;
 
 public class JFrameGenre extends JFrame {
 
 	private daoGenre daoG = new daoGenre();
+	private daoMotCle daoMC = new daoMotCle();
+	private ThemeDAO daoTh = new ThemeDAO();
 	private JPanel contentPane;
 	private JTextField txtGenreId;
 	private JTextField txtGenreNom;
+	private JComboBox cmbBoxTheme;
 
 	/**
 	 * Launch the application.
@@ -76,11 +79,11 @@ public class JFrameGenre extends JFrame {
 		JLabel lblGenreNom = new JLabel("Genre nom :");
 		lblGenreNom.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblGenreNom.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		lblGenreNom.setBounds(19, 170, 97, 16);
+		lblGenreNom.setBounds(19, 122, 97, 16);
 		contentPane.add(lblGenreNom);
 		
 		txtGenreNom = new JTextField();
-		txtGenreNom.setBounds(150, 165, 189, 26);
+		txtGenreNom.setBounds(150, 117, 189, 26);
 		txtGenreNom.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		contentPane.add(txtGenreNom);
 		txtGenreNom.setColumns(10);
@@ -88,24 +91,32 @@ public class JFrameGenre extends JFrame {
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String sTheme = (String) cmbBoxTheme.getSelectedItem();
+				String idTheme = "";
+				try {
+					idTheme = daoTh.recupIdTheme( sTheme);
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
 				Genre g = new Genre( txtGenreId.getText(), txtGenreNom.getText());
+				String idMc = daoMC.ajoutIdMotCle();
+				MotCle mc = new MotCle( idMc, txtGenreNom.getText());
 				if (genreNom.equals( "")) {
 					try {
 						daoG.ajouterGenre( g);
+						daoMC.ajouterMotCle( mc);
+						daoG.lierGenreTheme(idTheme, txtGenreId.getText());
 						setVisible( false);
 						dispose();
 					} catch (SQLException e1) {
 						System.err.println( "Oops : erreur avec la validation d'un nouveau genre - Voir JFrameGenre & daoGenre");
 						e1.printStackTrace();
 					}
-				} 
+				}
 				try {
 					daoG.modifierGenre( g, genreNom);
 					setVisible(false);
 					dispose();
-					//JFrameListeCategorie lc = new JFrameListeCategorie();
-					//lc.setLocationRelativeTo( lc.getParent());
-					//lc.setVisible( true);
 
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la modification d'un nouveau genre - Voir JFrameGenre & daoGenre");
@@ -119,6 +130,7 @@ public class JFrameGenre extends JFrame {
 		contentPane.add(btnValider);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtGenreId.setText( "");
@@ -129,5 +141,21 @@ public class JFrameGenre extends JFrame {
 		btnAnnuler.setBounds(69, 256, 97, 41);
 		btnAnnuler.setBounds(258, 257, 97, 41);
 		contentPane.add(btnAnnuler);
+		
+		JLabel lblThme = new JLabel("Thème :");
+		lblThme.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblThme.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblThme.setBounds(19, 176, 97, 16);
+		contentPane.add(lblThme);
+		
+		JComboBox comboBox = new JComboBox();
+		try {
+			cmbBoxTheme = new JComboBox( daoTh.vectorListTheme());
+			cmbBoxTheme.setSelectedIndex(-1);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		cmbBoxTheme.setBounds(150, 171, 189, 27);
+		contentPane.add(cmbBoxTheme);
 	}
 }

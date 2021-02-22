@@ -70,6 +70,7 @@ public class JFrameListeCategorie extends JFrame {
 	private DefaultTableModel modelAuteur = new DefaultTableModel();
 	private String vecteurEditeur;
 	private DefaultListModel vecteurTheme = new DefaultListModel();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,7 +78,7 @@ public class JFrameListeCategorie extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeCategorie frame = new JFrameListeCategorie(jdLAstatic, status);
+					JFrameListeCategorie frame = new JFrameListeCategorie(jdLAstatic, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -217,6 +218,7 @@ public class JFrameListeCategorie extends JFrame {
 		});
 		btnModifierAut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifierAut.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		//btnModifierAut.setBounds(292, 399, 129, 54);
 		btnModifierAut.setBounds(215, 399, 129, 54);
 		paneAuteur.add(btnModifierAut);
 		
@@ -229,7 +231,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoAu.supprimerAuteur( auteurNomSelect);
 					tableAuteur.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog( getParent(), "Merci de sélectionner un auteur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un auteur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un auteur - Voir JFrameListeCategorie & daoAuteur");
 					e1.printStackTrace();
@@ -255,10 +257,9 @@ public class JFrameListeCategorie extends JFrame {
 		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
 		btnRefreshAuteur.setBounds(537, 31, 55, 55);
 		paneAuteur.add(btnRefreshAuteur);
-		
-	
-		
-		
+
+		tabbedPane.setBackgroundAt(0, Color.ORANGE);
+		tabbedPane.setForegroundAt(0, Color.DARK_GRAY);
 		if(statut.equals("AJOUT LIVRE")) {	
 			JButton btnSelectionnerAuteur = new JButton("Sélectionner");
 			btnSelectionnerAuteur.addActionListener(new ActionListener() {
@@ -292,7 +293,6 @@ public class JFrameListeCategorie extends JFrame {
 					jdLA.setVisible(true);
 					setVisible(false);
 					dispose();
-
 				}
 			});
 			btnSelectionnerAuteur.setForeground(new Color(128, 0, 0));
@@ -300,12 +300,8 @@ public class JFrameListeCategorie extends JFrame {
 			btnSelectionnerAuteur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 			btnSelectionnerAuteur.setBounds(369, 399, 129, 54);
 			paneAuteur.add(btnSelectionnerAuteur);
-					
 		}
-		
-		
 //PANE EDITEUR//////////////////////////////////////////////////////////////////////////////////////////		
-		
 		JLayeredPane layPaneEditeur = new JLayeredPane();
 		layPaneEditeur.setForeground(Color.WHITE);
 		layPaneEditeur.setBackground(Color.WHITE);
@@ -375,7 +371,6 @@ public class JFrameListeCategorie extends JFrame {
 					System.err.println( "Oops : erreur avec la recherche d'auteur par nom - Voir JFrameListeCategorie & daoAuteur");
 					e1.printStackTrace();
 				}
-				
 			}
 		});
 		btnLoupeEditeur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
@@ -410,7 +405,7 @@ public class JFrameListeCategorie extends JFrame {
 					setVisible( false);
 					dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un éditeur - Voir JFrameListeCategorie & daoEditeur");
 					e1.printStackTrace();
@@ -419,6 +414,7 @@ public class JFrameListeCategorie extends JFrame {
 		});
 		btnModifierEditeur.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifierEditeur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		//btnModifierEditeur.setBounds(292, 399, 129, 54);
 		btnModifierEditeur.setBounds(215, 399, 129, 54);
 		paneEditeur.add(btnModifierEditeur);
 		
@@ -431,7 +427,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoEd.supprimerEditeur( editeurNomSelect);
 					tableEditeur.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un éditeur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un éditeur - Voir JFrameListeCategorie & daoEditeur");
 					e1.printStackTrace();
@@ -486,14 +482,8 @@ public class JFrameListeCategorie extends JFrame {
 			btnSelectionnerEditeur.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 			btnSelectionnerEditeur.setBounds(369, 399, 129, 54);
 			paneEditeur.add(btnSelectionnerEditeur);
-					
 		}
-		
 
-		
-		
-		
-		
 //PANE GENRE//////////////////////////////////////////////////////////////////////////////////////////			
 		
 		JLayeredPane layPaneGenre = new JLayeredPane();
@@ -555,6 +545,165 @@ public class JFrameListeCategorie extends JFrame {
 		}
 		tableGenre.getColumnModel().getColumn( 1).setPreferredWidth(20);
 		
+/*
+		JLayeredPane layPaneMotCle = new JLayeredPane();
+		layPaneGenre.setBorder( BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		layPaneGenre.setForeground(Color.WHITE);
+		tabbedPane.addTab("Mot-clé", null, layPaneMotCle, null);
+		
+		JPanel paneMotCle = new JPanel();
+		paneMotCle.setLayout(null);
+		paneMotCle.setBackground(new Color(255, 248, 220));
+		paneMotCle.setBounds(0, 0, 721, 483);
+		layPaneMotCle.add(paneMotCle);
+		
+		JLabel lblLibMotCle = new JLabel("Libellé mot-clé :");
+		lblLibMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		lblLibMotCle.setBounds(170, 49, 92, 18);
+		paneMotCle.add(lblLibMotCle);
+		
+		JLabel lblRechercherByMC = new JLabel("Rechercher par");
+		lblRechercherByMC.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		lblRechercherByMC.setBounds(22, 16, 142, 33);
+		paneMotCle.add(lblRechercherByMC);
+		
+		txtLibMotCle = new JTextField();
+		txtLibMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		txtLibMotCle.setColumns(10);
+		txtLibMotCle.setBounds(274, 45, 162, 26);
+		paneMotCle.add(txtLibMotCle);
+		
+		JPanel panelMotCle = new JPanel();
+		panelMotCle.setLayout(null);
+		panelMotCle.setBackground(new Color(255, 248, 220));
+		panelMotCle.setBounds(6, 94, 709, 293);
+		paneMotCle.add(panelMotCle);
+		
+		JScrollPane scrollPaneMotCle = new JScrollPane();
+		scrollPaneMotCle.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
+		scrollPaneMotCle.setBackground(new Color(255, 248, 220));
+		scrollPaneMotCle.setBounds(6, 6, 697, 281);
+		panelMotCle.add(scrollPaneMotCle);
+		
+		tableMotCle = new JTable();
+		tableMotCle.setBackground(new Color(255, 248, 220));
+		tableMotCle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableMotCle.setFillsViewportHeight(true);
+		scrollPaneMotCle.setViewportView(tableMotCle);
+		tableMotCle.setShowGrid( true);
+		tableMotCle.setShowHorizontalLines( true);
+		tableMotCle.setShowVerticalLines( true);
+		tableMotCle.getTableHeader().setBounds( 6, 6, 685, 281);
+		tableMotCle.getTableHeader().setVisible( true);
+		try {
+			tableMotCle.setModel( daoMot.listeMotCle());
+		} catch (SQLException e1) {
+			System.err.println( "Oops : erreur avec l'affichage de la liste Mot-clé - Voir JFrameListeCategorie & daoMotCle");
+			e1.printStackTrace();
+		}
+		
+		JButton btnLoupeMotCle = new JButton("");
+		btnLoupeMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String motCleSelect = "";
+				try {
+					motCleSelect = txtLibMotCle.getText();
+					System.out.println( motCleSelect);
+					tableMotCle.setModel( daoMot.listeMotCleByLib( motCleSelect));
+					txtLibMotCle.setText( "");
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec la recherche de mot-clé par libellé - Voir JFrameListeCategorie & daoMotCle");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLoupeMotCle.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeMotCle.setBounds(459, 31, 55, 55);
+		paneMotCle.add(btnLoupeMotCle);
+		
+		JButton btnCreerMotCle = new JButton("Créer");
+		btnCreerMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFmc = new JFrameMotCle( "");
+				JFmc.setLocationRelativeTo( JFmc.getParent());
+				JFmc.setVisible( true);
+				setVisible( false);
+				dispose();
+			}
+		});
+		btnCreerMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnCreerMotCle.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnCreerMotCle.setBounds(66, 399, 129, 54);
+		paneMotCle.add(btnCreerMotCle);
+		
+		JButton btnModifierMotCle = new JButton("Modifier");
+		btnModifierMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String motCleSelect = "";
+				try {
+					motCleSelect = (String) daoMot.listeMotCle().getValueAt( tableMotCle.getSelectedRow(), 1);
+					JFmc = new JFrameMotCle( motCleSelect);
+					JFmc.setLocationRelativeTo( JFmc.getParent());
+					JFmc.setVisible( true);
+					setVisible( false);
+					dispose();
+				} catch (ArrayIndexOutOfBoundsException aioobe) {
+					JOptionPane.showMessageDialog(null, "Merci de sélectionner un mot-clé à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un mot-clé - Voir JFrameListeCategorie & daoMotCle");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnModifierMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnModifierMotCle.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnModifierMotCle.setBounds(292, 399, 129, 54);
+		paneMotCle.add(btnModifierMotCle);
+		
+		JButton btnSupprimerMotCle = new JButton("Supprimer");
+		btnSupprimerMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String motCleSelect = "";
+				try {
+					motCleSelect = (String) daoMot.listeMotCle().getValueAt( tableMotCle.getSelectedRow(), 1);
+					daoMot.supprimerMotCle( motCleSelect);
+					tableMotCle.repaint();
+				} catch (ArrayIndexOutOfBoundsException aioobe) {
+					JOptionPane.showMessageDialog(null, "Merci de sélectionner un mot-clé à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un mot-clé - Voir JFrameListeCategorie & daoMotClé");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnSupprimerMotCle.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		btnSupprimerMotCle.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnSupprimerMotCle.setBounds(510, 399, 129, 54);
+		paneMotCle.add(btnSupprimerMotCle);
+		
+		JButton btnRefreshMotCle = new JButton("");
+		btnRefreshMotCle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tableMotCle.setModel( daoMot.listeMotCle());
+				} catch (SQLException e1) {
+					System.err.println( "Oops : erreur avec l'affichage de la liste Mot-clé - Voir JFrameListeCategorie & daoMotCle");
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnRefreshMotCle.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshMotCle.setBounds(530, 31, 55, 55);
+		paneMotCle.add(btnRefreshMotCle);
+		tabbedPane.setForegroundAt(3, Color.DARK_GRAY);
+		tabbedPane.setBackgroundAt(3, Color.ORANGE);
+		
+		JLayeredPane layPaneTheme = new JLayeredPane();
+		tabbedPane.addTab("Thème", null, layPaneTheme, null);
+		tabbedPane.setForegroundAt(4, Color.DARK_GRAY);
+		tabbedPane.setBackgroundAt(4, Color.ORANGE);
+*/
+    
 		JButton btnLoupeGenre = new JButton("");
 		btnLoupeGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -599,7 +748,7 @@ public class JFrameListeCategorie extends JFrame {
 					//setVisible( false);
 					//dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un genre à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un genre - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
@@ -608,6 +757,7 @@ public class JFrameListeCategorie extends JFrame {
 		});
 		btnModifierGenre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnModifierGenre.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		//btnModifierGenre.setBounds(292, 399, 129, 54);
 		btnModifierGenre.setBounds(215, 399, 129, 54);
 		paneGenre.add(btnModifierGenre);
 		
@@ -615,12 +765,15 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String genreNomSelect = "";
+				String genreIdSelect = "";
 				try {
 					genreNomSelect = (String) daoG.listeGenre().getValueAt(tableGenre.getSelectedRow(), 1);
+					genreIdSelect = (String) daoG.listeGenre().getValueAt( tableGenre.getSelectedRow(), 0);
+					daoG.delierGenreTheme( genreIdSelect);
 					daoG.supprimerGenre( genreNomSelect);
 					tableGenre.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un genre à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un genre - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
@@ -646,9 +799,7 @@ public class JFrameListeCategorie extends JFrame {
 		btnRefreshGenre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
 		btnRefreshGenre.setBounds(525, 31, 55, 55);
 		paneGenre.add(btnRefreshGenre);
-		
-		
-		
+    
 		if(statut.equals("AJOUT LIVRE")) {	
 			JButton btnSelectionnerGenre = new JButton("Sélectionner");
 			btnSelectionnerGenre.addActionListener(new ActionListener() {
@@ -674,20 +825,14 @@ public class JFrameListeCategorie extends JFrame {
 			btnSelectionnerGenre.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 			btnSelectionnerGenre.setBounds(369, 399, 129, 54);
 			paneGenre.add(btnSelectionnerGenre);
-					
 		}
 		
-		
-		
+
 //PANE MOTCLE//////////////////////////////////////////////////////////////////////////////////////////			
 		JLayeredPane layPaneMotCle = new JLayeredPane();
 		layPaneGenre.setBorder( BorderFactory.createMatteBorder(1, 1, 1, 1, Color.ORANGE));
 		layPaneGenre.setForeground(Color.WHITE);
 		tabbedPane.addTab("Mot-clé", null, layPaneMotCle, null);
-		
-		
-		
-		
 
 		JPanel paneMotCle = new JPanel();
 		paneMotCle.setLayout(null);
@@ -740,7 +885,6 @@ public class JFrameListeCategorie extends JFrame {
 			System.err.println( "Oops : erreur avec l'affichage de la liste Mot-clé - Voir JFrameListeCategorie & daoMotCle");
 			e1.printStackTrace();
 		}
-		
 		
 		JButton btnLoupeMotCle = new JButton("");
 		btnLoupeMotCle.addActionListener(new ActionListener() {
@@ -808,7 +952,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoMot.supprimerMotCle( motCleSelect);
 					tableMotCle.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un mot-clé à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un mot-clé à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un mot-clé - Voir JFrameListeCategorie & daoMotClé");
 					e1.printStackTrace();
@@ -863,11 +1007,8 @@ public class JFrameListeCategorie extends JFrame {
 			btnSelectionnerMC.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 			btnSelectionnerMC.setBounds(369, 399, 129, 54);
 			paneMotCle.add(btnSelectionnerMC);
-					
 		}
-		
-		
-		
+			
 //PANE THEME//////////////////////////////////////////////////////////////////////////////////////////		
 		JLayeredPane layPaneTheme = new JLayeredPane();
 		tabbedPane.addTab("Thème", null, layPaneTheme, null);
@@ -933,8 +1074,6 @@ public class JFrameListeCategorie extends JFrame {
 			e2.printStackTrace();
 		}
 		
-		
-		
 		JButton btnLoupeTheme = new JButton("");
 		btnLoupeTheme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -979,7 +1118,7 @@ public class JFrameListeCategorie extends JFrame {
 					JFMth = new JFrameModifTheme(themeModif);
 					JFMth.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un thème à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un thème à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException exc) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un thème - Voir JFrameListeCategorie & daoThème");
 					exc.printStackTrace();
@@ -1001,9 +1140,9 @@ public class JFrameListeCategorie extends JFrame {
 					themeDAO.supprimerTheme(id);
 					DefaultTableModel nouveaumodel = new DefaultTableModel(vectorTheme, nomCol);
 					tableTheme.setModel(nouveaumodel);
-					JOptionPane.showMessageDialog(null, "Theme supprimé avec succès", "Message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Theme supprimé avec succès", "Message", JOptionPane.INFORMATION_MESSAGE);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un thème à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un thème à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un thème - Voir JFrameListeCategorie & daoThème");
 					e1.printStackTrace();
@@ -1061,7 +1200,6 @@ public class JFrameListeCategorie extends JFrame {
 			btnSelectionnerTheme.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 			btnSelectionnerTheme.setBounds(369, 399, 129, 54);
 			paneTheme.add(btnSelectionnerTheme);
-					
 		}
 	}
 }

@@ -25,6 +25,7 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class JDialogEmployeAjout extends JDialog {
 
@@ -34,7 +35,7 @@ public class JDialogEmployeAjout extends JDialog {
 	private JTextField txtSaisiePoste;
 	private JTextField txtSaisieLogin;
 	private JTextField txtSaisieMDP;
-	private JComboBox cmbBxAcces;
+	//private JComboBox cmbBxAcces;
 	private EmployeDAO employeDao = new EmployeDAO();
 	private Employe employe = new Employe();
 
@@ -66,7 +67,7 @@ public class JDialogEmployeAjout extends JDialog {
 		
 //JLABEL //////////////////////////////////////////////////////////////////////////////////////////////		
 		
-		JLabel lblTitre = new JLabel("AJOUT NOUVEL UTILISATEUR");
+		JLabel lblTitre = new JLabel("AJOUT NOUVEL.LE EMPLOYÉ.E");
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitre.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		lblTitre.setForeground(new Color(255, 215, 0));
@@ -149,11 +150,11 @@ public class JDialogEmployeAjout extends JDialog {
 		contentPanel.add(txtSaisieMDP);
 		
 
-		
-		
-//JCOMBOBOX //////////////////////////////////////////////////////////////////////////////////////////////				
 
-		
+
+		//JCOMBOBOX //////////////////////////////////////////////////////////////////////////////////////////////				
+
+
 		Vector<String> cmbBxAccesModel = new Vector();
 		try {
 			cmbBxAccesModel= employeDao.recupererDroitsAcces();
@@ -161,65 +162,54 @@ public class JDialogEmployeAjout extends JDialog {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JComboBox cmbBxAcces = new JComboBox(cmbBxAccesModel);
 		cmbBxAcces.setSelectedIndex(-1);
 		cmbBxAcces.setForeground(new Color(128, 0, 0));
 		cmbBxAcces.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		cmbBxAcces.setBounds(395, 285, 300, 27);
 		contentPanel.add(cmbBxAcces);
-		{
-			JButton okButton = new JButton("OK");
-			okButton.setBounds(624, 488, 71, 37);
-			contentPanel.add(okButton);
-			okButton.setForeground(new Color(128, 0, 0));
-			okButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-			okButton.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-			okButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String acces = cmbBxAcces.getSelectedItem().toString();
-					String nom = txtSaisieNom.getText().toString();
-					String prenom = txtSaisiePrenom.getText().toString();
-					String poste = txtSaisiePoste.getText().toString();
-					String log = txtSaisieLogin.getText().toString();
-					String mdp = txtSaisieMDP.getText().toString();
-					if(!acces.isEmpty() && !nom.isEmpty() && !prenom.isEmpty() && !poste.isEmpty() && !log.isEmpty() && !mdp.isEmpty()) {
-						try {
-								employeDao.ajouterEmploye(acces, nom, prenom, poste, log, mdp);
-								JOptionPane.showMessageDialog(null, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-								dispose();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							//e1.printStackTrace();
-							JOptionPane.showMessageDialog(null, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
-						}
-					}else {
-						JOptionPane.showMessageDialog(new JDialogEmployeAjout(), "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
+
+		
+		//JBOUTON //////////////////////////////////////////////////////////////////////////////////////////////			
+		
+		JButton okButton = new JButton("");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String acces = cmbBxAcces.getSelectedItem().toString();
+				String nom = txtSaisieNom.getText().toString();
+				String prenom = txtSaisiePrenom.getText().toString();
+				String poste = txtSaisiePoste.getText().toString();
+				String log = txtSaisieLogin.getText().toString();
+				String mdp = txtSaisieMDP.getText().toString();
+				if(!acces.isEmpty() && !nom.isEmpty() && !prenom.isEmpty() && !poste.isEmpty() && !log.isEmpty() && !mdp.isEmpty()) {
+					try {
+						employeDao.ajouterEmploye(acces, nom, prenom, poste, log, mdp);
+						JOptionPane.showMessageDialog(contentPanel, "Nouvel utilisateur ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					} catch (SQLException e1) {
+						//e1.printStackTrace();
+						JOptionPane.showMessageDialog(contentPanel, "Oops, une erreur s'est produite", "Veuillez réessayer", JOptionPane.INFORMATION_MESSAGE);
 					}
+				}else {
+					JOptionPane.showMessageDialog(contentPanel, "Oops, certains champs ne sont pas remplis...", "Saisir tous les champs", JOptionPane.INFORMATION_MESSAGE);
 				}
-			});
-			okButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-			okButton.setActionCommand("OK");
-			getRootPane().setDefaultButton(okButton);
-		}
+			}
+		});
+		okButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		okButton.setActionCommand("OK");
+		okButton.setBounds(248, 479, 58, 58);
+		contentPanel.add(okButton);
 		
-		
-		
-		
-		{
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.setBounds(710, 488, 71, 37);
-			contentPanel.add(cancelButton);
-			cancelButton.setForeground(new Color(128, 0, 0));
-			cancelButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-			cancelButton.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-			cancelButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			cancelButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-			cancelButton.setActionCommand("Cancel");
-		}
+		JButton cancelButton = new JButton("");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.setActionCommand("Cancel");
+		cancelButton.setBounds(501, 479, 58, 58);
+		contentPanel.add(cancelButton);
 	}
 }

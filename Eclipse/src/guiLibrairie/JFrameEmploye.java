@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class JFrameEmploye extends JFrame {
 
@@ -103,7 +104,7 @@ public class JFrameEmploye extends JFrame {
 			vectorEmploye = employeDAO.afficherEmployes();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "Oops, petit problème technique", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(contentPane, "Oops, petit problème technique", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		
@@ -193,36 +194,14 @@ public class JFrameEmploye extends JFrame {
 				String prenom = (String) tableEmployes.getValueAt(row, 2);
 				try {
 					employe = employeDAO.afficherEmploye(nom, prenom);
-					System.out.println(employe);
+					
 					JDialogEmployeAffichage jdEmployeAffichage = new JDialogEmployeAffichage(employe);
 					jdEmployeAffichage.setVisible(true);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				/*int row = tableEmployes.getSelectedRow();
-				String droitacces = (String) tableEmployes.getValueAt(row, 0);
-				String nom = (String) tableEmployes.getValueAt(row, 1);
-				String prenom = (String) tableEmployes.getValueAt(row, 2);
-				String poste = (String) tableEmployes.getValueAt(row, 3);
-				String log = (String) tableEmployes.getValueAt(row, 4);
-				String mdp = (String) tableEmployes.getValueAt(row, 5);
 
-				tableEmployes.setValueAt(droitacces, row, 0);
-				tableEmployes.setValueAt(nom, row, 1);
-				tableEmployes.setValueAt(prenom, row, 2);
-				tableEmployes.setValueAt(poste, row, 3);
-				tableEmployes.setValueAt(log, row, 4);
-				tableEmployes.setValueAt(mdp, row, 5);
-				employe = new Employe(droitacces, nom, prenom, poste, log, mdp);
-				try {
-					employeDAO.modifierEmployer(employe, log);
-					JOptionPane.showMessageDialog(null, employe.toString(), "Vous avez modifié le profil de : ", JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				*/
 			}
 		});
 		btnModifier.setBounds(814, 282, 117, 48);
@@ -242,7 +221,7 @@ public class JFrameEmploye extends JFrame {
 				String prenom = (String) tableEmployes.getValueAt(row, 2);
 				try {
 					employeDAO.supprimerEmploye(nom, prenom);
-					JOptionPane.showMessageDialog(null, "Utilisateur supprimé avec succès", "SUPPRESSION UTILISATEUR", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Utilisateur supprimé avec succès", "SUPPRESSION UTILISATEUR", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -256,10 +235,11 @@ public class JFrameEmploye extends JFrame {
 		
 
 //BOUTON RECHERCHER///////////////////////////////////////////////////////////////////////////////////////
-		JButton btnRechercher = new JButton("Rechercher");
-		btnRechercher.setForeground(new Color(128, 0, 0));
-		btnRechercher.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRechercher.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRechercher = new JButton("");
+		btnRechercher.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/search.png"));
+		//btnRechercher.setForeground(new Color(128, 0, 0));
+		//btnRechercher.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRechercher.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtSaisieNom.getText().length() > 0) {
@@ -271,7 +251,7 @@ public class JFrameEmploye extends JFrame {
 						txtSaisieNom.setText("");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Oops, nous ne trouvons pas ce nom... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Oops, nous ne trouvons pas ce nom... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else if(cmbBxAcces.getSelectedIndex()>=0) {
 					try {
@@ -282,13 +262,13 @@ public class JFrameEmploye extends JFrame {
 						txtSaisieNom.setText("");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Oops, nous n'avons trouvé personne... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Oops, nous n'avons trouvé personne... veuillez réessayer !", "Nous sommes désolés", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 				
 			}
 		});
-		btnRechercher.setBounds(783, 94, 148, 61);
+		btnRechercher.setBounds(832, 94, 80, 57);
 		contentPane.add(btnRechercher);
 
 		
@@ -312,7 +292,8 @@ public class JFrameEmploye extends JFrame {
 		
 //BOUTON RAFRAICHIR ///////////////////////////////////////////////////////////////////////////////////
 		
-		JButton btnRafraichir = new JButton("Rafraichir");
+		JButton btnRafraichir = new JButton("");
+		btnRafraichir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
 		btnRafraichir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -330,10 +311,10 @@ public class JFrameEmploye extends JFrame {
 				scrollPane.setViewportView(tableEmployes);
 			}
 		});
-		btnRafraichir.setForeground(new Color(128, 0, 0));
-		btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnRafraichir.setBounds(81, 103, 117, 48);
+		//btnRafraichir.setForeground(new Color(128, 0, 0));
+		//btnRafraichir.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRafraichir.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		btnRafraichir.setBounds(81, 94, 80, 57);
 		contentPane.add(btnRafraichir);
 
 		

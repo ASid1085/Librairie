@@ -85,7 +85,6 @@ public class ThemeDAO implements IThemeDAO {
 		ptsmt.executeUpdate();
 	}
 	
-	
 	@Override
 	public String ajoutIdTheme() throws SQLException {
 		String id = null;
@@ -95,13 +94,13 @@ public class ThemeDAO implements IThemeDAO {
 		while ( rs.next()) {
 			int numTheme = rs.getInt( 1) +1 ;
 			if (numTheme < 10) {
-				id = "0000" + numTheme + "GEN";
+				id = "0000" + numTheme + "THE";
 			} else if (numTheme < 100) {
-				id = "000" + numTheme + "GEN";
+				id = "000" + numTheme + "THE";
 			} else if (numTheme < 1000) {
-				id = "00" + numTheme + "GEN";
+				id = "00" + numTheme + "THE";
 			} else if (numTheme < 10000) {
-				id = "0" + numTheme + "GEN";
+				id = "0" + numTheme + "THE";
 			} if (numTheme > 99999) {
 				JOptionPane.showMessageDialog(null, "Vous ne pouvez plus ajouter de nouveau Theme !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
 			}
@@ -124,8 +123,39 @@ public class ThemeDAO implements IThemeDAO {
 	
 		return theme;
 	}
-
 	
+	public Vector<String> vectorListTheme() throws SQLException {
+		Vector<String> vTheme = new Vector<>();
 
+		
+		String query =	"select * from THEME order by THEMENOM;";
+
+		try {
+			stmt = myConnection.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				vTheme.add( rs.getString( "THEMENOM"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vTheme;
+	}
+	
+	public String recupIdTheme( String nomTheme) throws SQLException {
+		String id = "";
+		
+		stmt = myConnection.createStatement();
+		String query = "select THEMEID from THEME where THEMENOM = '" + nomTheme + "';";
+		ResultSet rs = stmt.executeQuery( query);
+		
+		while ( rs.next()) {
+			id = rs.getString( "THEMEID");
+		}
+
+		return id;
+	}
 
 }

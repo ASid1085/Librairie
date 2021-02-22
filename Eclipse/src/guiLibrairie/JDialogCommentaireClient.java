@@ -56,25 +56,18 @@ public class JDialogCommentaireClient extends JDialog {
 		contentPanel.setBackground(new Color(255, 248, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		scrollPane.setBackground(new Color(255, 248, 220));
-		scrollPane.setBounds(16, 17, 367, 206);
-		contentPanel.add(scrollPane);
-		
-		textAreaPostIt = new JTextArea();
-		scrollPane.setViewportView(textAreaPostIt);
 		JButton btnValider = new JButton("");
 		btnValider.setBounds(275, 235, 48, 50);
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String note = "";
 				try {
-					note = daoClt.recupererNoteClient( clientLogin);
+					note = textAreaPostIt.getText();
+					//System.out.println( note);
 					daoClt.modifierNoteClient( clientLogin, note);
+					JOptionPane.showMessageDialog( contentPanel, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					System.err.println( "Oops : Erreur avec l'ajout/modification du post'it client.");
+					JOptionPane.showMessageDialog( contentPanel, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
 					ex.printStackTrace();
 				}
 			}
@@ -94,5 +87,10 @@ public class JDialogCommentaireClient extends JDialog {
 		});
 		btnSortir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel.png"));
 		contentPanel.add(btnSortir);
+		
+		textAreaPostIt = new JTextArea();
+		textAreaPostIt.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		textAreaPostIt.setBounds(16, 19, 367, 210);
+		contentPanel.add(textAreaPostIt);
 	}
 }

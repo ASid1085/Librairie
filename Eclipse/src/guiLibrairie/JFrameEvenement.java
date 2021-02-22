@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.EvenementDAO;
 import entitiesLibrairie.Evenement;
+import guiLibrairie.*;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -31,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class JFrameEvenement extends JFrame {
 
@@ -156,7 +158,7 @@ public class JFrameEvenement extends JFrame {
 					DefaultTableModel newModel = new DefaultTableModel(vectorEvenement, nomColonnes);
 					table.setModel(newModel);
 					if (vectorEvenement.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Aucun événement en cours", "Rééssayer demain !", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Aucun événement en cours", "Rééssayer demain !", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -199,7 +201,7 @@ public class JFrameEvenement extends JFrame {
 				int row = table.getSelectedRow();
 				String nom = (String) table.getValueAt(row, 0);
 				try {
-					evenement = evenementDAO.afficherEvenement(nom);
+					evenement = evenementDAO.afficherEvenement( nom);
 					JDialogEvenementAffichage jdEvenementAffichage = new JDialogEvenementAffichage(evenement);
 					jdEvenementAffichage.setVisible(true);
 				} catch (SQLException e1) {
@@ -226,7 +228,7 @@ public class JFrameEvenement extends JFrame {
 				String nom = (String) table.getValueAt(row, 0);
 				try {
 					evenementDAO.supprimerEvenement(nom);
-					JOptionPane.showMessageDialog(null,"Evénement supprimé avec succès" , "Suppression", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Evénement supprimé avec succès" , "Suppression", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -240,10 +242,11 @@ public class JFrameEvenement extends JFrame {
 		
 		
 //BOUTON RAFRAICHIR//////////////////////////////////////////////////////////////////////////////////
-		JButton btnRetour = new JButton("Rafraichir");
-		btnRetour.setForeground(new Color(128, 0, 0));
-		btnRetour.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRetour.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRetour = new JButton("");
+		btnRetour.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
+		//btnRetour.setForeground(new Color(128, 0, 0));
+		//btnRetour.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRetour.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -257,7 +260,7 @@ public class JFrameEvenement extends JFrame {
 				}
 			}
 		});
-		btnRetour.setBounds(39, 110, 117, 32);
+		btnRetour.setBounds(39, 90, 64, 60);
 		contentPane.add(btnRetour);
 		
 		

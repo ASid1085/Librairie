@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Vector;
 
 import connexionLibrairie.Connexion;
@@ -14,13 +15,9 @@ import interfaceDaoLibrairie.IEvenementDAO;
 
 public class EvenementDAO implements IEvenementDAO {
 
-	
 	private Connection myConnection;
 	private Statement stmt;
 	private PreparedStatement ptsmt;
-	
-	
-	
 	
 	public EvenementDAO () {
 		myConnection = Connexion.getInstance();
@@ -169,12 +166,44 @@ public class EvenementDAO implements IEvenementDAO {
 			evenement.setEvenementImage(res.getString("EVENEMENTIMAGE"));
 			evenement.setEvenementComment(res.getString("EVENEMENTCOMMENT"));
 		}
-		
-	
 		return evenement;
 	}
 
-
-
+	public Float recupRemise() throws SQLException {
+		float remise = 0;
+		
+		String query = "SELECT E.EVENEMENTNOM, EVENEMENTDATEDEBUT, EVENEMENTDATEFIN, "
+				+ "EVENEMENTPOURCENTAGE, EVENMENTCODEPROMO, EVENEMENTIMAGE, EVENEMENTCOMMENT "
+				+ "FROM EVENEMENT E "
+				+ "INNER JOIN VIEW_INTERVALLE V "
+				+ "ON E.EVENEMENTNOM = V.EVENEMENTNOM "
+				+ "WHERE TODAY > 0 AND TODAY < INTERVALLE;";
+		
+		stmt = myConnection.createStatement();
+		ResultSet rs = stmt.executeQuery( query);
+		while(rs.next()) {
+			remise = rs.getFloat( "EVENEMENTPOURCENTAGE");
+		}
+		return remise;
+	}
+	
+	public Evenement rechercherEvenementByDate() throws SQLException{
+		Evenement ev = null;
+		
+		stmt = myConnection.createStatement();
+		String query = "SELECT E.EVENEMENTNOM, EVENEMENTDATEDEBUT, EVENEMENTDATEFIN, "
+				+ "EVENEMENTPOURCENTAGE, EVENMENTCODEPROMO, EVENEMENTIMAGE, EVENEMENTCOMMENT "
+				+ "FROM EVENEMENT E "
+				+ "INNER JOIN VIEW_INTERVALLE V "
+				+ "ON E.EVENEMENTNOM = V.EVENEMENTNOM "
+				+ "WHERE TODAY > 0 AND TODAY < INTERVALLE;";
+		
+		ResultSet res = stmt.executeQuery( query);
+		while(res.next()) {
+			ev = new Evenement( res.getString("EVENEMENTNOM"), res.getDate("EVENEMENTDATEDEBUT"), res.getDate("EVENEMENTDATEFIN"),
+								res.getFloat("EVENEMENTPOURCENTAGE"), res.getString("EVENMENTCODEPROMO"), res.getString("EVENEMENTIMAGE"), res.getString("EVENEMENTCOMMENT"));
+		}
+		return ev;
+	}
 	
 }

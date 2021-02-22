@@ -161,7 +161,7 @@ public class JDialogCommentaireAffichage extends JDialog {
 				try {
 					commentaire = commentaireDAO.afficherUnCommentaire(commentaire, titre);
 					commentaireDAO.modifierCommentaire(commentaire, id, commentaireTexte);
-					JOptionPane.showMessageDialog(new JDialogCommentaireAffichage(commentaire), "Commentaire modéré avec succès", "Modération", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, "Commentaire modéré avec succès", "Modération", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

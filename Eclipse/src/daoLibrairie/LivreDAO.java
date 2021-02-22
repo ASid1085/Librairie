@@ -28,8 +28,34 @@ public class LivreDAO implements ILivreDAO{
 		myConnection = Connexion.getInstance();
 	}
 	
-	
 	@Override
+	public Float recupererTVA(String titre) throws SQLException {
+		float txTva = 0;
+		
+		String query = "select tva.TVATAUX from TVA as tva inner join LIVRE as liv on liv.TVAID = tva.tvaID"
+							+ " where liv.LIVRETITRE = '" + titre.replace("'", "''") + "';";
+		
+		stmt = myConnection.createStatement();
+		ResultSet rs = stmt.executeQuery( query);
+		while ( rs.next()) {
+			txTva = rs.getFloat( "TVATAUX");
+		}		
+		return txTva;
+	}
+	
+	public String recupererTvaId( Float txTva) throws SQLException {
+		String idTva = "";
+		
+		String query = "select TVAID from TVA where TVATAUX = '" + txTva  + "';";
+			
+		stmt = myConnection.createStatement();
+		ResultSet rs = stmt.executeQuery( query);
+		while ( rs.next()) {
+			idTva = rs.getString( "TVAID");
+		}		
+		return idTva;
+	}
+
 	public Vector<String> recupererTVA() throws SQLException {
 		Vector<String> tva = new Vector();
 		stmt = myConnection.createStatement();
@@ -39,11 +65,7 @@ public class LivreDAO implements ILivreDAO{
 			tva.add(result.getString("TVATAUX"));
 		}
 		return tva;
-		
-		// TODO Auto-generated method stub
-		
 	}
-
 
 	@Override
 	public String recupererISBN(String titre) throws SQLException {
@@ -57,8 +79,6 @@ public class LivreDAO implements ILivreDAO{
 		}
 		return isbn;
 	}
-	
-	
 	
 	@Override
 	public Livre ajouterLivre(String isbn, String titre, String sousTitre, float prixHT, String tvaID, String dateEdition, String image, String resume, float nbrePages, String stock, String comment, String statut) throws SQLException {
@@ -94,7 +114,6 @@ public class LivreDAO implements ILivreDAO{
 		return livre;
 	}
 	
-
 	@Override
 	public void lierLivreAuteur(String auteur, String isbn) throws SQLException {
 		// TODO Auto-generated method stub
@@ -106,14 +125,12 @@ public class LivreDAO implements ILivreDAO{
 			auteurALier = result.getString("AUTEURID");
 		}
 		
-		
 		String insert = "INSERT INTO ECRIRE (LIVREISBN, AUTEURID) VALUES (?, ?);";
 		ptsmt = myConnection.prepareStatement(insert);
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, auteurALier);
 		int resultat = ptsmt.executeUpdate();
 	}
-
 
 	@Override
 	public void lierLivreEditeur(String editeur, String isbn) throws SQLException {
@@ -134,7 +151,6 @@ public class LivreDAO implements ILivreDAO{
 		int resultat = ptsmt.executeUpdate();
 	}
 
-
 	@Override
 	public void lierLivreTheme(String theme, String isbn) throws SQLException {
 		// TODO Auto-generated method stub
@@ -152,9 +168,8 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, themeALier);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
-	}
 
+	}
 
 	@Override
 	public void lierLivreMotCle(String motCle, String isbn) throws SQLException {
@@ -173,10 +188,8 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, motCleALier);
 		ptsmt.setString(2, isbn);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
-	}
-	
 
+	}
 	    
     @Override
     public Vector findAll () throws SQLException{
@@ -211,10 +224,8 @@ public class LivreDAO implements ILivreDAO{
         return livres;
 
     }
-	    
-    
 	  
-  public String addBook(Livre livre, String idAuteur, String idEditeur){
+    public String addBook(Livre livre, String idAuteur, String idEditeur){
         String tvaID=null;
       
         try {
@@ -258,7 +269,7 @@ public class LivreDAO implements ILivreDAO{
   }  
 
   
-  public void modifierLivre(Livre livre, String tva) throws SQLException{
+    public void modifierLivre(Livre livre, String tva) throws SQLException{
 	  	String tvaID = null;
       
 	  	stmt = myConnection.createStatement();
@@ -285,14 +296,8 @@ public class LivreDAO implements ILivreDAO{
 
 	    
 	    int result = pstmt.executeUpdate();
-            
-
 
   }
-	  
-
-  
-
 
 	@Override
 	public Vector findByParameter(String champs, String valeurChamps) throws SQLException {
@@ -463,7 +468,7 @@ public class LivreDAO implements ILivreDAO{
 		       livre.add(res.getString("LIVRESTATUT"));
 		       livres.add(livre);
 		   }
-		   System.out.println(query);
+
 		return livres;
 		
 	}
@@ -831,9 +836,60 @@ public class LivreDAO implements ILivreDAO{
 		return livre;
 	}
 
+	public Vector<String> vectorListLivre() throws SQLException {
+		Vector<String> vLiv = new Vector<>();
 
+		
+		String query =	"select * from LIVRE order by LIVRETITRE;";
 
+		try {
+			stmt = myConnection.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				vLiv.add( rs.getString( "LIVRETITRE"));
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vLiv;
+	}
+	
+	public Float recupPrixHt(String titre) throws SQLException {
+		Float tarif = null;
 
+		String query = "select LIVREPRIXHT from LIVRE where LIVRETITRE = '" + titre.replace( "'", "''") + "';";
+		try {
+			stmt = myConnection.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				tarif = rs.getFloat( "LIVREPRIXHT");
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+		}
+		return tarif;
+	}
+	
+	public String recupIsbn(String titre) throws SQLException {
+		String isbn = null;
 
+		String query = "select LIVREISBN from LIVRE where LIVRETITRE = '" + titre.replace( "'", "''") + "';";
+		try {
+			stmt = myConnection.createStatement();
+			ResultSet rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				isbn = rs.getString( "LIVREISBN");
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.err.println("Oops:SQL:" + ex.getErrorCode() + ":" + ex.getMessage());    
+		}
+		return isbn;
+	}
 
 }

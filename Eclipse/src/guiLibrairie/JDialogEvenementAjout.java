@@ -29,6 +29,7 @@ import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.ImageIcon;
 
 public class JDialogEvenementAjout extends JDialog {
 
@@ -255,92 +256,7 @@ public class JDialogEvenementAjout extends JDialog {
 		lblTitre.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		lblTitre.setBounds(116, 26, 613, 35);
 		contentPanel.add(lblTitre);
-		{
-			JButton okButton = new JButton("OK");
-			okButton.setBounds(660, 521, 69, 35);
-			contentPanel.add(okButton);
-			okButton.setForeground(new Color(128, 0, 0));
-			okButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-			okButton.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-			okButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String nom = txtSaisieNom.getText();
-					String debutEvent = comboBoxAnnee.getSelectedItem()+ "-"+ comboBoxMois.getSelectedItem() + "-" +comboBoxJour.getSelectedItem().toString();
-					Date debut = Date.valueOf(debutEvent);
-					int anneeDebut = (int) comboBoxAnnee.getSelectedItem();
-					int moisDebut = (int) comboBoxMois.getSelectedItem();
-					int jourDebut = (int) comboBoxJour.getSelectedItem();
-					int anneeFin = (int) comboBoxAnnee_1.getSelectedItem();
-					int moisFin = (int) comboBoxMois_1.getSelectedItem();
-					int jourFin = (int) comboBoxJour_1.getSelectedItem();
-					String finEvent = comboBoxAnnee_1.getSelectedItem()+ "-"+ comboBoxMois_1.getSelectedItem() + "-" +comboBoxJour_1.getSelectedItem().toString();
-					Date fin = Date.valueOf(finEvent);
-					String value = spinner.getValue().toString();
-					
-					Float pourcentage = Float.parseFloat(value);
-					
-					String codePromo = txtSaisieCodePromo.getText();
-					String image = txtSaisieImage.getText();
-					String comment = txtSaisieCommentaire.getText();
-					try {
-						if (!nom.isEmpty() && debut!=null && fin!=null && pourcentage!=null && !codePromo.isEmpty()) {
-							if ((anneeFin>anneeDebut)) {
-								evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-								JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-								dispose();
-								
-							}else if((anneeFin==anneeDebut)) {
-								if ((moisFin>moisDebut)) {
-									evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-									JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-									dispose();
-								} else if (moisFin==moisDebut) {
-									if (jourFin>jourDebut) {
-										evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-										JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-										dispose();
-									} else if (jourFin==jourDebut) {
-										evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-										JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
-										dispose();
-									} else {
-										JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
-									}
-								} else {
-									JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
-								}
-							} else {
-								JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
-							}
-						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir les champs obligatoires");
-						}
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
-			okButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-			okButton.setActionCommand("OK");
-			getRootPane().setDefaultButton(okButton);
-		}
-		{
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.setBounds(761, 521, 69, 35);
-			contentPanel.add(cancelButton);
-			cancelButton.setForeground(new Color(128, 0, 0));
-			cancelButton.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-			cancelButton.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-			cancelButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			cancelButton.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-			cancelButton.setActionCommand("Cancel");
-		}
-		
+
 		lblNewLabel = new JLabel("Année");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -362,8 +278,81 @@ public class JDialogEvenementAjout extends JDialog {
 		lblJour.setBounds(593, 179, 136, 16);
 		contentPanel.add(lblJour);
 		
+		JButton okButton = new JButton("");
+		okButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nom = txtSaisieNom.getText();
+				String debutEvent = comboBoxAnnee.getSelectedItem()+ "-"+ comboBoxMois.getSelectedItem() + "-" +comboBoxJour.getSelectedItem().toString();
+				Date debut = Date.valueOf(debutEvent);
+				int anneeDebut = (int) comboBoxAnnee.getSelectedItem();
+				int moisDebut = (int) comboBoxMois.getSelectedItem();
+				int jourDebut = (int) comboBoxJour.getSelectedItem();
+				int anneeFin = (int) comboBoxAnnee_1.getSelectedItem();
+				int moisFin = (int) comboBoxMois_1.getSelectedItem();
+				int jourFin = (int) comboBoxJour_1.getSelectedItem();
+				String finEvent = comboBoxAnnee_1.getSelectedItem()+ "-"+ comboBoxMois_1.getSelectedItem() + "-" +comboBoxJour_1.getSelectedItem().toString();
+				Date fin = Date.valueOf(finEvent);
+				String value = spinner.getValue().toString();
 
+				Float pourcentage = Float.parseFloat(value);
+
+				String codePromo = txtSaisieCodePromo.getText();
+				String image = txtSaisieImage.getText();
+				String comment = txtSaisieCommentaire.getText();
+				try {
+					if (!nom.isEmpty() && debut!=null && fin!=null && pourcentage!=null && !codePromo.isEmpty()) {
+						if ((anneeFin>anneeDebut)) {
+							evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
+							JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+
+						}else if((anneeFin==anneeDebut)) {
+							if ((moisFin>moisDebut)) {
+								evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
+								JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							} else if (moisFin==moisDebut) {
+								if (jourFin>jourDebut) {
+									evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
+									JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								} else if (jourFin==jourDebut) {
+									evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
+									JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								} else {
+									JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
+								}
+							} else {
+								JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
+							}
+						} else {
+							JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
+						}
+					} else {
+						JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir les champs obligatoires");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		okButton.setActionCommand("OK");
+		okButton.setBounds(582, 504, 58, 58);
+		contentPanel.add(okButton);
 		
+		JButton cancelButton = new JButton("");
+		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		cancelButton.setActionCommand("Cancel");
+		cancelButton.setBounds(671, 504, 58, 58);
+		contentPanel.add(cancelButton);
 		
 	}
 }

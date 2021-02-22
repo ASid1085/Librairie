@@ -185,6 +185,7 @@ public class JFrameEditeur extends JFrame {
 					//lc.setLocationRelativeTo( null);
 					//lc.setVisible( true);
 
+
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la modification d'un nouvel éditeur - Voir JFrameEditeur & daoEditeur");
 					e1.printStackTrace();

@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.ThemeDAO;
+import daoLibrairie.daoMotCle;
 import entitiesLibrairie.Editeur;
 import entitiesLibrairie.MotCle;
 import entitiesLibrairie.Theme;
@@ -32,6 +33,7 @@ public class JFrameNvTheme extends JFrame {
 	private JPanel contentPane;
 	private Theme theme = new Theme();
 	private ThemeDAO themeDAO = new ThemeDAO();
+	private daoMotCle daoMc = new daoMotCle();
 	private JTextField txtThemeId;
 	private JTextField txtThemeLib;
 
@@ -88,8 +90,6 @@ public class JFrameNvTheme extends JFrame {
 		lblThemeId.setBounds(33, 60, 83, 16);
 		contentPane.add(lblThemeId);
 		
-		
-		
 		JLabel lblThemeLib = new JLabel("Thème Libellé :");
 		lblThemeLib.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblThemeLib.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -102,16 +102,13 @@ public class JFrameNvTheme extends JFrame {
 		contentPane.add(txtThemeLib);
 		txtThemeLib.setColumns(10);
 		
-		
-			
 		txtThemeId = new JTextField();
 		txtThemeId.setBounds(150, 55, 189, 26);
 		txtThemeId.setEnabled( false);
 		txtThemeId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		try {
-			txtThemeId.setText(themeDAO.ajoutIdTheme());
+			txtThemeId.setText( themeDAO.ajoutIdTheme());
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		txtThemeId.setEnabled(false);
@@ -123,12 +120,14 @@ public class JFrameNvTheme extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nom = txtThemeLib.getText();
 				String id = txtThemeId.getText();
+				String idMc = daoMc.ajoutIdMotCle();
+				MotCle mc = new MotCle( idMc, nom);
 				try {
 					themeDAO.ajouterTheme(id, nom);
-					JOptionPane.showMessageDialog(null, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
+					daoMc.ajouterMotCle( mc);
+					JOptionPane.showMessageDialog(contentPane, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}				
 			}
@@ -148,12 +147,6 @@ public class JFrameNvTheme extends JFrame {
 		btnAnnuler.setBounds(69, 256, 97, 41);
 		btnAnnuler.setBounds(258, 257, 97, 41);
 		contentPane.add(btnAnnuler);
-			
-		
-			
-
-		
-		
 	}
 
 }

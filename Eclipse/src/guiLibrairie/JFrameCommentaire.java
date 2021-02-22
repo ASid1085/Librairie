@@ -1,6 +1,7 @@
 package guiLibrairie;
 
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -31,6 +32,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class JFrameCommentaire extends JFrame {
 
@@ -101,13 +103,13 @@ public class JFrameCommentaire extends JFrame {
 		
 		
 		try {
-			vectorCommentaire = commentaireDAO.afficherCommentaire();
+		vectorCommentaire = commentaireDAO.afficherCommentaire();
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		DefaultTableModel model = new DefaultTableModel(vectorCommentaire, nomColonnes);
+		DefaultTableModel model = new DefaultTableModel( vectorCommentaire, nomColonnes);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(82, 160, 832, 330);
@@ -128,7 +130,7 @@ public class JFrameCommentaire extends JFrame {
 //TEXT FIELDS ///////////////////////////////////////////////////////////////////////////////////
 		txtSaisieLivre = new JTextField();
 		txtSaisieLivre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		txtSaisieLivre.setBounds(82, 120, 140, 26);
+		txtSaisieLivre.setBounds(82, 120, 172, 26);
 		contentPane.add(txtSaisieLivre);
 		txtSaisieLivre.setColumns(10);
 		
@@ -136,24 +138,25 @@ public class JFrameCommentaire extends JFrame {
 		txtSaisieClient.setForeground(new Color(128, 0, 0));
 		txtSaisieClient.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisieClient.setColumns(10);
-		txtSaisieClient.setBounds(374, 120, 140, 26);
+		txtSaisieClient.setBounds(374, 120, 172, 26);
 		contentPane.add(txtSaisieClient);
 		
 		txtSaisieStatut = new JTextField();
 		txtSaisieStatut.setForeground(new Color(128, 0, 0));
 		txtSaisieStatut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		txtSaisieStatut.setColumns(10);
-		txtSaisieStatut.setBounds(665, 120, 140, 26);
+		txtSaisieStatut.setBounds(665, 120, 181, 26);
 		contentPane.add(txtSaisieStatut);
 		
 		
 		
 		
 //BOUTON RECHERCHER PAT LIVRE ///////////////////////////////////////////////////////////////////////////////////
-		JButton btnRechercheLivre = new JButton("Rechercher");
-		btnRechercheLivre.setForeground(new Color(128, 0, 0));
-		btnRechercheLivre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRechercheLivre.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRechercheLivre = new JButton("");
+		btnRechercheLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		//btnRechercheLivre.setForeground(new Color(128, 0, 0));
+		//btnRechercheLivre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRechercheLivre.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRechercheLivre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String titreLivre = txtSaisieLivre.getText();
@@ -164,20 +167,21 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire correspondant à " +titreLivre, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire correspondant à " +titreLivre, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
-		btnRechercheLivre.setBounds(228, 119, 107, 29);
+		btnRechercheLivre.setBounds(266, 103, 56, 45);
 		contentPane.add(btnRechercheLivre);
 		
 		
 		
 //BOUTON RECHERCHER PAR CLIENT ///////////////////////////////////////////////////////////////////////////////////
-		JButton btnRechercheClient = new JButton("Rechercher");
-		btnRechercheClient.setForeground(new Color(128, 0, 0));
-		btnRechercheClient.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRechercheClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRechercheClient = new JButton("");
+		btnRechercheClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		//btnRechercheClient.setForeground(new Color(128, 0, 0));
+		//btnRechercheClient.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRechercheClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRechercheClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String clientNom = txtSaisieClient.getText();
@@ -188,23 +192,24 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire correspondant au client " + clientNom, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire correspondant au client " + clientNom, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
-		btnRechercheClient.setBounds(518, 119, 107, 29);
+		btnRechercheClient.setBounds(558, 103, 56, 45);
 		contentPane.add(btnRechercheClient);
 		
 		
 //BOUTON RECHERCHER PAR STATUT ///////////////////////////////////////////////////////////////////////////////////
-		JButton btnRechercherStatut = new JButton("Rechercher");
-		btnRechercherStatut.setForeground(new Color(128, 0, 0));
-		btnRechercherStatut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnRechercherStatut.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+		JButton btnRechercherStatut = new JButton("");
+		btnRechercherStatut.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		//btnRechercherStatut.setForeground(new Color(128, 0, 0));
+		//btnRechercherStatut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+		//btnRechercherStatut.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnRechercherStatut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String statut = txtSaisieStatut.getText();
-				System.out.println(statut);
+				
 				
 				try {
 					vectorCommentaires = commentaireDAO.rechercherCommentaireparStatut(statut);
@@ -213,12 +218,12 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire avec le statut " + statut, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire avec le statut " + statut, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
 		});
-		btnRechercherStatut.setBounds(811, 119, 107, 29);
+		btnRechercherStatut.setBounds(858, 103, 56, 45);
 		contentPane.add(btnRechercherStatut);
 		
 		
@@ -235,7 +240,7 @@ public class JFrameCommentaire extends JFrame {
 				String id = (String) table.getValueAt(row, 0);
 				try {
 					commentaireDAO.supprimerCommentaire(id);
-					JOptionPane.showMessageDialog(null, "Commentaire supprimé avec succès", "Suppression de commentaire", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Commentaire supprimé avec succès", "Suppression de commentaire", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

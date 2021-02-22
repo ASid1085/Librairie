@@ -8,7 +8,7 @@ public class Commande {
 	private String clientLogin;
 	private String cdePaiement;
 	private String cdeForfaitLiv;
-	private Date cdeDate;
+	private java.sql.Date cdeDate;
 	private String cdeNumFacture;
 	private String tvaID;
 	private String statutId;
@@ -16,13 +16,15 @@ public class Commande {
 	private String adresseIdL;
 	private String cdeIp;
 	private String cdeNotaBene;
-	private Date dateStatut;
+	private java.sql.Date dateStatut;
 	
-	public Commande(String cdeNum, String clientLogin, Date cdeDate, String tvaID, String statutId, String adresseIdF,
-			String adresseIdL, String cdeIp, Date dateStatut) {
+	public Commande(String cdeNum, String clientLogin, String cdePaiement, String cdeForfaitLiv, java.sql.Date cdeDate,
+			String tvaID, String statutId, String adresseIdF, String adresseIdL, String cdeIp, java.sql.Date dateStatut) {
 		super();
 		this.cdeNum = cdeNum;
 		this.clientLogin = clientLogin;
+		this.cdePaiement = cdePaiement;
+		this.cdeForfaitLiv = cdeForfaitLiv;
 		this.cdeDate = cdeDate;
 		this.tvaID = tvaID;
 		this.statutId = statutId;
@@ -31,8 +33,8 @@ public class Commande {
 		this.cdeIp = cdeIp;
 		this.dateStatut = dateStatut;
 	}
-	
-	public Commande(String cdeNum, String clientLogin, Date cdeDate, String statutId) {
+
+	public Commande(String cdeNum, String clientLogin, java.sql.Date cdeDate, String statutId) {
 		super();
 		this.cdeNum = cdeNum;
 		this.clientLogin = clientLogin;
@@ -80,7 +82,7 @@ public class Commande {
 		return cdeDate;
 	}
 
-	public void setCdeDate(Date cdeDate) {
+	public void setCdeDate(java.sql.Date cdeDate) {
 		this.cdeDate = cdeDate;
 	}
 
@@ -144,7 +146,7 @@ public class Commande {
 		return dateStatut;
 	}
 
-	public void setDateStatut(Date dateStatut) {
+	public void setDateStatut(java.sql.Date dateStatut) {
 		this.dateStatut = dateStatut;
 	}
 

@@ -30,7 +30,7 @@ public interface ILivreDAO {
 	public void lierLivreMotCle(String motCle, String isbn) throws SQLException;
 	
 	
-	public Vector<String> recupererTVA() throws SQLException;
+	public Float recupererTVA( String titre) throws SQLException;
 	
 	
 	public String recupererISBN(String titre) throws SQLException;
