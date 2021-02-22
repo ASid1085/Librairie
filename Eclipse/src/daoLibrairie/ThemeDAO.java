@@ -94,13 +94,13 @@ public class ThemeDAO implements IThemeDAO {
 		while ( rs.next()) {
 			int numTheme = rs.getInt( 1) +1 ;
 			if (numTheme < 10) {
-				id = "0000" + numTheme + "GEN";
+				id = "0000" + numTheme + "THE";
 			} else if (numTheme < 100) {
-				id = "000" + numTheme + "GEN";
+				id = "000" + numTheme + "THE";
 			} else if (numTheme < 1000) {
-				id = "00" + numTheme + "GEN";
+				id = "00" + numTheme + "THE";
 			} else if (numTheme < 10000) {
-				id = "0" + numTheme + "GEN";
+				id = "0" + numTheme + "THE";
 			} if (numTheme > 99999) {
 				JOptionPane.showMessageDialog(null, "Vous ne pouvez plus ajouter de nouveau Theme !", "Message d'erreur", JOptionPane.WARNING_MESSAGE);
 			}

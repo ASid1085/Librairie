@@ -29,7 +29,7 @@ import java.util.*;
 import java.beans.*;
 
 public class JFrameLigneCommande extends JFrame {
-	
+
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField txtPortHt;
@@ -74,8 +74,8 @@ public class JFrameLigneCommande extends JFrame {
 	//private String tabPaiement [] = { "--", };
 	private Container parent = this;
 	private JFrameLigneCommande thisJF = (JFrameLigneCommande) parent;
-	
-	
+
+
 	public Vector dtm() {
 		Vector nomColonne = new Vector<>();
 		nomColonne.add( "n° ISBN");
@@ -86,7 +86,7 @@ public class JFrameLigneCommande extends JFrame {
 		nomColonne.add( "Total HT");
 		return nomColonne;
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -102,7 +102,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 	}
-	
+
 	public void refreshAdresseFact( Adresse adrF) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -116,7 +116,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 	}
-	
+
 	public void refreshAdresseLiv( Adresse adrL) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -130,7 +130,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 	}
-	
+
 	public void refreshCltLogin( String clientLogin) {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -139,35 +139,35 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
 	public JFrameLigneCommande( String etat) {
-		
+
 		setTitle("Détail de commande");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 829, 756);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panelHaut = new JPanel();
 		panelHaut.setBackground(new Color(255, 248, 220));
 		//panelHaut.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		panelHaut.setBounds(18, 6, 789, 57);
 		contentPane.add(panelHaut);
 		panelHaut.setLayout(null);
-		
+
 		JLabel lblLivre = new JLabel("Livre :");
 		lblLivre.setForeground(new Color(128, 0, 0));
 		lblLivre.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblLivre.setBounds(12, 6, 35, 32);
 		panelHaut.add(lblLivre);
-		
+
 		JLabel lblPrixHt = new JLabel("");
 		lblPrixHt.setForeground(new Color(128, 0, 0));
 		lblPrixHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -200,153 +200,153 @@ public class JFrameLigneCommande extends JFrame {
 		});
 		cmbBoxLivre.setBounds(59, 6, 345, 38);
 		panelHaut.add(cmbBoxLivre);
-		
+
 		JLabel lblPrixUnitHt = new JLabel("Tarif HT :");
 		lblPrixUnitHt.setForeground(new Color(128, 0, 0));
 		lblPrixUnitHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPrixUnitHt.setBounds(416, 6, 59, 20);
 		panelHaut.add(lblPrixUnitHt);
-		
+
 		JLabel lblQte = new JLabel("Quantité :");
 		lblQte.setForeground(new Color(128, 0, 0));
 		lblQte.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblQte.setBounds(560, 12, 67, 32);
 		panelHaut.add(lblQte);
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setForeground(new Color(128, 0, 0));
 		spinner.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		spinner.setBounds(639, 17, 77, 27);
 		panelHaut.add(spinner);
-		
+
 		JScrollPane scrollPaneDroite = new JScrollPane();
 		scrollPaneDroite.setBackground(new Color(255, 248, 220));
 		scrollPaneDroite.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, Color.ORANGE));
 		scrollPaneDroite.setBounds(53, 64, 715, 274);
 		contentPane.add(scrollPaneDroite);
-		
+
 		table = new JTable( dtm);
 		table.setForeground(new Color(128, 0, 0));
 		table.setFont(new Font("Avenir Next", Font.PLAIN, 12));
 		table.setBackground(new Color(255, 248, 220));
 		scrollPaneDroite.setViewportView(table);
-		
+
 		JPanel panelDroite = new JPanel();
 		panelDroite.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.ORANGE));
 		panelDroite.setBackground(new Color(255, 248, 220));
 		panelDroite.setBounds(53, 337, 715, 43);
 		contentPane.add(panelDroite);
 		panelDroite.setLayout(null);
-		
+
 		JPanel panelBas = new JPanel();
 		panelBas.setBackground(new Color(255, 248, 220));
 		panelBas.setBounds(17, 378, 790, 344);
 		contentPane.add(panelBas);
 		panelBas.setLayout(null);
-		
+
 		JLabel lblLoginClient = new JLabel("Login client :");
 		lblLoginClient.setForeground(new Color(128, 0, 0));
 		lblLoginClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblLoginClient.setBounds(50, 84, 82, 16);
 		panelBas.add(lblLoginClient);
-		
+
 		txtLoginClient = new JTextField();
 		txtLoginClient.setForeground(new Color(128, 0, 0));
 		txtLoginClient.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtLoginClient.setBounds(134, 79, 189, 26);
 		panelBas.add(txtLoginClient);
 		txtLoginClient.setColumns(10);
-		
+
 		JLabel lblAdresseFact = new JLabel("Adresse de facturation");
 		lblAdresseFact.setForeground(new Color(128, 0, 0));
 		lblAdresseFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblAdresseFact.setBounds(39, 137, 152, 16);
 		panelBas.add(lblAdresseFact);
-		
+
 		lblNomAdrFact = new JLabel("");
 		lblNomAdrFact.setForeground(new Color(128, 0, 0));
 		lblNomAdrFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblNomAdrFact.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.ORANGE));
 		lblNomAdrFact.setBounds(35, 160, 202, 26);
 		panelBas.add(lblNomAdrFact);
-		
+
 		lblRueAdrFact = new JLabel("");
 		lblRueAdrFact.setForeground(new Color(128, 0, 0));
 		lblRueAdrFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblRueAdrFact.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblRueAdrFact.setBounds(35, 198, 202, 26);
 		panelBas.add(lblRueAdrFact);
-		
+
 		lblComplAdrFact = new JLabel("");
 		lblComplAdrFact.setForeground(new Color(128, 0, 0));
 		lblComplAdrFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblComplAdrFact.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblComplAdrFact.setBounds(35, 236, 202, 26);
 		panelBas.add(lblComplAdrFact);
-		
+
 		lblCpVilleAdrFact = new JLabel("");
 		lblCpVilleAdrFact.setForeground(new Color(128, 0, 0));
 		lblCpVilleAdrFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblCpVilleAdrFact.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblCpVilleAdrFact.setBounds(35, 274, 202, 26);
 		panelBas.add(lblCpVilleAdrFact);
-		
+
 		lblTelAdrFact = new JLabel("");
 		lblTelAdrFact.setForeground(new Color(128, 0, 0));
 		lblTelAdrFact.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblTelAdrFact.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.ORANGE));
 		lblTelAdrFact.setBounds(35, 312, 202, 26);
 		panelBas.add(lblTelAdrFact);
-		
+
 		JLabel lblAdresseLiv = new JLabel("Adresse de livraison");
 		lblAdresseLiv.setForeground(new Color(128, 0, 0));
 		lblAdresseLiv.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAdresseLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblAdresseLiv.setBounds(249, 137, 126, 16);
 		panelBas.add(lblAdresseLiv);
-		
+
 		lblNomAdrLiv = new JLabel("");
 		lblNomAdrLiv.setForeground(new Color(128, 0, 0));
 		lblNomAdrLiv.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.ORANGE));
 		lblNomAdrLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblNomAdrLiv.setBounds(249, 160, 202, 26);
 		panelBas.add(lblNomAdrLiv);
-		
+
 		lblRueAdrLiv = new JLabel("");
 		lblRueAdrLiv.setForeground(new Color(128, 0, 0));
 		lblRueAdrLiv.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblRueAdrLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblRueAdrLiv.setBounds(249, 198, 202, 26);
 		panelBas.add(lblRueAdrLiv);
-		
+
 		lblComplAdrLiv = new JLabel("");
 		lblComplAdrLiv.setForeground(new Color(128, 0, 0));
 		lblComplAdrLiv.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblComplAdrLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblComplAdrLiv.setBounds(249, 236, 202, 26);
 		panelBas.add(lblComplAdrLiv);
-		
+
 		lblCpVilleAdrLiv = new JLabel("");
 		lblCpVilleAdrLiv.setForeground(new Color(128, 0, 0));
 		lblCpVilleAdrLiv.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.ORANGE));
 		lblCpVilleAdrLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblCpVilleAdrLiv.setBounds(249, 274, 202, 26);
 		panelBas.add(lblCpVilleAdrLiv);
-		
+
 		lblTelAdrLiv = new JLabel("");
 		lblTelAdrLiv.setForeground(new Color(128, 0, 0));
 		lblTelAdrLiv.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.ORANGE));
 		lblTelAdrLiv.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblTelAdrLiv.setBounds(249, 312, 202, 26);
 		panelBas.add(lblTelAdrLiv);
-		
+
 		JLabel lblPortHt = new JLabel("Frais port HT :");
 		lblPortHt.setForeground(new Color(128, 0, 0));
 		lblPortHt.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPortHt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPortHt.setBounds(557, 12, 103, 16);
 		panelBas.add(lblPortHt);
-		
+
 		txtPortHt = new JTextField();
 		txtPortHt.setForeground(new Color(128, 0, 0));
 		txtPortHt.setEditable(false);
@@ -354,14 +354,14 @@ public class JFrameLigneCommande extends JFrame {
 		txtPortHt.setBounds(672, 7, 77, 26);
 		panelBas.add(txtPortHt);
 		txtPortHt.setColumns(10);
-		
+
 		JLabel lblRemise = new JLabel("Remise % :");
 		lblRemise.setForeground(new Color(128, 0, 0));
 		lblRemise.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRemise.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblRemise.setBounds(557, 50, 103, 16);
 		panelBas.add(lblRemise);
-		
+
 		txtRemise = new JTextField();
 		txtRemise.setForeground(new Color(128, 0, 0));
 		txtRemise.setEditable(false);
@@ -369,14 +369,14 @@ public class JFrameLigneCommande extends JFrame {
 		txtRemise.setBounds(672, 45, 77, 26);
 		panelBas.add(txtRemise);
 		txtRemise.setColumns(10);
-		
+
 		JLabel lblTotalTtc = new JLabel("Total TTC :");
 		lblTotalTtc.setForeground(new Color(128, 0, 0));
 		lblTotalTtc.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblTotalTtc.setBounds(557, 132, 103, 16);
 		panelBas.add(lblTotalTtc);
-		
+
 		txtTotalTtc = new JTextField();
 		txtTotalTtc.setForeground(new Color(128, 0, 0));
 		txtTotalTtc.setEditable(false);
@@ -384,14 +384,14 @@ public class JFrameLigneCommande extends JFrame {
 		txtTotalTtc.setBounds(672, 127, 77, 26);
 		panelBas.add(txtTotalTtc);
 		txtTotalTtc.setColumns(10);
-		
+
 		JButton btnAddLivre = new JButton("");
 		btnAddLivre.setToolTipText("Ajouter un livre à la commande");
 		btnAddLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plus32px.png"));
 		btnAddLivre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sLivre = (String) cmbBoxLivre.getSelectedItem();
-//System.out.println( "liiiivre" + sLivre);
+				//System.out.println( "liiiivre" + sLivre);
 				String sIsbn = "";
 				try {
 					sIsbn = daoLivre.recupIsbn( sLivre);
@@ -405,7 +405,7 @@ public class JFrameLigneCommande extends JFrame {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				
+
 				if ( !sLivre.equals( "") && (Integer) spinner.getValue() > 0) {
 					boolean doublon = false;
 					int indexDoub = 0;
@@ -421,7 +421,7 @@ public class JFrameLigneCommande extends JFrame {
 					}
 					totCdeHtAvRem = 0;
 					String sRecupLivre = (String) table.getValueAt( indexDoub, 1);
-//System.out.println( "LIVREEEEEE" + sRecupLivre);
+					//System.out.println( "LIVREEEEEE" + sRecupLivre);
 					float txTva = 0;
 					Evenement ev = null;
 					float remiseCourante = 0;
@@ -436,12 +436,12 @@ public class JFrameLigneCommande extends JFrame {
 					} catch ( NullPointerException npe) {
 						remiseCourante = 0;
 					}
-//System.out.println( "TVAAAAAA" + txTva);
+					//System.out.println( "TVAAAAAA" + txTva);
 					if ( !doublon) {
 						table.setValueAt( sIsbn, nbRow, 0);
 						table.setValueAt( sLivre, nbRow, 1);
 						table.setValueAt( df.format( prixHt), nbRow, 2);
-						
+
 						if ( remiseCourante == 0) {
 							table.setValueAt( "0,00", nbRow, 3);
 						} else {
@@ -466,7 +466,7 @@ public class JFrameLigneCommande extends JFrame {
 					if ( doublon) {
 						int recupQte = (int) table.getValueAt( indexDoub, 4);
 						int newQte = recupQte + iQte;
-						
+
 						//String recupTotCdeHt = txtTotalHt.getText().replace(",", ".");
 						table.setValueAt( newQte, indexDoub, 4);
 						table.setValueAt( df.format( newQte*prixHt*(1-remiseCourante/100)), indexDoub, 5);
@@ -479,9 +479,9 @@ public class JFrameLigneCommande extends JFrame {
 						totCdeTtc = totCdeHtAvRem * ( 1 + txTva/100);
 						txtTotalTtc.setText( df.format( totCdeTtc));
 					}
-					
+
 					String recupTotCdeHt = txtTotalHt.getText().replace(",", ".");
-					
+
 					if ( Float.parseFloat( recupTotCdeHt) < 30.0) {
 						txtPortHt.setText( "10,00");
 						if ( remiseCourante == 0) {
@@ -514,17 +514,17 @@ public class JFrameLigneCommande extends JFrame {
 		lblPrixUnitTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPrixUnitTtc.setBounds(408, 27, 67, 26);
 		panelHaut.add(lblPrixUnitTtc);
-		
+
 		lblPrixTtc = new JLabel("");
 		lblPrixTtc.setForeground(new Color(128, 0, 0));
 		lblPrixTtc.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblPrixTtc.setBounds(471, 31, 77, 20);
 		panelHaut.add(lblPrixTtc);
-		
+
 		JButton btnFindAdreLiv = new JButton("");
 		btnFindAdreLiv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if ( !txtLoginClient.getText().equals( "")) {
 					JFAdr = new JFrameListeAdresse( txtLoginClient.getText(), thisJF, null, "Livraison");
 					JFAdr.setLocationRelativeTo( null);
@@ -539,7 +539,7 @@ public class JFrameLigneCommande extends JFrame {
 		btnFindAdreLiv.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/map-book.png"));
 		btnFindAdreLiv.setBounds(411, 117, 40, 36);
 		panelBas.add(btnFindAdreLiv);
-		
+
 		JButton btnFindAdreFact = new JButton("");
 		btnFindAdreFact.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -557,7 +557,7 @@ public class JFrameLigneCommande extends JFrame {
 		btnFindAdreFact.setToolTipText("Carnet d'adresse");
 		btnFindAdreFact.setBounds(197, 117, 40, 36);
 		panelBas.add(btnFindAdreFact);
-		
+
 		JButton btnFindClt = new JButton("");
 		btnFindClt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -570,7 +570,7 @@ public class JFrameLigneCommande extends JFrame {
 		btnFindClt.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/verify16px.png"));
 		btnFindClt.setBounds(335, 79, 40, 32);
 		panelBas.add(btnFindClt);
-		
+
 		JButton btnAddClt = new JButton("");
 		btnAddClt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -583,14 +583,14 @@ public class JFrameLigneCommande extends JFrame {
 		btnAddClt.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plus12px.png"));
 		btnAddClt.setBounds(374, 79, 40, 32);
 		panelBas.add(btnAddClt);
-		
+
 		JLabel lblTotalHtAvant = new JLabel("Total HT :");
 		lblTotalHtAvant.setForeground(new Color(128, 0, 0));
 		lblTotalHtAvant.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTotalHtAvant.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblTotalHtAvant.setBounds(515, 85, 145, 26);
 		panelBas.add(lblTotalHtAvant);
-		
+
 		txtTotalHt = new JTextField();
 		txtTotalHt.setForeground(new Color(128, 0, 0));
 		txtTotalHt.setEditable(false);
@@ -598,13 +598,13 @@ public class JFrameLigneCommande extends JFrame {
 		txtTotalHt.setColumns(10);
 		txtTotalHt.setBounds(672, 85, 77, 26);
 		panelBas.add(txtTotalHt);
-		
+
 		JLabel lblPaiement = new JLabel("Paiement :");
 		lblPaiement.setForeground(new Color(128, 0, 0));
 		lblPaiement.setBounds(583, 208, 67, 16);
 		panelBas.add(lblPaiement);
 		lblPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		
+
 		JComboBox cmbBoxPaiement = new JComboBox( );
 		cmbBoxPaiement.setForeground(new Color(128, 0, 0));
 		cmbBoxPaiement.setModel(new DefaultComboBoxModel(new String[] {"en CB", "en magasin"}));
@@ -612,13 +612,13 @@ public class JFrameLigneCommande extends JFrame {
 		cmbBoxPaiement.setFont(new Font("Avenir Next", Font.PLAIN, 10));
 		cmbBoxPaiement.setBounds(649, 198, 103, 36);
 		panelBas.add(cmbBoxPaiement);
-		
+
 		JLabel lblNumCde = new JLabel("N° de cde :");
 		lblNumCde.setForeground(new Color(128, 0, 0));
 		lblNumCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblNumCde.setBounds(39, 12, 77, 16);
 		panelBas.add(lblNumCde);
-		
+
 		txtNumCde = new JTextField();
 		txtNumCde.setForeground(new Color(128, 0, 0));
 		txtNumCde.setEditable(false);
@@ -629,13 +629,13 @@ public class JFrameLigneCommande extends JFrame {
 		txtNumCde.setColumns(10);
 		txtNumCde.setBounds(104, 7, 103, 26);
 		panelBas.add(txtNumCde);
-		
+
 		JLabel lblDateDeCde = new JLabel("Date de cde :");
 		lblDateDeCde.setForeground(new Color(128, 0, 0));
 		lblDateDeCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblDateDeCde.setBounds(281, 12, 82, 16);
 		panelBas.add(lblDateDeCde);
-		
+
 		txtCdeDate = new JTextField();
 		txtCdeDate.setForeground(new Color(128, 0, 0));
 		txtCdeDate.setEditable(false);
@@ -647,20 +647,20 @@ public class JFrameLigneCommande extends JFrame {
 		txtCdeDate.setColumns(10);
 		txtCdeDate.setBounds(361, 7, 90, 26);
 		panelBas.add(txtCdeDate);
-		
+
 		JLabel lblStatutCde = new JLabel("Statut cde :");
 		lblStatutCde.setForeground(new Color(128, 0, 0));
 		lblStatutCde.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblStatutCde.setBounds(39, 50, 77, 16);
 		panelBas.add(lblStatutCde);
-		
+
 		JLabel lblDateStatut = new JLabel("Date statut :");
 		lblDateStatut.setForeground(new Color(128, 0, 0));
 		lblDateStatut.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDateStatut.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblDateStatut.setBounds(281, 50, 78, 16);
 		panelBas.add(lblDateStatut);
-		
+
 		txtDateStatut = new JTextField();
 		txtDateStatut.setForeground(new Color(128, 0, 0));
 		txtDateStatut.setEditable(false);
@@ -668,7 +668,7 @@ public class JFrameLigneCommande extends JFrame {
 		txtDateStatut.setColumns(10);
 		txtDateStatut.setBounds(361, 44, 90, 26);
 		panelBas.add(txtDateStatut);
-		
+
 		try {
 			vStatutCde = daoCde.vectorCBStatutCde();
 		} catch (SQLException e) {
@@ -686,7 +686,7 @@ public class JFrameLigneCommande extends JFrame {
 		cmbBoxStatut.setFont(new Font("Avenir Next", Font.PLAIN, 10));
 		cmbBoxStatut.setBounds(104, 42, 180, 36);
 		panelBas.add(cmbBoxStatut);
-		
+
 		JButton btnCommentaireClient = new JButton("");
 		btnCommentaireClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -698,21 +698,21 @@ public class JFrameLigneCommande extends JFrame {
 		btnCommentaireClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnPost.png"));
 		btnCommentaireClient.setBounds(475, 262, 101, 76);
 		panelBas.add(btnCommentaireClient);
-		
+
 		lblAdrFacId = new JLabel("");
 		lblAdrFacId.setForeground(new Color(255, 255, 224));
 		lblAdrFacId.setBackground(new Color(255, 255, 224));
 		lblAdrFacId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblAdrFacId.setBounds(39, 112, 152, 20);
 		panelBas.add(lblAdrFacId);
-		
+
 		lblAdrLivId = new JLabel("");
 		lblAdrLivId.setForeground(new Color(255, 255, 224));
 		lblAdrLivId.setBackground(new Color(255, 255, 224));
 		lblAdrLivId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		lblAdrLivId.setBounds(247, 117, 152, 20);
 		panelBas.add(lblAdrLivId);
-		
+
 		JButton btnValiderLigCde = new JButton("");
 		btnValiderLigCde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -750,11 +750,11 @@ public class JFrameLigneCommande extends JFrame {
 		btnValiderLigCde.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
 		btnValiderLigCde.setBounds(685, 284, 67, 54);
 		panelBas.add(btnValiderLigCde);
-		
+
 		JButton btnRemoveLivre = new JButton("");
 		btnRemoveLivre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					int rowSelect = table.getSelectedRow();
 					String sRecupTotCdeHt = txtTotalHt.getText();
@@ -813,7 +813,7 @@ public class JFrameLigneCommande extends JFrame {
 		btnRemoveLivre.setToolTipText("Supprimer un livre de la commande");
 		btnRemoveLivre.setBounds(618, 6, 40, 32);
 		panelDroite.add(btnRemoveLivre);
-		
+
 		JButton btnRemoveAll = new JButton("");
 		btnRemoveAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -836,6 +836,6 @@ public class JFrameLigneCommande extends JFrame {
 		btnRemoveAll.setToolTipText("Supprimer tous les livres de la commande");
 		btnRemoveAll.setBounds(669, 6, 40, 32);
 		panelDroite.add(btnRemoveAll);
-		
+
 	}
 }

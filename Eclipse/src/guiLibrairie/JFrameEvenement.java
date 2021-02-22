@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.EvenementDAO;
 import entitiesLibrairie.Evenement;
+import guiLibrairie.*;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -157,7 +158,7 @@ public class JFrameEvenement extends JFrame {
 					DefaultTableModel newModel = new DefaultTableModel(vectorEvenement, nomColonnes);
 					table.setModel(newModel);
 					if (vectorEvenement.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Aucun événement en cours", "Rééssayer demain !", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Aucun événement en cours", "Rééssayer demain !", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -227,7 +228,7 @@ public class JFrameEvenement extends JFrame {
 				String nom = (String) table.getValueAt(row, 0);
 				try {
 					evenementDAO.supprimerEvenement(nom);
-					JOptionPane.showMessageDialog(null,"Evénement supprimé avec succès" , "Suppression", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Evénement supprimé avec succès" , "Suppression", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

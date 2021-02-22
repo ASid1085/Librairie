@@ -169,26 +169,26 @@ public class JFrameListeClient extends JFrame {
 				try {
 					if ( nom.equals( "") && login.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, null);
 	 				}
 					if( !nom.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, null);
 					}
 					if ( clientLogSelect.equals( login)) {
 						login = (String) cmbBxLoginClient.getSelectedItem();
 						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, null);
 					} 
 					JFlcde.setLocationRelativeTo( null);
 					JFlcde.setVisible( true);
 					cmbBxLoginClient.setSelectedIndex( -1);
 					txtNomClient.setText( "");
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -227,7 +227,7 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -265,7 +265,7 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}

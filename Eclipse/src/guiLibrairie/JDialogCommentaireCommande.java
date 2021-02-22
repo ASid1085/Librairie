@@ -75,7 +75,7 @@ public class JDialogCommentaireCommande extends JDialog {
 				try {
 					note = textAreaPostIt.getText();
 					daoCde.modifierNoteCommande( numCde, note);
-					JOptionPane.showMessageDialog( null, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}

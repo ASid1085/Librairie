@@ -6,6 +6,7 @@ import javax.swing.border.*;
 import daoLibrairie.*;
 import entitiesLibrairie.Client;
 import entitiesLibrairie.Commande;
+import entitiesLibrairie.Employe;
 
 import javax.swing.table.*;
 
@@ -34,6 +35,8 @@ public class JFrameListeCommande extends JFrame {
 	private JTextField txtLoginClient;
 	private JFrameLigneCommande JFlc;
 	private JFrameCommande JFcde;
+	private static Employe employeStatic;
+	private Employe employeRecup;
 
 	
 	/**
@@ -83,7 +86,7 @@ public class JFrameListeCommande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new JFrameListeCommande( "");
+					frame = new JFrameListeCommande( "", employeStatic);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,7 +98,12 @@ public class JFrameListeCommande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeCommande( String clientLogin) {
+	public JFrameListeCommande( String clientLogin, Employe employeATraiter) {
+		
+		
+		this.employeRecup = employeATraiter;
+		
+		
 		
 		setTitle("Liste des commandes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,6 +209,9 @@ public class JFrameListeCommande extends JFrame {
 		}
 		table.getColumnModel().getColumn( 3).setPreferredWidth( 250);
 		
+		
+		
+		
 		JButton btnLoupe = new JButton("");
 		btnLoupe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -239,19 +250,6 @@ public class JFrameListeCommande extends JFrame {
 		btnLoupe.setBounds(618, 18, 55, 55);
 		contentPane.add(btnLoupe);
 		
-		JButton btnAjouter = new JButton("Ajouter");
-		btnAjouter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFlc = new JFrameLigneCommande( "Ajouter");
-				JFlc.setLocationRelativeTo( null);
-				JFlc.setVisible( true);
-				
-			}
-		});
-		btnAjouter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAjouter.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnAjouter.setBounds(42, 484, 173, 41);
-		contentPane.add(btnAjouter);
 		
 		JButton btnConsulter = new JButton("Consulter");
 		btnConsulter.addActionListener(new ActionListener() {
@@ -267,22 +265,8 @@ public class JFrameListeCommande extends JFrame {
 		btnConsulter.setBounds(290, 484, 173, 41);
 		contentPane.add(btnConsulter);
 		
-		JButton btnModifier = new JButton("Modifier");
-		btnModifier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
-				JFcde = new JFrameCommande( cdeSelect, "Modifier");
-				JFcde.setLocationRelativeTo( null);
-				JFcde.setVisible( true);
-			}
-		});
-		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnModifier.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnModifier.setBounds(564, 484, 173, 41);
-		contentPane.add(btnModifier);
-		
-		JButton btnRefreshAuteur = new JButton("");
-		btnRefreshAuteur.addActionListener(new ActionListener() {
+		JButton btnRefresh = new JButton("");
+		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if ( !clientLogin.equals( "")) {
@@ -295,8 +279,43 @@ public class JFrameListeCommande extends JFrame {
 				}
 			}
 		});
-		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
-		btnRefreshAuteur.setBounds(685, 18, 55, 55);
-		contentPane.add(btnRefreshAuteur);
+		btnRefresh.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefresh.setBounds(685, 18, 55, 55);
+		contentPane.add(btnRefresh);
+		
+		
+		if(!employeRecup.getDroitsAcces().equals("Stagiaire")) {
+		
+			JButton btnAjouter = new JButton("Ajouter");
+			btnAjouter.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFlc = new JFrameLigneCommande( "Ajouter");
+					JFlc.setLocationRelativeTo( null);
+					JFlc.setVisible( true);
+					
+				}
+			});
+			btnAjouter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+			btnAjouter.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+			btnAjouter.setBounds(42, 484, 173, 41);
+			contentPane.add(btnAjouter);
+			
+	
+			
+			JButton btnModifier = new JButton("Modifier");
+			btnModifier.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String cdeSelect = (String) table.getValueAt( table.getSelectedRow(), 0);
+					JFcde = new JFrameCommande( cdeSelect, "Modifier");
+					JFcde.setLocationRelativeTo( null);
+					JFcde.setVisible( true);
+				}
+			});
+			btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+			btnModifier.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
+			btnModifier.setBounds(564, 484, 173, 41);
+			contentPane.add(btnModifier);
+		}
+
 	}
 }

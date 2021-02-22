@@ -304,34 +304,34 @@ public class JDialogEvenementAjout extends JDialog {
 					if (!nom.isEmpty() && debut!=null && fin!=null && pourcentage!=null && !codePromo.isEmpty()) {
 						if ((anneeFin>anneeDebut)) {
 							evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-							JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 
 						}else if((anneeFin==anneeDebut)) {
 							if ((moisFin>moisDebut)) {
 								evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-								JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 								dispose();
 							} else if (moisFin==moisDebut) {
 								if (jourFin>jourDebut) {
 									evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-									JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 									dispose();
 								} else if (jourFin==jourDebut) {
 									evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-									JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 									dispose();
 								} else {
-									JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+									JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+								JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir une date de fin ultérieure à la date de début");
+							JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir une date de fin ultérieure à la date de début");
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Veuillez saisir les champs obligatoires");
+						JOptionPane.showMessageDialog(contentPanel, "Veuillez saisir les champs obligatoires");
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

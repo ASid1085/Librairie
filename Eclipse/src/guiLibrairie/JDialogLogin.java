@@ -106,18 +106,10 @@ public class JDialogLogin extends JDialog {
 
 
 					if ( !employe.getEmployeLog().equals(login) || !employe.getEmployeMdp().equals(mdp)) {
-						System.out.println("hel1");
+						
 						i = false;
-						System.out.println( i);
+						
 					}  
-					/*
-					else if (!employe.getEmployeLog().equals(login) && !employe.getEmployeMdp().equals(mdp)) {
-						System.out.println("hel2");
-						i=1;
-					}  else if (!employe.getEmployeLog().equals(login) && employe.getEmployeMdp().equals(mdp)) {
-						System.out.println("hel3");
-						i=1;
-					}*/
 
 					if ( i) {
 						JDialogWelcome jdWelcome = new JDialogWelcome( employe);

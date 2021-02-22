@@ -125,7 +125,7 @@ public class JFrameNvTheme extends JFrame {
 				try {
 					themeDAO.ajouterTheme(id, nom);
 					daoMc.ajouterMotCle( mc);
-					JOptionPane.showMessageDialog(null, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nouveau thème ajouté avec succès", "Nouveau thème", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
