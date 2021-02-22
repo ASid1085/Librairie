@@ -283,7 +283,7 @@ public class JFrameListeCommande extends JFrame {
 		btnRefresh.setBounds(685, 18, 55, 55);
 		contentPane.add(btnRefresh);
 		
-System.out.println( employeATraiter.getDroitsAcces());		
+//System.out.println( employeATraiter.getDroitsAcces());		
 		if(! employeATraiter.getDroitsAcces().equals("Stagiaire")) {
 		
 			JButton btnAjouter = new JButton("Ajouter");
