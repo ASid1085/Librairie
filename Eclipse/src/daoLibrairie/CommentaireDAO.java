@@ -40,10 +40,11 @@ public class CommentaireDAO implements ICommentaireDAO{
 	@Override
 	public Vector <Vector> afficherCommentaire() throws SQLException {
 
+		vecteur = new Vector();
 		stmt = myConnection.createStatement();
 		String query = "SELECT COMMENTAIREID, LIVRETITRE, CLIENTLOGIN, COMMENTAIRETEXTE, "
 				+ "COMMENTAIRENOTE, COMMENTAIRESTATUT, COMMENTAIREDATE, "
-				+ "COMMANDENUM, EMPLOYEID, DATEMODERATION  "
+				+ "DATEMODERATION  "
 				+ "FROM COMMENTAIRE C "
 				+ "INNER JOIN LIVRE L ON "
 				+ "C.LIVREISBN = L.LIVREISBN "
@@ -58,8 +59,6 @@ public class CommentaireDAO implements ICommentaireDAO{
 			vectorString.add(res.getString("COMMENTAIRENOTE"));
 			vectorString.add(res.getString("COMMENTAIRESTATUT"));
 			vectorString.add(res.getDate("COMMENTAIREDATE"));
-			vectorString.add(res.getString("COMMANDENUM"));
-			vectorString.add(res.getString("EMPLOYEID"));
 			vectorString.add(res.getDate("DATEMODERATION"));
 			vecteur.add(vectorString);
 		}
@@ -67,147 +66,102 @@ public class CommentaireDAO implements ICommentaireDAO{
 	}
 	
 	@Override
-	public Commentaire rechercherCommentaireparLivre(String livre) throws SQLException {
+	public Vector<Vector> rechercherCommentaireparLivre(String livre) throws SQLException {
 		// TODO Auto-generated method stub
+		
+		Vector <Vector> vecteur = new Vector <Vector>();
 		
 		stmt = myConnection.createStatement();
 		String query = "SELECT COMMENTAIREID, LIVRETITRE, CLIENTLOGIN, COMMENTAIRETEXTE, "
 				+ "	COMMENTAIRENOTE, COMMENTAIRESTATUT, COMMENTAIREDATE, "
-				+ "	COMMANDENUM, EMPLOYEID, DATEMODERATION  "
+				+ " DATEMODERATION  "
 				+ "	FROM COMMENTAIRE C "
 				+ "	INNER JOIN LIVRE L ON "
 				+ "	C.LIVREISBN = L.LIVREISBN "
-				+ "	WHERE LIVRETITRE = '" +livre+ "'"
+				+ "	WHERE LIVRETITRE LIKE '%" +livre+ "%'"
 				+ "	ORDER BY COMMENTAIREID;";
 		ResultSet res = stmt.executeQuery(query);
-		System.out.println(query);
+
 		while (res.next()) {
-			/*Vector vectorString = new Vector();
+			Vector vectorString = new Vector();
 			vectorString.add(res.getString("COMMENTAIREID")) ;
-			vectorString.add(res.getDate("COMMENTAIREDATE"));
+			vectorString.add(res.getString("CLIENTLOGIN")) ;
+			vectorString.add(res.getString("LIVRETITRE"));
+			vectorString.add(res.getString("COMMENTAIRETEXTE"));
 			vectorString.add(res.getString("COMMENTAIRENOTE"));
 			vectorString.add(res.getString("COMMENTAIRESTATUT"));
-			vectorString.add(res.getString("COMMENTAIRETEXTE"));
+			vectorString.add(res.getDate("COMMENTAIREDATE"));
 			vectorString.add(res.getDate("DATEMODERATION"));
-			vecteur.add(vectorString);*/
+			vecteur.add(vectorString);
 
-			id = res.getString("COMMENTAIREID") ;
-			titre = res.getString("LIVRETITRE");
-			clientt = res.getString("CLIENTLOGIN");
-			texte = res.getString("COMMENTAIRETEXTE") ;
-			note =res.getString("COMMENTAIRENOTE") ;
-			statutt = res.getString("COMMENTAIRESTATUT") ;
-			date = res.getDate("COMMENTAIREDATE") ;
-			commande = res.getString("COMMANDENUM");
-			employeId = res.getString("EMPLOYEID");
-			moderation = res.getDate("DATEMODERATION") ;
-			
-			commentaire = new Commentaire (id, titre, clientt, texte, note, statutt, date, commande, employeId, moderation);
-
-			/*commentaire.setCommentaireId(res.getString("COMMENTAIREID")) ;
-			commentaire.setCommentaireTexte(res.getString("COMMENTAIRETEXTE")) ;
-			commentaire.setCommentaireNote(res.getString("COMMENTAIRENOTE")) ;
-			commentaire.setCommentaireStatut(res.getString("COMMENTAIRESTATUT")) ;
-			commentaire.setCommentaireDate(res.getDate("COMMENTAIREDATE")) ;
-			commentaire.setDateModeration(res.getDate("DATEMODERATION")) ;*/
 		}
-		return commentaire;
+		return vecteur;
 	}
 
 	@Override
-	public Commentaire rechercherCommentaireparClient(String client) throws SQLException {
+	public Vector<Vector> rechercherCommentaireparClient(String client) throws SQLException {
 		// TODO Auto-generated method stub
+		Vector <Vector> vecteur = new Vector <Vector>();
+		
 		stmt = myConnection.createStatement();
 		String query = "SELECT COMMENTAIREID, LIVRETITRE, CLIENTLOGIN, COMMENTAIRETEXTE, "
 				+ "	COMMENTAIRENOTE, COMMENTAIRESTATUT, COMMENTAIREDATE, "
-				+ "	COMMANDENUM, EMPLOYEID, DATEMODERATION  "
+				+ "	DATEMODERATION  "
 				+ "	FROM COMMENTAIRE C "
 				+ "	INNER JOIN LIVRE L ON "
 				+ "	C.LIVREISBN = L.LIVREISBN "
-				+ "	WHERE CLIENTLOGIN = '" +client+ "'"
+				+ "	WHERE CLIENTLOGIN LIKE '%" +client+ "%'"
 				+ "	ORDER BY COMMENTAIREID;";
 
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
-			id = res.getString("COMMENTAIREID") ;
-			titre = res.getString("LIVRETITRE");
-			clientt = res.getString("CLIENTLOGIN");
-			texte = res.getString("COMMENTAIRETEXTE") ;
-			note =res.getString("COMMENTAIRENOTE") ;
-			statutt = res.getString("COMMENTAIRESTATUT") ;
-			date = res.getDate("COMMENTAIREDATE") ;
-			commande = res.getString("COMMANDENUM");
-			employeId = res.getString("EMPLOYEID");
-			moderation = res.getDate("DATEMODERATION") ;
-			
-			commentaire = new Commentaire (id, titre, clientt, texte, note, statutt, date, commande, employeId, moderation);
-			/*commentaire.setCommentaireId(res.getString("COMMENTAIREID")) ;
-			commentaire.setClientLogin(res.getString("CLIENTLOGIN"));
-			commentaire.setCommentaireTexte(res.getString("COMMENTAIRETEXTE")) ;
-			commentaire.setCommentaireNote(res.getString("COMMENTAIRENOTE")) ;
-			commentaire.setCommentaireStatut(res.getString("COMMENTAIRESTATUT")) ;
-			commentaire.setCommentaireDate(res.getDate("COMMENTAIREDATE")) ;
-			commentaire.setDateModeration(res.getDate("DATEMODERATION")) ;
-			/*Vector vectorString = new Vector();
+			Vector vectorString = new Vector();
 			vectorString.add(res.getString("COMMENTAIREID")) ;
-			vectorString.add(res.getString("CLIENTLOGIN"));
-			vectorString.add(res.getDate("COMMENTAIREDATE"));
+			vectorString.add(res.getString("CLIENTLOGIN")) ;
+			vectorString.add(res.getString("LIVRETITRE"));
+			vectorString.add(res.getString("COMMENTAIRETEXTE"));
 			vectorString.add(res.getString("COMMENTAIRENOTE"));
 			vectorString.add(res.getString("COMMENTAIRESTATUT"));
-			vectorString.add(res.getString("COMMENTAIRETEXTE"));
+			vectorString.add(res.getDate("COMMENTAIREDATE"));
 			vectorString.add(res.getDate("DATEMODERATION"));
-			vecteur.add(vectorString);*/
+			vecteur.add(vectorString);
 		}
-		return commentaire;
+		return vecteur;
 	}
 
 	@Override
-	public Commentaire rechercherCommentaireparStatut (String statut)throws SQLException {
+	public Vector<Vector> rechercherCommentaireparStatut (String statut)throws SQLException {
 		// TODO Auto-generated method stub
+		
+		Vector <Vector> vecteur = new Vector <Vector>();
 		
 		stmt = myConnection.createStatement();
 		String query = "SELECT COMMENTAIREID, LIVRETITRE, CLIENTLOGIN, COMMENTAIRETEXTE, "
 				+ "COMMENTAIRENOTE, COMMENTAIRESTATUT, COMMENTAIREDATE, "
-				+ "COMMANDENUM, EMPLOYEID, DATEMODERATION  "
+				+ "DATEMODERATION  "
 				+ "FROM COMMENTAIRE C "
 				+ "INNER JOIN LIVRE L ON "
 				+ "C.LIVREISBN = L.LIVREISBN "
-				+ "WHERE COMMENTAIRESTATUT = '" +statut+ "' "
+				+ "WHERE COMMENTAIRESTATUT LIKE '%" +statut+ "%' "
 				+ "ORDER BY COMMENTAIREID;";
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
-			id = res.getString("COMMENTAIREID") ;
-			titre = res.getString("LIVRETITRE");
-			clientt = res.getString("CLIENTLOGIN");
-			texte = res.getString("COMMENTAIRETEXTE") ;
-			note =res.getString("COMMENTAIRENOTE") ;
-			statutt = res.getString("COMMENTAIRESTATUT") ;
-			date = res.getDate("COMMENTAIREDATE") ;
-			commande = res.getString("COMMANDENUM");
-			employeId = res.getString("EMPLOYEID");
-			moderation = res.getDate("DATEMODERATION") ;
-			
-			commentaire = new Commentaire (id, titre, clientt, texte, note, statutt, date, commande, employeId, moderation);
-			/*commentaire.setCommentaireId(res.getString("COMMENTAIREID")) ;
-			commentaire.setCommentaireTexte(res.getString("COMMENTAIRETEXTE")) ;
-			commentaire.setCommentaireNote(res.getString("COMMENTAIRENOTE")) ;
-			commentaire.setCommentaireStatut(res.getString("COMMENTAIRESTATUT")) ;
-			commentaire.setCommentaireDate(res.getDate("COMMENTAIREDATE")) ;
-			commentaire.setDateModeration(res.getDate("DATEMODERATION")) ;
-			/*Vector vectorString = new Vector();
+			Vector vectorString = new Vector();
 			vectorString.add(res.getString("COMMENTAIREID")) ;
-			vectorString.add(res.getDate("COMMENTAIREDATE"));
+			vectorString.add(res.getString("CLIENTLOGIN")) ;
+			vectorString.add(res.getString("LIVRETITRE"));
+			vectorString.add(res.getString("COMMENTAIRETEXTE"));
 			vectorString.add(res.getString("COMMENTAIRENOTE"));
 			vectorString.add(res.getString("COMMENTAIRESTATUT"));
-			vectorString.add(res.getString("COMMENTAIRETEXTE"));
+			vectorString.add(res.getDate("COMMENTAIREDATE"));
 			vectorString.add(res.getDate("DATEMODERATION"));
-			vecteur.add(vectorString);*/
+			vecteur.add(vectorString);
 		}
-		return commentaire;
+		return vecteur;
 	}
 
 	@Override
-	public void modifierCommentaire(Commentaire commentaire) throws SQLException {
+	public void modifierCommentaire(Commentaire commentaire, String id, String texte) throws SQLException {
 		// TODO Auto-generated method stub
 		String isbn = "";
 		stmt = myConnection.createStatement();
@@ -216,24 +170,25 @@ public class CommentaireDAO implements ICommentaireDAO{
 		while(result.next()) {
 			isbn = result.getString("LIVREISBN");
 		}
-		
+
+
 		
 		String query = "UPDATE COMMENTAIRE C INNER JOIN LIVRE L "
 						+ "ON C.LIVREISBN = L.LIVREISBN "
 						+ "SET COMMENTAIREID ='" +commentaire.getCommentaireId()+ "', "
 						+ "CLIENTLOGIN = '" +commentaire.getClientLogin()+ "', "
 						+ "LIVRETITRE = '" +commentaire.getLivreTitre()+ "', "
-						+ "COMMENTAIRETEXTE = \"" +commentaire.getCommentaireTexte()+"\" , "
+						+ "COMMENTAIRETEXTE = '" +texte.replace("'", "''")+"' , "
 						+ "COMMENTAIRENOTE = '" +commentaire.getCommentaireNote()+ "', "
 						+ "COMMENTAIRESTATUT = '" +commentaire.getCommentaireStatut()+ "', "
 						+ "COMMENTAIREDATE = '" + commentaire.getCommentaireDate()+ "', "
-						+ "COMMANDENUM = '" +commentaire.getCommandeNum()+ "', "
-						+ "EMPLOYEID = '" +commentaire.getEmployeId()+ "', "
-						+ "DATEMODERATION = '" +commentaire.getDateModeration()+"'"
-						+ "WHERE COMMENTAIREID = '" + commentaire.getCommentaireId()+"' "
-						+ "AND C.LIVREISBN = '"+isbn+"';";
+						+ "DATEMODERATION = '" +commentaire.getDateModeration()+"' "
+						+ "WHERE COMMENTAIREID = '" + id+"' "
+						+ "AND C.LIVREISBN = \""+isbn+"\";";
 		ptsmt = myConnection.prepareStatement(query);
+
 		ptsmt.executeUpdate();
+
 	}
 
 	@Override
@@ -245,28 +200,25 @@ public class CommentaireDAO implements ICommentaireDAO{
 	}
 
 	@Override
-	public Commentaire afficherUnCommentaire(Commentaire commentaire) throws SQLException {
+	public Commentaire afficherUnCommentaire(Commentaire commentaire, String titre) throws SQLException {
 		stmt = myConnection.createStatement();
 		String query = "SELECT COMMENTAIREID, LIVRETITRE, CLIENTLOGIN, COMMENTAIRETEXTE, "
-				+ "COMMENTAIRENOTE, COMMENTAIREIP, COMMENTAIRESTATUT, COMMENTAIREDATE, "
-				+ "COMMANDENUM, LIGNECOMMANDEID, EMPLOYEID, DATEMODERATION  "
+				+ "COMMENTAIRENOTE, COMMENTAIRESTATUT, COMMENTAIREDATE, "
+				+ "DATEMODERATION  "
 				+ "FROM COMMENTAIRE C "
 				+ "INNER JOIN LIVRE L ON "
-				+ "C.LIVREISBN = L.LIVREISBN; ";
+				+ "C.LIVREISBN = L.LIVREISBN "
+				+ "WHERE LIVRETITRE = '"+titre.replace("'", "''")+"'; ";
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
 			
 			commentaire.setCommentaireId(res.getString("COMMENTAIREID")) ;
-			commentaire.setCommentaireId(res.getString("LIVRETITRE")) ;
+			commentaire.setLivreTitre(res.getString("LIVRETITRE")) ;
 			commentaire.setClientLogin(res.getString("CLIENTLOGIN"));
 			commentaire.setCommentaireTexte(res.getString("COMMENTAIRETEXTE")) ;
 			commentaire.setCommentaireNote(res.getString("COMMENTAIRENOTE")) ;
-			commentaire.setCommentaireStatut(res.getString("COMMENTAIREIP")) ;
 			commentaire.setCommentaireStatut(res.getString("COMMENTAIRESTATUT")) ;
 			commentaire.setCommentaireDate(res.getDate("COMMENTAIREDATE")) ;
-			commentaire.setCommentaireStatut(res.getString("COMMANDENUM")) ;
-			commentaire.setCommentaireStatut(res.getString("LIGNECOMMANDEID")) ;
-			commentaire.setCommentaireStatut(res.getString("EMPLOYEID")) ;
 			commentaire.setDateModeration(res.getDate("DATEMODERATION")) ;
 		}
 		return commentaire;

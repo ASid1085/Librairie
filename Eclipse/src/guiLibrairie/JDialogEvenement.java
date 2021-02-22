@@ -176,7 +176,7 @@ public class JDialogEvenement extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						String nom = txtSaisieNom.getText();
 						Date debut = Date.valueOf(txtSaisieDateDebut.getText());
-						System.out.println(debut);
+						
 						Date fin = Date.valueOf(txtSaisieDateFin.getText());
 						Float pourcentage = Float.parseFloat(txtSaisiePourcentage.getText());
 						String codePromo = txtSaisieCodePromo.getText();
@@ -184,7 +184,7 @@ public class JDialogEvenement extends JDialog {
 						String comment = txtSaisieCommentaire.getText();
 						try {
 							evenementDAO.ajouterEvenement(nom, debut, fin, pourcentage, codePromo, image, comment);
-							JOptionPane.showMessageDialog(null, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPanel, "Nouvel événement ajouté avec succès", "Bravo !", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block

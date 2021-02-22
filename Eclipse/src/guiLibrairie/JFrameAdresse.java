@@ -11,16 +11,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daoLibrairie.daoAdresse;
-import entitesLibrairie.Adresse;
-import entitesLibrairie.Client;
+import entitiesLibrairie.Adresse;
+import entitiesLibrairie.Client;
 
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -37,6 +41,10 @@ public class JFrameAdresse extends JFrame {
 	private JTextField txtPays;
 	private JTextField txtTelephone;
 	private JTextField txtCode;
+	private JButton btnAjouter;
+	private JButton btnModifier;
+	private JRadioButton rdbtnLivraison;
+	private JRadioButton rdbtnFacturation;
 	private daoAdresse daoAdr = new daoAdresse();
 
 	/**
@@ -46,7 +54,7 @@ public class JFrameAdresse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameAdresse frame = new JFrameAdresse( "");
+					JFrameAdresse frame = new JFrameAdresse( "", null, "", "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +66,44 @@ public class JFrameAdresse extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameAdresse( String id) {
+	public JFrameAdresse( String clientLogin, JFrameListeAdresse frameListeAd, String id, String etat) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				Adresse adr = new Adresse();
+	
+				if ( !id.equals( "")) {
+					try {
+						if ( etat.equals( "Livraison")) {
+							adr = daoAdr.findAdresseLivById( id);
+						}
+						if ( etat.equals( "Facturation")) {
+							adr = daoAdr.findAdresseFacById( id);
+						}
+						txtNom.setText( adr.getAdresseNom());
+						txtPrenom.setText( adr.getAdressePrenom());
+						txtNumRue.setText( adr.getAdresseNoRue());
+						txtRue.setText( adr.getAdresseRue());
+						txtComplement.setText( adr.getAdresseCompl());
+						txtCP.setText( adr.getAdresseCp());
+						txtVille.setText( adr.getAdresseVille());
+						txtPays.setText( adr.getAdressePays());
+						txtTelephone.setText( adr.getAdresseTel());
+						txtCode.setText( adr.getAdresseCode());
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					}	
+				}
+				if ( !id.equals( "")) {
+					btnAjouter.setEnabled( false);
+					rdbtnFacturation.setVisible( false);
+					rdbtnLivraison.setVisible( false);
+				} else {
+					btnModifier.setEnabled( false);
+				}
+			}
+		});
+		
 		setTitle("Adresse");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 493, 547);
@@ -68,19 +113,19 @@ public class JFrameAdresse extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JRadioButton rdbtnMadame = new JRadioButton("Madame");
-		rdbtnMadame.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		rdbtnMadame.setBounds(18, 26, 104, 23);
-		contentPane.add(rdbtnMadame);
+		rdbtnLivraison = new JRadioButton("Livraison");
+		rdbtnLivraison.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		rdbtnLivraison.setBounds(18, 26, 104, 23);
+		contentPane.add(rdbtnLivraison);
 		
-		JRadioButton rdbtnMonsieur = new JRadioButton("Monsieur");
-		rdbtnMonsieur.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		rdbtnMonsieur.setBounds(134, 25, 104, 23);
-		contentPane.add(rdbtnMonsieur);
+		rdbtnFacturation = new JRadioButton("Facturation");
+		rdbtnFacturation.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		rdbtnFacturation.setBounds(134, 25, 104, 23);
+		contentPane.add(rdbtnFacturation);
 		
 		ButtonGroup btnGroup =	new ButtonGroup();
-		btnGroup.add( rdbtnMadame);
-		btnGroup.add( rdbtnMonsieur);
+		btnGroup.add( rdbtnLivraison);
+		btnGroup.add( rdbtnFacturation);
 		
 		JLabel lblNom = new JLabel("Nom :");
 		lblNom.setEnabled(false);
@@ -233,18 +278,33 @@ public class JFrameAdresse extends JFrame {
 		lblAdresseId.setBounds(392, 6, 83, 30);
 		contentPane.add(lblAdresseId);
 		
-		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ( !id.equals( "")) {
-					btnAjouter.setEnabled( false);
-				}
-				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText(), txtNom.getText(),
-										   txtPrenom.getText(), txtNumRue.getText(), txtRue.getText(),
-										   txtComplement.getText(), txtCP.getText(), txtVille.getText(),
-										   txtPays.getText(), txtTelephone.getText(), "");
+				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText().replace("'", "''"), txtNom.getText().replace("'", "''"),
+										   txtPrenom.getText().replace("'", "''"), txtNumRue.getText().replace("'", "''"), txtRue.getText().replace("'", "''"),
+										   txtComplement.getText().replace("'", "''"), txtCP.getText(), txtVille.getText().replace("'", "''"),
+										   txtPays.getText().replace("'", "''"), txtTelephone.getText().replace("'", "''"), "");
 				try {
 					daoAdr.addAdresse( adr);
+					if ( rdbtnLivraison.isSelected()) {
+						daoAdr.attribAdresseLivraison( clientLogin, adr);
+					} else if ( rdbtnFacturation.isSelected()) {
+						daoAdr.attribAdresseFacturation( clientLogin, adr);
+					} else {
+						JOptionPane.showMessageDialog( contentPane, "Merci de sélectionner un type d'adresse !", "Champs non sélectionné", JOptionPane.WARNING_MESSAGE);
+					}
+					frameListeAd.refreshAdresse( adr);
+					frameListeAd.repaint();
+					frameListeAd.setVisible( true);
+					
+					if ( etat.equals( "Livraison")) {
+						daoAdr.lierAdLivClt( adr, clientLogin, etat);
+					}
+					if ( etat.equals( "Facturation")) {
+						daoAdr.lierAdFacClt( adr, clientLogin, etat);
+					}
+					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -255,18 +315,19 @@ public class JFrameAdresse extends JFrame {
 		btnAjouter.setBounds(78, 455, 123, 49);
 		contentPane.add(btnAjouter);
 		
-		JButton btnModifier = new JButton("Modifier");
+		btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ( id.equals( "")) {
-					btnModifier.setEnabled( false);
-				}
-				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText(), txtNom.getText(),
-						txtPrenom.getText(), txtNumRue.getText(), txtRue.getText(),
-						txtComplement.getText(), txtCP.getText(), txtVille.getText(),
-						txtPays.getText(), txtTelephone.getText(), "");
+				Adresse adr = new Adresse( lblAdresseId.getText(), txtCode.getText().replace("'", "''"), txtNom.getText().replace("'", "''"),
+						txtPrenom.getText().replace("'", "''"), txtNumRue.getText().replace("'", "''"), txtRue.getText().replace("'", "''"),
+						txtComplement.getText().replace("'", "''"), txtCP.getText().replace("'", "''"), txtVille.getText().replace("'", "''"),
+						txtPays.getText().replace("'", "''"), txtTelephone.getText().replace("'", "''"), "");
 				try {
-					daoAdr.ModifierAdresse( adr);;
+					daoAdr.ModifierAdresse( adr);
+					frameListeAd.refreshAdresse( adr);
+					frameListeAd.repaint();
+					frameListeAd.setVisible( true);
+					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

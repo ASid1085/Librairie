@@ -3,7 +3,8 @@ package interfaceDaoLibrairie;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import entitesLibrairie.Adresse;
+
+import entitiesLibrairie.Adresse;
 
 public interface iDaoAdresse {
 	
@@ -15,8 +16,12 @@ public interface iDaoAdresse {
 	
 	public DefaultTableModel listeAdresse() throws SQLException;
 	
-	public Vector<Adresse> findAdresseByLogin(String clientLogin) throws SQLException;
+	public Vector<Adresse> findAdresseLivByLogin(String clientLogin) throws SQLException;
 	
-	public DefaultTableModel listeAdresseByLogin(String clientLogin) throws SQLException;
+	public DefaultTableModel listeAdresseLivByLogin(String clientLogin) throws SQLException;
+
+	public Vector<Adresse> findAdresseFacByLogin(String clientLogin) throws SQLException;
+
+	public DefaultTableModel listeAdresseFacByLogin(String clientLogin) throws SQLException;
 
 }

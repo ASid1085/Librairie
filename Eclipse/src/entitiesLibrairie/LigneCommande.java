@@ -1,4 +1,4 @@
-package entitesLibrairie;
+package entitiesLibrairie;
 
 public class LigneCommande {
 	
@@ -12,6 +12,19 @@ public class LigneCommande {
 	private String clientLogin;
 	private String commentaireId;
 	private String evenementId;
+
+	public LigneCommande(String ligneCdeId, String cdeNum, String livreIsbn, float ligneCdeQte, float ligneCdePrixHt,
+			float ligneCdeTvaAppliquee, float ligneCdeRemise, String clientLogin) {
+		super();
+		this.ligneCdeId = ligneCdeId;
+		this.cdeNum = cdeNum;
+		this.livreIsbn = livreIsbn;
+		this.ligneCdeQte = ligneCdeQte;
+		this.ligneCdePrixHt = ligneCdePrixHt;
+		this.ligneCdeTvaAppliquee = ligneCdeTvaAppliquee;
+		this.ligneCdeRemise = ligneCdeRemise;
+		this.clientLogin = clientLogin;
+	}
 	
 	public LigneCommande(String ligneCdeId, float ligneCdeQte, float ligneCdePrixHt, float ligneCdeTvaAppliquee) {
 		super();

@@ -1,5 +1,5 @@
-create schema LibrairieTest;
-use LibrairieTest;
+create schema Librairie2;
+use Librairie2;
 
 /*==============================================================*/
 /* Table : ADRESSE                                              */

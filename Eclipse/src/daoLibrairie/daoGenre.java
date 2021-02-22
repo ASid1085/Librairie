@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import connexionLibrairie.Connexion;
-import entitesLibrairie.Genre;
+import entitiesLibrairie.Genre;
 import interfaceDaoLibrairie.iDaoGenre;
 
 public class daoGenre implements iDaoGenre {
@@ -42,13 +42,36 @@ public class daoGenre implements iDaoGenre {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		return id;
 	}
 
+	public void lierGenreTheme( String idTheme, String idGenre) throws SQLException {
 
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into POSSEDER values ('" + idTheme + "', '" + idGenre + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+	
+	public void delierGenreTheme( String idGenre) throws SQLException {
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "delete from POSSEDER where GENREID = '" + idGenre + "';";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+
+	
 	@Override
 	public void ajouterGenre( Genre genre) throws SQLException {
 		
@@ -65,6 +88,7 @@ public class daoGenre implements iDaoGenre {
 
 	@Override
 	public void modifierGenre( Genre genre, String genreId) throws SQLException {
+		
 		myConnexion = Connexion.getInstance();
 
 		String query = "update GENRE set GENREID = '" + genre.getGenreId() +"', GENRENOM = '" + genre.getGenreNom() 
@@ -74,7 +98,7 @@ public class daoGenre implements iDaoGenre {
 		pstmt.executeUpdate();
 		
 		pstmt.close();
-		JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		//JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
@@ -112,13 +136,48 @@ public class daoGenre implements iDaoGenre {
 		
 		return new DefaultTableModel( Vgenre, nomColonne);
 	}
+	
+	public Vector<Genre> vectorListGenreByName( String genreNom) throws SQLException {
+		Vector vGenre = new Vector<>();
+		
+		myConnexion = Connexion.getInstance();
+
+		String query = "select * from GENRE where GENRENOM like '%" + genreNom + "%';";
+		try {
+			stmt = myConnexion.createStatement();
+			rs = stmt.executeQuery( query);
+			while ( rs.next()) {
+				Vector colonne = new Vector();
+				colonne.add( rs.getString( "GENREID"));
+				colonne.add( rs.getString( "GENRENOM"));
+
+				vGenre.add( colonne);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vGenre;
+	}
+
+	public DefaultTableModel listeGenreByName( String genreNom) throws SQLException {
+		
+		Vector Vgenre = vectorListGenreByName( genreNom);
+		Vector nomColonne = new Vector<>();
+		nomColonne.add( "ID du genre");
+		nomColonne.add( "Nom du genre");
+		
+		return new DefaultTableModel( Vgenre, nomColonne);
+	}
 
 	@Override
 	public Genre findGenreByNom(String genreNom) throws SQLException {
 		
 		myConnexion = Connexion.getInstance();
+		
 		Genre g = new Genre();
-		String query = "select * from GENRE where GENRENOM ='"+ genreNom +"';";
+		String query = "select * from GENRE where GENRENOM like '%"+ genreNom +"%';";
         try {
         	stmt = myConnexion.createStatement();
         	ResultSet rs = stmt.executeQuery( query);
