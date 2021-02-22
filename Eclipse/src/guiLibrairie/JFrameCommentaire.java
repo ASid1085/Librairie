@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import daoLibrairie.CommentaireDAO;
 import entitiesLibrairie.Commentaire;
 import entitiesLibrairie.Evenement;
+import guiLibrairie.*;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -152,7 +153,7 @@ public class JFrameCommentaire extends JFrame {
 		
 //BOUTON RECHERCHER PAT LIVRE ///////////////////////////////////////////////////////////////////////////////////
 		JButton btnRechercheLivre = new JButton("");
-		btnRechercheLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnRechercheLivre.setIcon(new ImageIcon(JFrameCommentaire.class.getResource("/icon/BtnLoupe.png")));
 		//btnRechercheLivre.setForeground(new Color(128, 0, 0));
 		//btnRechercheLivre.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		//btnRechercheLivre.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -177,7 +178,7 @@ public class JFrameCommentaire extends JFrame {
 		
 //BOUTON RECHERCHER PAR CLIENT ///////////////////////////////////////////////////////////////////////////////////
 		JButton btnRechercheClient = new JButton("");
-		btnRechercheClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnRechercheClient.setIcon(new ImageIcon(JFrameCommentaire.class.getResource("/icon/BtnLoupe.png")));
 		//btnRechercheClient.setForeground(new Color(128, 0, 0));
 		//btnRechercheClient.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		//btnRechercheClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -201,7 +202,7 @@ public class JFrameCommentaire extends JFrame {
 		
 //BOUTON RECHERCHER PAR STATUT ///////////////////////////////////////////////////////////////////////////////////
 		JButton btnRechercherStatut = new JButton("");
-		btnRechercherStatut.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnRechercherStatut.setIcon(new ImageIcon(JFrameCommentaire.class.getResource("/icon/BtnLoupe.png")));
 		//btnRechercherStatut.setForeground(new Color(128, 0, 0));
 		//btnRechercherStatut.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		//btnRechercherStatut.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));

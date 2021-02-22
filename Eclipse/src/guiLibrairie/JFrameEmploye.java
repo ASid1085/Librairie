@@ -236,7 +236,7 @@ public class JFrameEmploye extends JFrame {
 
 //BOUTON RECHERCHER///////////////////////////////////////////////////////////////////////////////////////
 		JButton btnRechercher = new JButton("");
-		btnRechercher.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/search.png"));
+		btnRechercher.setIcon(new ImageIcon(JFrameEmploye.class.getResource("/icon/search.png")));
 		//btnRechercher.setForeground(new Color(128, 0, 0));
 		//btnRechercher.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		//btnRechercher.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
@@ -293,7 +293,7 @@ public class JFrameEmploye extends JFrame {
 //BOUTON RAFRAICHIR ///////////////////////////////////////////////////////////////////////////////////
 		
 		JButton btnRafraichir = new JButton("");
-		btnRafraichir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
+		btnRafraichir.setIcon(new ImageIcon(JFrameEmploye.class.getResource("/icon/refresh32px.png")));
 		btnRafraichir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

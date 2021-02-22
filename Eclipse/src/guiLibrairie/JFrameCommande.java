@@ -531,7 +531,7 @@ System.out.println( "récupération de l'état : " + etat);
 			}
 		});
 		btnFindAdreLiv.setToolTipText("Carnet d'adresse");
-		btnFindAdreLiv.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/map-book.png"));
+		btnFindAdreLiv.setIcon(new ImageIcon(JFrameCommande.class.getResource("/icon/map-book.png")));
 		btnFindAdreLiv.setBounds(409, 6, 40, 36);
 		panelBas.add(btnFindAdreLiv);
 		
@@ -547,7 +547,7 @@ System.out.println( "récupération de l'état : " + etat);
 
 			}
 		});
-		btnFindAdreFact.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/map-book.png"));
+		btnFindAdreFact.setIcon(new ImageIcon(JFrameCommande.class.getResource("/icon/map-book.png")));
 		btnFindAdreFact.setToolTipText("Carnet d'adresse");
 		btnFindAdreFact.setBounds(186, 6, 40, 36);
 		panelBas.add(btnFindAdreFact);
@@ -575,7 +575,7 @@ System.out.println( "récupération de l'état : " + etat);
 				JDcde.setVisible( true);
 			}
 		});
-		btnCommentaireClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnPost.png"));
+		btnCommentaireClient.setIcon(new ImageIcon(JFrameCommande.class.getResource("/icon/btnPost.png")));
 		
 		JButton btnValider = new JButton("");
 		btnValider.setVisible( false);
@@ -597,7 +597,7 @@ System.out.println( "récupération de l'état : " + etat);
 				}
 			}
 	});
-		btnValider.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		btnValider.setIcon(new ImageIcon(JFrameCommande.class.getResource("/icon/double-checked32px.png")));
 		btnValider.setBounds(736, 184, 48, 50);
 		panelBas.add(btnValider);
 		

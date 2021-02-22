@@ -93,7 +93,8 @@ public class JDialogLogin extends JDialog {
 		
 		
 		JButton okButton = new JButton("");
-		okButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		//okButton.setIcon(new ImageIcon("/Users/marinecharrier/Librairie/librairie-en-ligne/Eclipse/src/icon/double-checked32px.png"));
+		okButton.setIcon(new ImageIcon(JDialogLogin.class.getResource("/icon/double-checked32px.png")));
 		okButton.setBounds(152, 240, 58, 58);
 		contentPanel.add(okButton);
 		okButton.addActionListener(new ActionListener() {
@@ -132,7 +133,7 @@ public class JDialogLogin extends JDialog {
 
 
 		JButton cancelButton = new JButton("");
-		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.setIcon(new ImageIcon(JDialogLogin.class.getResource("/icon/cancel32px.png")));
 		cancelButton.setBounds(333, 240, 58, 58);
 		contentPanel.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {

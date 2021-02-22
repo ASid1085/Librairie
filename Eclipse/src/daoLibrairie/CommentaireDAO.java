@@ -208,7 +208,7 @@ public class CommentaireDAO implements ICommentaireDAO{
 				+ "FROM COMMENTAIRE C "
 				+ "INNER JOIN LIVRE L ON "
 				+ "C.LIVREISBN = L.LIVREISBN "
-				+ "WHERE LIVRETITRE = '"+titre+"'; ";
+				+ "WHERE LIVRETITRE = \""+titre+"\"; ";
 		ResultSet res = stmt.executeQuery(query);
 		while (res.next()) {
 			

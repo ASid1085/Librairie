@@ -181,7 +181,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnLoupeAut.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeAut.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupeAut.setBounds(459, 31, 55, 55);
 		paneAuteur.add(btnLoupeAut);
 		
@@ -254,7 +254,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshAuteur.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/refresh24px.png")));
 		btnRefreshAuteur.setBounds(537, 31, 55, 55);
 		paneAuteur.add(btnRefreshAuteur);
 
@@ -373,7 +373,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnLoupeEditeur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeEditeur.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupeEditeur.setBounds(459, 31, 55, 55);
 		paneEditeur.add(btnLoupeEditeur);
 		
@@ -383,6 +383,9 @@ public class JFrameListeCategorie extends JFrame {
 				JFed = new JFrameEditeur( "");
 				JFed.setLocationRelativeTo( null);
 				JFed.setVisible( true);
+				//setVisible( false);
+				//dispose();
+
 			}
 		});
 		btnCreerEditeur.setFont(new Font("Avenir Next", Font.PLAIN, 15));
@@ -399,6 +402,10 @@ public class JFrameListeCategorie extends JFrame {
 					JFed = new JFrameEditeur( editeurNomSelect);
 					JFed.setLocationRelativeTo( JFed.getParent());
 					JFed.setVisible( true);
+
+					//setVisible( false);
+					//dispose();
+
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
@@ -445,7 +452,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnRefreshEditeUr.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshEditeUr.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/refresh24px.png")));
 		btnRefreshEditeUr.setBounds(537, 31, 55, 55);
 		paneEditeur.add(btnRefreshEditeUr);
 		tabbedPane.setForegroundAt(1, Color.DARK_GRAY);
@@ -712,7 +719,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnLoupeGenre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeGenre.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupeGenre.setBounds(459, 31, 55, 55);
 		paneGenre.add(btnLoupeGenre);
 		
@@ -791,7 +798,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnRefreshGenre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshGenre.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("c/icon/refresh24px.png")));
 		btnRefreshGenre.setBounds(525, 31, 55, 55);
 		paneGenre.add(btnRefreshGenre);
     
@@ -895,7 +902,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnLoupeMotCle.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeMotCle.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupeMotCle.setBounds(459, 31, 55, 55);
 		paneMotCle.add(btnLoupeMotCle);
 		
@@ -970,7 +977,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnRefreshMotCle.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshMotCle.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/refresh24px.png")));
 		btnRefreshMotCle.setBounds(530, 31, 55, 55);
 		paneMotCle.add(btnRefreshMotCle);
 		tabbedPane.setForegroundAt(3, Color.DARK_GRAY);
@@ -1085,7 +1092,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnLoupeTheme.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupeTheme.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupeTheme.setBounds(459, 31, 55, 55);
 		paneTheme.add(btnLoupeTheme);
 		
@@ -1163,7 +1170,7 @@ public class JFrameListeCategorie extends JFrame {
 				}
 			}
 		});
-		btnRefreshTheme.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshTheme.setIcon(new ImageIcon(JFrameListeCategorie.class.getResource("/icon/refresh24px.png")));
 		btnRefreshTheme.setBounds(530, 31, 55, 55);
 		paneTheme.add(btnRefreshTheme);
 		tabbedPane.setForegroundAt(3, Color.DARK_GRAY);

@@ -157,7 +157,7 @@ public class JFrameListeClient extends JFrame {
 				}
 			}
 		});
-		btnLoupe.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupe.setIcon(new ImageIcon(JFrameListeClient.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupe.setBounds(615, 40, 55, 55);
 		contentPane.add(btnLoupe);
 		
@@ -315,7 +315,7 @@ public class JFrameListeClient extends JFrame {
 				txtNomClient.setText( "");
 			}
 		});
-		btnRefreshAuteur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefreshAuteur.setIcon(new ImageIcon(JFrameListeClient.class.getResource("/icon/refresh24px.png")));
 		btnRefreshAuteur.setBounds(687, 40, 55, 55);
 		contentPane.add(btnRefreshAuteur);
 	}

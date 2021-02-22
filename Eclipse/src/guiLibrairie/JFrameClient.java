@@ -180,7 +180,7 @@ public class JFrameClient extends JFrame {
 				jdcc.setVisible( true);
 			}
 		});
-		btnCommentaireClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnPost.png"));
+		btnCommentaireClient.setIcon(new ImageIcon(JFrameClient.class.getResource("/icon/btnPost.png")));
 		btnCommentaireClient.setBounds(511, 416, 101, 76);
 		contentPane.add(btnCommentaireClient);
 		
@@ -197,7 +197,7 @@ public class JFrameClient extends JFrame {
 				}
 			}
 		});
-		btnValiderLesModifications.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked.png"));
+		btnValiderLesModifications.setIcon(new ImageIcon(JFrameClient.class.getResource("/icon/double-checked.png")));
 		btnValiderLesModifications.setBounds(290, 382, 190, 50);
 		contentPane.add(btnValiderLesModifications);
 		
@@ -217,7 +217,7 @@ public class JFrameClient extends JFrame {
 				}
 			}
 		});
-		btnAjouterUnClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plusContour.png"));
+		btnAjouterUnClient.setIcon(new ImageIcon(JFrameClient.class.getResource("/icon/plusContour.png")));
 		btnAjouterUnClient.setBounds(71, 382, 190, 50);
 		contentPane.add(btnAjouterUnClient);
 		

@@ -123,7 +123,7 @@ public class JFrameMotCle extends JFrame {
 		btnValider.setBounds(69, 256, 97, 41);
 		contentPane.add(btnValider);
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		/*JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtMotCleId.setText( "");
@@ -133,6 +133,6 @@ public class JFrameMotCle extends JFrame {
 		btnAnnuler.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnAnnuler.setBounds(69, 256, 97, 41);
 		btnAnnuler.setBounds(258, 257, 97, 41);
-		contentPane.add(btnAnnuler);
+		contentPane.add(btnAnnuler);*/
 	}
 }

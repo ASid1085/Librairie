@@ -87,6 +87,16 @@
 /JDialogLivreAjout$10.class
 /JDialogLivreAjout$8.class
 /JDialogLivreAjout$9.class
+<<<<<<< HEAD
+/JFrameCommentaire$1.class
+/JFrameCommentaire$2.class
+/JFrameCommentaire$3.class
+/JFrameCommentaire$4.class
+/JFrameCommentaire$5.class
+/JFrameCommentaire$6.class
+/JFrameCommentaire$7.class
+/JFrameCommentaire$8.class
+=======
 /JDialogCommentaireClient$1.class
 /JDialogCommentaireClient$2.class
 /JDialogCommentaireClient$3.class
@@ -219,3 +229,4 @@
 /JDialogLivreAjout$3.class
 /JDialogLivreAjout.class
 /JFrameListeCategorie$1.class
+>>>>>>> main
