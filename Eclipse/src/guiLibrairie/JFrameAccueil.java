@@ -35,6 +35,7 @@ public class JFrameAccueil extends JFrame {
 	private static JFrameEmploye lemp;
 	private static JFrameLivre lliv;
 	private static Employe empl = new Employe();
+	private Employe employe;
 	
 
 	
@@ -82,7 +83,7 @@ public class JFrameAccueil extends JFrame {
 		setBounds(0, 0, 1400, 850);
 		setVisible(true);
 		
-		//employe = employeATraiter;
+		this.employe = employeATraiter;
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 248, 220));
@@ -100,7 +101,7 @@ public class JFrameAccueil extends JFrame {
 		contentPane.add(lblAuthentification);
 		
 		
-		formater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		formater = new SimpleDateFormat("yyyy-MM-dd");
 		currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		JLabel lblDate = new JLabel(formater.format(currentDate));
 		lblDate.setHorizontalAlignment(SwingConstants.LEFT);
@@ -156,7 +157,7 @@ public class JFrameAccueil extends JFrame {
 		btnGestionClient.setForeground(new Color(128, 0, 0));
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lclt = new JFrameListeClient( null, "");
+				lclt = new JFrameListeClient( null, "", employeATraiter);
 				lclt.setLocationRelativeTo( lclt.getParent());
 				lclt.setVisible( true);
 			}
@@ -210,7 +211,7 @@ public class JFrameAccueil extends JFrame {
 		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/shopping-cart64px.png"));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lcde = new JFrameListeCommande( "");
+				lcde = new JFrameListeCommande( "", employe);
 				lcde.setLocationRelativeTo( null);
 				lcde.setVisible( true);
 			}

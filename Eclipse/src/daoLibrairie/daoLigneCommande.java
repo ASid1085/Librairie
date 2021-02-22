@@ -58,7 +58,7 @@ public class daoLigneCommande implements iDaoLigneCommande{
 		
 		myConnexion = Connexion.getInstance();
 
-		String query = "insert into LIGNE_COMMANDE ( LIGNECOMMANDEID, COMMANDENUM, LIVREISBN, LIGNECOMMANDEQUANTITE, LIGNECOMMANDEPRIXHT, LIGNECOMMANDETVAAPPLIQUEE, LIGNECOMMANDEREMISE, CLIENTLOGIN) "
+		String query = "insert into LIGNE_COMMANDE ( LIGNECOMMANDEID, COMMANDENUM, LIVREISBN, LIGNECOMMANDEQUANTITE, LIGNECOMMANDEPRIXHT, LIGNECOMMANDETVAAPPLIQUEE, LIGNECOMMANDEREMISE, CLIENTLOGIN)"
 							+ "values ( '" + lCde.getLigneCdeId() + "', '" + lCde.getCdeNum()
 							+ "', '" + lCde.getLivreIsbn() + "', '" + lCde.getLigneCdeQte()
 							+ "', '" + lCde.getLigneCdePrixHt() + "', '" + lCde.getLigneCdeTvaAppliquee()
@@ -93,8 +93,8 @@ public class daoLigneCommande implements iDaoLigneCommande{
 				colonne.add( dfPrix.format((rs.getFloat( "LIGNECOMMANDEPRIXHT") * (1 + rs.getFloat( "TVATAUX")/100))));
 				colonne.add( dfQte.format( rs.getFloat( "LIGNECOMMANDEQUANTITE")));
 				colonne.add( dfRemise.format( rs.getFloat( "LIGNECOMMANDEREMISE")/100));
-				colonne.add( dfPrix.format( (rs.getFloat( "LIGNECOMMANDEPRIXHT") * (1 - rs.getFloat( "LIGNECOMMANDEREMISE")/100))));
-				colonne.add( dfPrix.format( (rs.getFloat( "LIGNECOMMANDEPRIXHT") * (1 - rs.getFloat( "LIGNECOMMANDEREMISE")/100) * (1 + rs.getFloat( "TVATAUX")/100))));
+				colonne.add( dfPrix.format( rs.getFloat( "LIGNECOMMANDEQUANTITE") * (rs.getFloat( "LIGNECOMMANDEPRIXHT") * (1 - rs.getFloat( "LIGNECOMMANDEREMISE")/100))));
+				colonne.add( dfPrix.format( rs.getFloat( "LIGNECOMMANDEQUANTITE") * (rs.getFloat( "LIGNECOMMANDEPRIXHT") * (1 - rs.getFloat( "LIGNECOMMANDEREMISE")/100) * (1 + rs.getFloat( "TVATAUX")/100))));
 
 				vLigCde.add( colonne);
 			}

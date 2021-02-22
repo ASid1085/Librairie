@@ -33,7 +33,7 @@ public class LivreDAO implements ILivreDAO{
 		float txTva = 0;
 		
 		String query = "select tva.TVATAUX from TVA as tva inner join LIVRE as liv on liv.TVAID = tva.tvaID"
-							+ " where liv.LIVRETITRE = '" + titre + "';";
+							+ " where liv.LIVRETITRE = '" + titre.replace("'", "''") + "';";
 		
 		stmt = myConnection.createStatement();
 		ResultSet rs = stmt.executeQuery( query);
@@ -41,6 +41,19 @@ public class LivreDAO implements ILivreDAO{
 			txTva = rs.getFloat( "TVATAUX");
 		}		
 		return txTva;
+	}
+	
+	public String recupererTvaId( Float txTva) throws SQLException {
+		String idTva = "";
+		
+		String query = "select TVAID from TVA where TVATAUX = '" + txTva  + "';";
+			
+		stmt = myConnection.createStatement();
+		ResultSet rs = stmt.executeQuery( query);
+		while ( rs.next()) {
+			idTva = rs.getString( "TVAID");
+		}		
+		return idTva;
 	}
 
 	public Vector<String> recupererTVA() throws SQLException {
@@ -155,7 +168,7 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, isbn);
 		ptsmt.setString(2, themeALier);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
+
 	}
 
 	@Override
@@ -175,7 +188,7 @@ public class LivreDAO implements ILivreDAO{
 		ptsmt.setString(1, motCleALier);
 		ptsmt.setString(2, isbn);
 		int resultat = ptsmt.executeUpdate();
-		System.out.println(insert);
+
 	}
 	    
     @Override
@@ -455,7 +468,7 @@ public class LivreDAO implements ILivreDAO{
 		       livre.add(res.getString("LIVRESTATUT"));
 		       livres.add(livre);
 		   }
-		   System.out.println(query);
+
 		return livres;
 		
 	}

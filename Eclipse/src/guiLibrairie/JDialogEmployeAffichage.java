@@ -69,7 +69,7 @@ public class JDialogEmployeAffichage extends JDialog {
 		
 //JLABEL //////////////////////////////////////////////////////////////////////////////////////////////		
 		
-		JLabel lblTitre = new JLabel("AFFICHAGE UTILISATEUR");
+		JLabel lblTitre = new JLabel("AFFICHAGE EMPLOYÉ.E");
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitre.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		lblTitre.setForeground(new Color(255, 215, 0));

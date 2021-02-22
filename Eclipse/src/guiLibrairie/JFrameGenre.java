@@ -100,12 +100,12 @@ public class JFrameGenre extends JFrame {
 				}
 				Genre g = new Genre( txtGenreId.getText(), txtGenreNom.getText());
 				String idMc = daoMC.ajoutIdMotCle();
-				MotCle mc = new MotCle( txtGenreId.getText(), idMc);
+				MotCle mc = new MotCle( idMc, txtGenreNom.getText());
 				if (genreNom.equals( "")) {
 					try {
 						daoG.ajouterGenre( g);
 						daoMC.ajouterMotCle( mc);
-						daoG.lierGenreTheme(idTheme, g.getGenreId());
+						daoG.lierGenreTheme(idTheme, txtGenreId.getText());
 						setVisible( false);
 						dispose();
 					} catch (SQLException e1) {

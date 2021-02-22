@@ -309,7 +309,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre avec ce titre.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre avec ce titre.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							e.printStackTrace();
@@ -335,7 +335,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre avec ce numéro d'ISBN.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre avec ce numéro d'ISBN.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -362,7 +362,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre associé à cet auteur.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre associé à cet auteur.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -389,7 +389,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre associé à cet éditeur.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre associé à cet éditeur.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -416,7 +416,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre associé à ce thème.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre associé à ce thème.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -443,7 +443,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre associé à ce genre.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre associé à ce genre.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -470,7 +470,7 @@ public class JFrameLivre extends JFrame {
 							columnModel.getColumn(9).setPreferredWidth(80);
 							columnModel.getColumn(10).setPreferredWidth(80);
 							if (modeltable.getRowCount()==0) {
-								JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre associé à ce mot-clé.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre associé à ce mot-clé.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
@@ -505,14 +505,14 @@ public class JFrameLivre extends JFrame {
 									lblNotes.setText("Attention seuil d'alerte du niveau de stock dépassé !");
 								}
 								if (modeltable.getRowCount()==0) {
-									JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre dont le stock est inférieur à " + stock, "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre dont le stock est inférieur à " + stock, "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (SQLException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir des chiffres pour la recherche de stiock", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Veuillez saisir des chiffres pour la recherche de stiock", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
 						}
 						break;
 					case  "PRIX HT" :
@@ -539,14 +539,14 @@ public class JFrameLivre extends JFrame {
 								columnModel.getColumn(9).setPreferredWidth(80);
 								columnModel.getColumn(10).setPreferredWidth(80);
 								if (modeltable.getRowCount()==0) {
-									JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre dont le prix est inférieur à "+prixHT+" € HT.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre dont le prix est inférieur à "+prixHT+" € HT.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (SQLException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir des chiffres pour la recherche de prix", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Veuillez saisir des chiffres pour la recherche de prix", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
 						}
 						break;
 					case "PRIX TTC" :
@@ -574,7 +574,7 @@ public class JFrameLivre extends JFrame {
 								columnModel.getColumn(9).setPreferredWidth(80);
 								columnModel.getColumn(10).setPreferredWidth(80);
 								if (modeltable.getRowCount()==0) {
-									JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de livre dont le prix est inférieur à "+recupPrix+" € TTC.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de livre dont le prix est inférieur à "+recupPrix+" € TTC.", "Livre introuvable", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (SQLException e) {
 								// TODO Auto-generated catch block
@@ -583,7 +583,7 @@ public class JFrameLivre extends JFrame {
 							lblNotes.setText("");
 							jTextRecherche.setText("");
 						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez saisir des chiffres pour la recherche de prix", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Veuillez saisir des chiffres pour la recherche de prix", "Erreur saisie", JOptionPane.INFORMATION_MESSAGE);
 						}
 						break;
 				}

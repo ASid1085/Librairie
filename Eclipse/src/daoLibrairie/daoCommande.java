@@ -203,6 +203,19 @@ public class daoCommande implements iDaoCommande {
 		return vStatut;
 	}
 	
+	public String recupererStatutId( String nomStatut) throws SQLException {
+		String idStatut = "";
+		
+		String query = "select STATUTID from STATUT where STATUTLIBELLE = '" + nomStatut  + "';";
+			
+		stmt = myConnexion.createStatement();
+		ResultSet rs = stmt.executeQuery( query);
+		while ( rs.next()) {
+			idStatut = rs.getString( "STATUTID");
+		}		
+		return idStatut;
+	}
+	
 	public DefaultComboBoxModel statutCommande() throws SQLException {
 		return new DefaultComboBoxModel<>( vectorCBStatutCde());
 	}

@@ -119,7 +119,7 @@ public class JFrameModifTheme extends JFrame {
 				String id = txtThemeId.getText();
 				try {
 					themeDAO.modifierTheme(id, nom);
-					JOptionPane.showMessageDialog(null, "Thème modifié avec succès", "Modification thème", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Thème modifié avec succès", "Modification thème", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

@@ -74,9 +74,9 @@ public class JDialogCommentaireEditeur extends JDialog {
 				try {
 					note = textAreaPostIt.getText();
 					daoEd.modifierNoteEditeur( editeurNom, note);
-					JOptionPane.showMessageDialog( null, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog( null, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
 					ex.printStackTrace();
 				}
 			}

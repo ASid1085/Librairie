@@ -1,6 +1,7 @@
 package guiLibrairie;
 
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -165,7 +166,7 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire correspondant à " +titreLivre, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire correspondant à " +titreLivre, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -190,7 +191,7 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire correspondant au client " + clientNom, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire correspondant au client " + clientNom, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -207,7 +208,7 @@ public class JFrameCommentaire extends JFrame {
 		btnRechercherStatut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String statut = txtSaisieStatut.getText();
-				System.out.println(statut);
+				
 				
 				try {
 					vectorCommentaires = commentaireDAO.rechercherCommentaireparStatut(statut);
@@ -216,7 +217,7 @@ public class JFrameCommentaire extends JFrame {
 					table.setModel(newModel);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Nous ne trouvons pas de commentaire avec le statut " + statut, "Oops !", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Nous ne trouvons pas de commentaire avec le statut " + statut, "Oops !", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
@@ -238,7 +239,7 @@ public class JFrameCommentaire extends JFrame {
 				String id = (String) table.getValueAt(row, 0);
 				try {
 					commentaireDAO.supprimerCommentaire(id);
-					JOptionPane.showMessageDialog(null, "Commentaire supprimé avec succès", "Suppression de commentaire", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Commentaire supprimé avec succès", "Suppression de commentaire", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

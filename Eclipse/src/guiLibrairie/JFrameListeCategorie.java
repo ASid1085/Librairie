@@ -231,7 +231,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoAu.supprimerAuteur( auteurNomSelect);
 					tableAuteur.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog( getParent(), "Merci de sélectionner un auteur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un auteur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un auteur - Voir JFrameListeCategorie & daoAuteur");
 					e1.printStackTrace();
@@ -405,7 +405,7 @@ public class JFrameListeCategorie extends JFrame {
 					setVisible( false);
 					dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un éditeur - Voir JFrameListeCategorie & daoEditeur");
 					e1.printStackTrace();
@@ -427,7 +427,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoEd.supprimerEditeur( editeurNomSelect);
 					tableEditeur.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un éditeur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un éditeur - Voir JFrameListeCategorie & daoEditeur");
 					e1.printStackTrace();
@@ -748,7 +748,7 @@ public class JFrameListeCategorie extends JFrame {
 					//setVisible( false);
 					//dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un genre à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un genre - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
@@ -765,12 +765,15 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String genreNomSelect = "";
+				String genreIdSelect = "";
 				try {
 					genreNomSelect = (String) daoG.listeGenre().getValueAt(tableGenre.getSelectedRow(), 1);
+					genreIdSelect = (String) daoG.listeGenre().getValueAt( tableGenre.getSelectedRow(), 0);
+					daoG.delierGenreTheme( genreIdSelect);
 					daoG.supprimerGenre( genreNomSelect);
 					tableGenre.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un genre à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un genre à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un genre - Voir JFrameListeCategorie & daoGenre");
 					e1.printStackTrace();
@@ -949,7 +952,7 @@ public class JFrameListeCategorie extends JFrame {
 					daoMot.supprimerMotCle( motCleSelect);
 					tableMotCle.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un mot-clé à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un mot-clé à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un mot-clé - Voir JFrameListeCategorie & daoMotClé");
 					e1.printStackTrace();
@@ -1115,7 +1118,7 @@ public class JFrameListeCategorie extends JFrame {
 					JFMth = new JFrameModifTheme(themeModif);
 					JFMth.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un thème à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un thème à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException exc) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour modification d'un thème - Voir JFrameListeCategorie & daoThème");
 					exc.printStackTrace();
@@ -1137,9 +1140,9 @@ public class JFrameListeCategorie extends JFrame {
 					themeDAO.supprimerTheme(id);
 					DefaultTableModel nouveaumodel = new DefaultTableModel(vectorTheme, nomCol);
 					tableTheme.setModel(nouveaumodel);
-					JOptionPane.showMessageDialog(null, "Theme supprimé avec succès", "Message", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Theme supprimé avec succès", "Message", JOptionPane.INFORMATION_MESSAGE);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un thème à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un thème à supprimer !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la récupération du nom pour suppression d'un thème - Voir JFrameListeCategorie & daoThème");
 					e1.printStackTrace();
