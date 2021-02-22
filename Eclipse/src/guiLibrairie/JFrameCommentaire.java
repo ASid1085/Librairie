@@ -269,7 +269,6 @@ public class JFrameCommentaire extends JFrame {
 					jdAffichage = new JDialogCommentaireAffichage(commentaire);
 					jdAffichage.setVisible(true);
 				} catch (SQLException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 			}
