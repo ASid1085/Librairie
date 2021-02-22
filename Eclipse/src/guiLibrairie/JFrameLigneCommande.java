@@ -56,6 +56,7 @@ public class JFrameLigneCommande extends JFrame {
 	private float totCdeHtAvRem;
 	private float totCdeTtc;
 	private float remise;
+	private float txTva;
 	private Vector<Commande> vStatutCde;
 	private JFrameListeClient JFListClt;
 	private static int nbRow = 0;
@@ -189,7 +190,7 @@ public class JFrameLigneCommande extends JFrame {
 				String selectLiv = (String) cmbBoxLivre.getSelectedItem();
 				try {
 					Float prixUnitHt = daoLivre.recupPrixHt( selectLiv);
-					Float txTva = daoLivre.recupererTVA( selectLiv.replace( "'", "''"));
+					Float txTva = daoLivre.recupererTVA( selectLiv);
 					Float prixUnitTtc = prixUnitHt * (1 + txTva/100);
 					lblPrixHt.setText( df.format( prixUnitHt));
 					lblPrixTtc.setText( df.format( prixUnitTtc));
@@ -470,9 +471,13 @@ public class JFrameLigneCommande extends JFrame {
 						//String recupTotCdeHt = txtTotalHt.getText().replace(",", ".");
 						table.setValueAt( newQte, indexDoub, 4);
 						table.setValueAt( df.format( newQte*prixHt*(1-remiseCourante/100)), indexDoub, 5);
-						for (int i = 0; i <= nbRow; i++) {
+//System.out.println( "nb ligne = " + nbRow);
+						for (int i = 0; i < nbRow; i++) {
+//System.out.println( "i = " + i);
 							String ajout = (String) table.getValueAt(i, 5);
+//System.out.println( "string ajout = " + ajout);
 							totCdeHtAvRem = totCdeHtAvRem + Float.parseFloat( ajout.replace(",", "."));
+//System.out.println( "float totCdeHtAvRem = " + totCdeHtAvRem);
 						}
 						//totCdeHtAvRem = Float.parseFloat( recupTotCdeHt) + (iQte * prixHt);
 						txtTotalHt.setText( df.format( totCdeHtAvRem));
@@ -717,26 +722,38 @@ public class JFrameLigneCommande extends JFrame {
 		btnValiderLigCde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LigneCommande ligCde = null;
+				String tvaId = "TVA2";
+				String statutId = "";
 				String numCde = daoCde.ajoutIdCommande();
-				float tva = 10;
 				String clt = txtLoginClient.getText();
 				String paiement = (String) cmbBoxPaiement.getSelectedItem();
 				String fraisLiv = txtPortHt.getText();		
 				Date dateCourante = new Date( Calendar.getInstance().getTime().getTime());
-				String statut = "ST2";
+				String statut = (String) cmbBoxStatut.getSelectedItem();
 				String adrLiv = lblAdrLivId.getText();
 				String adrFac = lblAdrFacId.getText();
 				String ip = daoCde.recupAdresseIp();
 				try {
-					Commande cde = new Commande( numCde, clt, paiement, fraisLiv, dateCourante, "TVA1", statut, adrLiv, adrFac, ip, dateCourante);
+					//tvaId = daoLivre.recupererTvaId( txTva);
+//System.out.println( "id tva récupéré : " + tvaId);
+					statutId = daoCde.recupererStatutId( statut);
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				try {
+					Commande cde = new Commande( numCde, clt, paiement, fraisLiv, dateCourante, tvaId, statutId, adrLiv, adrFac, ip, dateCourante);
 					daoCde.ajouterCommande( cde);
 					for (int i = 0; i < nbRow ; i++) {
 						String isbn = (String) table.getValueAt(i, 0);
-						String sQte = table.getValueAt(i, 3).toString();
+						String titre = (String) table.getValueAt(i, 1);
+						float txTvaLivre = daoLivre.recupererTVA( titre);
+						String sQte = table.getValueAt(i, 4).toString();
 						float qte = Float.parseFloat( sQte);
 						String sPuHt = table.getValueAt(i, 2).toString().replace(",", ".");
 						float puHt = Float.parseFloat( sPuHt);
-						ligCde = new LigneCommande( "0000"+(i+1)+"LIG", numCde, isbn, qte, puHt, tva, remise, clt);
+						String sRemise =  (String) table.getValueAt(i, 3).toString().replace(",", ".");
+						remise = Float.parseFloat( sRemise);
+						ligCde = new LigneCommande( "0000"+(i+1)+"LIG", numCde, isbn, qte, puHt, txTvaLivre, remise, clt);
 						daoLigCde.addLigneCommande( ligCde);
 						dispose();
 					}
@@ -762,7 +779,7 @@ public class JFrameLigneCommande extends JFrame {
 					float recupTotHtSupp = Float.parseFloat( sRecupTotHtSupp.replace(",", "."));
 					float recupTotCdeHt = Float.parseFloat( sRecupTotCdeHt.replace(",", "."));
 					String sRecupLivre = (String) table.getValueAt( rowSelect, 1);
-					float txTva = 0;
+					txTva = 0;
 					Evenement ev = null;
 					try {
 						txTva = daoLivre.recupererTVA( sRecupLivre);

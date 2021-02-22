@@ -8,10 +8,10 @@ import com.mysql.jdbc.Driver;
 public class Connexion {
 
 	private String BDD1 = "Librairie";
-	private String BDD2 = "LibrairieTEST"; // Nom de la BDD de Marine pour effectuer les tests "LibrairieTEST"; Librairie2
+	private String BDD2 = "Librairie2"; // Nom de la BDD de Marine pour effectuer les tests "LibrairieTEST"
 	private String url = "jdbc:mysql://localhost:3306/" + BDD2;
 	private String user = "root";
-	private String mdp = "2021PasswordMySQL"; // Mot de passe du root de Marine "2021PasswordMySQL";Sidonie1
+	private String mdp = "Sidonie1"; // Mot de passe du root de Marine "2021PasswordMySQL"
 	static private Connection conn;
 	
 	//Constructeur de ma calsse

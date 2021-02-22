@@ -284,6 +284,7 @@ public class JFrameListeClient extends JFrame {
 				frameLigCde.refreshCltLogin( clientSel);
 				frameLigCde.repaint();
 				frameLigCde.setVisible( true);
+				dispose();
 			}
 		});
 		

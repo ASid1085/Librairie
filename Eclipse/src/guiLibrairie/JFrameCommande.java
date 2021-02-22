@@ -210,7 +210,8 @@ public class JFrameCommande extends JFrame {
 	 */
 	public JFrameCommande( String numCde, String etat) {
 		
-	
+System.out.println( "récupération du n° de commande : " + numCde);
+System.out.println( "récupération de l'état : " + etat);
 		
 		setTitle("Commande");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -307,6 +308,7 @@ public class JFrameCommande extends JFrame {
 		
 		try {
 			dtmLigCde = daoLigCde.listeLigneCde( numCde);
+//System.out.println( dtmLigCde);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
