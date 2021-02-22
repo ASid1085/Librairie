@@ -42,13 +42,36 @@ public class daoGenre implements iDaoGenre {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		return id;
 	}
 
+	public void lierGenreTheme( String idTheme, String idGenre) throws SQLException {
 
+		myConnexion = Connexion.getInstance();
+
+		String query = "insert into POSSEDER values ('" + idTheme + "', '" + idGenre + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+	
+	public void delierGenreTheme( String idGenre) throws SQLException {
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "delete from POSSEDER where GENREID = '" + idGenre + "';";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+
+	
 	@Override
 	public void ajouterGenre( Genre genre) throws SQLException {
 		
@@ -75,7 +98,7 @@ public class daoGenre implements iDaoGenre {
 		pstmt.executeUpdate();
 		
 		pstmt.close();
-		JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+		//JOptionPane.showMessageDialog(null, "La modification du genre a bien été effectuée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override

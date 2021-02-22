@@ -61,6 +61,7 @@ public class JFrameCommande extends JFrame {
 	private DefaultComboBoxModel<String> dcmPai = new DefaultComboBoxModel( tabPaiement);
 	private Container parent = this;
 	private JFrameCommande thisJF = (JFrameCommande) parent;
+
 	
 	public Vector dtm() {
 		Vector nomColonne = new Vector<>();
@@ -209,6 +210,9 @@ public class JFrameCommande extends JFrame {
 	 */
 	public JFrameCommande( String numCde, String etat) {
 		
+System.out.println( "récupération du n° de commande : " + numCde);
+System.out.println( "récupération de l'état : " + etat);
+		
 		setTitle("Commande");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 698);
@@ -284,7 +288,7 @@ public class JFrameCommande extends JFrame {
 				txtTTC.setText( df.format( TTC));
 				
 			} catch (SQLException e1) {
-				System.out.println( "Erreur JFrameCommande avec l'acces aux données de la commande - Ligne 212");
+				//System.out.println( "Erreur JFrameCommande avec l'acces aux données de la commande - Ligne 212");
 				e1.printStackTrace();
 			}
 			
@@ -304,6 +308,7 @@ public class JFrameCommande extends JFrame {
 		
 		try {
 			dtmLigCde = daoLigCde.listeLigneCde( numCde);
+//System.out.println( dtmLigCde);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

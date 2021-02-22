@@ -65,9 +65,9 @@ public class JDialogCommentaireClient extends JDialog {
 					note = textAreaPostIt.getText();
 					//System.out.println( note);
 					daoClt.modifierNoteClient( clientLogin, note);
-					JOptionPane.showMessageDialog( null, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Le commentaire concernant le client \na bien été enregistré !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog( null, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( contentPanel, "Ne pas mettre d'apostrophe dans votre commantaire ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
 					ex.printStackTrace();
 				}
 			}

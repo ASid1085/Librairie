@@ -181,9 +181,10 @@ public class JFrameEditeur extends JFrame {
 					daoEd.modifierEditeur( ed, editeurNom);
 					setVisible( false);
 					dispose();
-					JFrameListeCategorie lc = new JFrameListeCategorie();
-					lc.setLocationRelativeTo( null);
-					lc.setVisible( true);
+					//JFrameListeCategorie lc = new JFrameListeCategorie();
+					//lc.setLocationRelativeTo( null);
+					//lc.setVisible( true);
+
 
 				} catch (SQLException e1) {
 					System.err.println( "Oops : erreur avec la modification d'un nouvel éditeur - Voir JFrameEditeur & daoEditeur");

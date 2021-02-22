@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import daoLibrairie.daoClient;
 import entitiesLibrairie.Client;
+import entitiesLibrairie.Employe;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -52,7 +53,7 @@ public class JFrameListeClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFrameListeClient frame = new JFrameListeClient( null);
+					JFrameListeClient frame = new JFrameListeClient( null, "", null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +65,7 @@ public class JFrameListeClient extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrameListeClient( JFrameLigneCommande frameLigCde) {
+	public JFrameListeClient( JFrameLigneCommande frameLigCde, String etat, Employe employeATraiter) {
 		setTitle("Liste des clients");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 779, 544);
@@ -167,28 +168,30 @@ public class JFrameListeClient extends JFrame {
 				String nom = txtNomClient.getText();
 				String clientLogSelect = "";
 				try {
+	
+					
 					if ( nom.equals( "") && login.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
 System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 	 				}
 					if( !nom.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
 System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 					}
 					if ( clientLogSelect.equals( login)) {
 						login = (String) cmbBxLoginClient.getSelectedItem();
 						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
 System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
-						JFlcde = new JFrameListeCommande( clientLogSelect);
+						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 					} 
 					JFlcde.setLocationRelativeTo( null);
 					JFlcde.setVisible( true);
 					cmbBxLoginClient.setSelectedIndex( -1);
 					txtNomClient.setText( "");
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -227,7 +230,7 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -265,7 +268,7 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 					JFcl.setLocationRelativeTo( null);
 					JFcl.setVisible( true);
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(null, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un client à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
@@ -284,10 +287,17 @@ System.out.println( "récupération du login via la recherche par LOGIN : " + cl
 				frameLigCde.refreshCltLogin( clientSel);
 				frameLigCde.repaint();
 				frameLigCde.setVisible( true);
+				dispose();
 			}
 		});
-		btnSelectionner.setVisible( false);
-		btnSelectionner.setEnabled( false);
+		
+		if ( etat.equals( "")) {
+			btnSelectionner.setVisible( false);
+		} else {
+			btnCdeLiee.setVisible( false);
+			btnConsulter.setVisible( false);
+			btnModifier.setVisible( false);
+		}
 		btnSelectionner.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		btnSelectionner.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnSelectionner.setBounds(50, 451, 124, 41);

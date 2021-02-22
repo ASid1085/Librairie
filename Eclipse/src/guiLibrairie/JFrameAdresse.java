@@ -292,7 +292,7 @@ public class JFrameAdresse extends JFrame {
 					} else if ( rdbtnFacturation.isSelected()) {
 						daoAdr.attribAdresseFacturation( clientLogin, adr);
 					} else {
-						JOptionPane.showMessageDialog( null, "Merci de sélectionner un type d'adresse !", "Champs non sélectionné", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog( contentPane, "Merci de sélectionner un type d'adresse !", "Champs non sélectionné", JOptionPane.WARNING_MESSAGE);
 					}
 					frameListeAd.refreshAdresse( adr);
 					frameListeAd.repaint();
