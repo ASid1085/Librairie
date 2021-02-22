@@ -383,8 +383,6 @@ public class JFrameListeCategorie extends JFrame {
 				JFed = new JFrameEditeur( "");
 				JFed.setLocationRelativeTo( null);
 				JFed.setVisible( true);
-				setVisible( false);
-				dispose();
 			}
 		});
 		btnCreerEditeur.setFont(new Font("Avenir Next", Font.PLAIN, 15));
@@ -395,15 +393,12 @@ public class JFrameListeCategorie extends JFrame {
 		JButton btnModifierEditeur = new JButton("Modifier");
 		btnModifierEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				String editeurNomSelect = "";
 				try {
 					editeurNomSelect = (String) daoEd.listeEditeur().getValueAt( tableEditeur.getSelectedRow(), 1);
 					JFed = new JFrameEditeur( editeurNomSelect);
 					JFed.setLocationRelativeTo( JFed.getParent());
 					JFed.setVisible( true);
-					setVisible( false);
-					dispose();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
 					JOptionPane.showMessageDialog(contentPane, "Merci de sélectionner un éditeur à modifier !", "Erreur", JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException e1) {
