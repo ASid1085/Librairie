@@ -246,7 +246,7 @@ public class JFrameListeCommande extends JFrame {
 				}
 			}
 		});
-		btnLoupe.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/BtnLoupe.png"));
+		btnLoupe.setIcon(new ImageIcon(JFrameListeCommande.class.getResource("/icon/BtnLoupe.png")));
 		btnLoupe.setBounds(618, 18, 55, 55);
 		contentPane.add(btnLoupe);
 		
@@ -279,7 +279,7 @@ public class JFrameListeCommande extends JFrame {
 				}
 			}
 		});
-		btnRefresh.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh24px.png"));
+		btnRefresh.setIcon(new ImageIcon(JFrameListeCommande.class.getResource("/icon/refresh24px.png")));
 		btnRefresh.setBounds(685, 18, 55, 55);
 		contentPane.add(btnRefresh);
 		

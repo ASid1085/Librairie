@@ -158,7 +158,7 @@ public class JFrameEditeur extends JFrame {
 				JDed.setVisible( true);
 			}
 		});
-		btnCommentaireEditeur.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnPost.png"));
+		btnCommentaireEditeur.setIcon(new ImageIcon(JFrameEditeur.class.getResource("/icon/btnPost.png")));
 		btnCommentaireEditeur.setBounds(381, 344, 101, 76);
 		contentPane.add(btnCommentaireEditeur);
 		
@@ -197,7 +197,7 @@ public class JFrameEditeur extends JFrame {
 		btnValider.setBounds(59, 358, 97, 41);
 		contentPane.add(btnValider);
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		/*JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtEditeurNom.setText( "");
@@ -209,7 +209,7 @@ public class JFrameEditeur extends JFrame {
 		});
 		btnAnnuler.setBorder(BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnAnnuler.setBounds(226, 358, 97, 41);
-		contentPane.add(btnAnnuler);
+		contentPane.add(btnAnnuler);*/
 		
 		txtPersContact = new JTextField();
 		txtPersContact.setFont(new Font("Avenir Next", Font.PLAIN, 13));

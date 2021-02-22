@@ -243,7 +243,7 @@ public class JFrameEvenement extends JFrame {
 		
 //BOUTON RAFRAICHIR//////////////////////////////////////////////////////////////////////////////////
 		JButton btnRetour = new JButton("");
-		btnRetour.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
+		btnRetour.setIcon(new ImageIcon(JFrameEvenement.class.getResource("/icon/refresh32px.png")));
 		//btnRetour.setForeground(new Color(128, 0, 0));
 		//btnRetour.setFont(new Font("Avenir Next", Font.PLAIN, 15));
 		//btnRetour.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));

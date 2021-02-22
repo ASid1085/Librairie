@@ -284,7 +284,7 @@ public class JFrameLivre extends JFrame {
 		
 //BOUTON OK//////////////////////////////////////////////////////////////////////////////////
 		JButton jButtonOK = new JButton("");
-		jButtonOK.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/search.png"));
+		jButtonOK.setIcon(new ImageIcon(JFrameLivre.class.getResource("/icon/search.png")));
 		jButtonOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				String selection = jComboBoxLivre.getSelectedItem().toString();
@@ -667,7 +667,7 @@ public class JFrameLivre extends JFrame {
 		
 //BOUTON RAFRAICHIR//////////////////////////////////////////////////////////////////////////////////		
 		JButton jButtonRefresh = new JButton("");
-		jButtonRefresh.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/refresh32px.png"));
+		jButtonRefresh.setIcon(new ImageIcon(JFrameLivre.class.getResource("/icon/refresh32px.png")));
 		jButtonRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {

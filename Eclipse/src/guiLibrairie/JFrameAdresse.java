@@ -311,7 +311,7 @@ public class JFrameAdresse extends JFrame {
 			}
 		});
 		btnAjouter.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnAjouter.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		btnAjouter.setIcon(new ImageIcon(JFrameAdresse.class.getResource("/icon/double-checked32px.png")));
 		btnAjouter.setBounds(78, 455, 123, 49);
 		contentPane.add(btnAjouter);
 		
@@ -334,7 +334,7 @@ public class JFrameAdresse extends JFrame {
 			}
 		});
 		btnModifier.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-		btnModifier.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		btnModifier.setIcon(new ImageIcon(JFrameAdresse.class.getResource("/icon/double-checked32px.png")));
 		btnModifier.setBounds(263, 455, 123, 49);
 		contentPane.add(btnModifier);
 		
