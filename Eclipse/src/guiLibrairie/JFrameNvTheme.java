@@ -107,7 +107,7 @@ public class JFrameNvTheme extends JFrame {
 		txtThemeId.setEnabled( false);
 		txtThemeId.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		try {
-			txtThemeId.setText(themeDAO.ajoutIdTheme());
+			txtThemeId.setText( themeDAO.ajoutIdTheme());
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
@@ -121,7 +121,7 @@ public class JFrameNvTheme extends JFrame {
 				String nom = txtThemeLib.getText();
 				String id = txtThemeId.getText();
 				String idMc = daoMc.ajoutIdMotCle();
-				MotCle mc = new MotCle( nom, idMc);
+				MotCle mc = new MotCle( idMc, nom);
 				try {
 					themeDAO.ajouterTheme(id, nom);
 					daoMc.ajouterMotCle( mc);

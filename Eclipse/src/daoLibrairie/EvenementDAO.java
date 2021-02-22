@@ -187,4 +187,23 @@ public class EvenementDAO implements IEvenementDAO {
 		return remise;
 	}
 	
+	public Evenement rechercherEvenementByDate() throws SQLException{
+		Evenement ev = null;
+		
+		stmt = myConnection.createStatement();
+		String query = "SELECT E.EVENEMENTNOM, EVENEMENTDATEDEBUT, EVENEMENTDATEFIN, "
+				+ "EVENEMENTPOURCENTAGE, EVENMENTCODEPROMO, EVENEMENTIMAGE, EVENEMENTCOMMENT "
+				+ "FROM EVENEMENT E "
+				+ "INNER JOIN VIEW_INTERVALLE V "
+				+ "ON E.EVENEMENTNOM = V.EVENEMENTNOM "
+				+ "WHERE TODAY > 0 AND TODAY < INTERVALLE;";
+		
+		ResultSet res = stmt.executeQuery( query);
+		while(res.next()) {
+			ev = new Evenement( res.getString("EVENEMENTNOM"), res.getDate("EVENEMENTDATEDEBUT"), res.getDate("EVENEMENTDATEFIN"),
+								res.getFloat("EVENEMENTPOURCENTAGE"), res.getString("EVENMENTCODEPROMO"), res.getString("EVENEMENTIMAGE"), res.getString("EVENEMENTCOMMENT"));
+		}
+		return ev;
+	}
+	
 }

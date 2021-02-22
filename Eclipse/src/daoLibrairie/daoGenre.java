@@ -51,7 +51,19 @@ public class daoGenre implements iDaoGenre {
 
 		myConnexion = Connexion.getInstance();
 
-		String query = "insert into POSSEDER values ('" + idTheme + "', '" + idTheme + "');";
+		String query = "insert into POSSEDER values ('" + idTheme + "', '" + idGenre + "');";
+
+		pstmt = myConnexion.prepareStatement( query);
+		pstmt.executeUpdate();
+
+		pstmt.close();
+	}
+	
+	public void delierGenreTheme( String idGenre) throws SQLException {
+
+		myConnexion = Connexion.getInstance();
+
+		String query = "delete from POSSEDER where GENREID = '" + idGenre + "';";
 
 		pstmt = myConnexion.prepareStatement( query);
 		pstmt.executeUpdate();

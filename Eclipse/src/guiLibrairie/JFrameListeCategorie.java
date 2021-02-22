@@ -765,8 +765,11 @@ public class JFrameListeCategorie extends JFrame {
 		btnSupprimerGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String genreNomSelect = "";
+				String genreIdSelect = "";
 				try {
 					genreNomSelect = (String) daoG.listeGenre().getValueAt(tableGenre.getSelectedRow(), 1);
+					genreIdSelect = (String) daoG.listeGenre().getValueAt( tableGenre.getSelectedRow(), 0);
+					daoG.delierGenreTheme( genreIdSelect);
 					daoG.supprimerGenre( genreNomSelect);
 					tableGenre.repaint();
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
