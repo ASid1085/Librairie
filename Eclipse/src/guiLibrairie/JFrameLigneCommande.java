@@ -566,7 +566,7 @@ public class JFrameLigneCommande extends JFrame {
 		JButton btnFindClt = new JButton("");
 		btnFindClt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFListClt = new JFrameListeClient( thisJF, "ChoixLogin");
+				JFListClt = new JFrameListeClient( thisJF, "ChoixLogin", null);
 				JFListClt.setLocationRelativeTo( null);
 				JFListClt.setVisible( true);
 			}

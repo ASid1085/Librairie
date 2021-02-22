@@ -157,7 +157,7 @@ public class JFrameAccueil extends JFrame {
 		btnGestionClient.setForeground(new Color(128, 0, 0));
 		btnGestionClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lclt = new JFrameListeClient( null, "");
+				lclt = new JFrameListeClient( null, "", employeATraiter);
 				lclt.setLocationRelativeTo( lclt.getParent());
 				lclt.setVisible( true);
 			}
