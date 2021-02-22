@@ -388,7 +388,7 @@ public class JFrameLigneCommande extends JFrame {
 
 		JButton btnAddLivre = new JButton("");
 		btnAddLivre.setToolTipText("Ajouter un livre à la commande");
-		btnAddLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plus32px.png"));
+		btnAddLivre.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/plus32px.png")));
 		btnAddLivre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sLivre = (String) cmbBoxLivre.getSelectedItem();
@@ -541,7 +541,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 		btnFindAdreLiv.setToolTipText("Carnet d'adresse");
-		btnFindAdreLiv.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/map-book.png"));
+		btnFindAdreLiv.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/map-book.png")));
 		btnFindAdreLiv.setBounds(411, 117, 40, 36);
 		panelBas.add(btnFindAdreLiv);
 
@@ -558,7 +558,7 @@ public class JFrameLigneCommande extends JFrame {
 				}
 			}
 		});
-		btnFindAdreFact.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/map-book.png"));
+		btnFindAdreFact.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/map-book.png")));
 		btnFindAdreFact.setToolTipText("Carnet d'adresse");
 		btnFindAdreFact.setBounds(197, 117, 40, 36);
 		panelBas.add(btnFindAdreFact);
@@ -572,7 +572,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 		btnFindClt.setToolTipText("Rechercher un client");
-		btnFindClt.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/verify16px.png"));
+		btnFindClt.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/verify16px.png")));
 		btnFindClt.setBounds(335, 79, 40, 32);
 		panelBas.add(btnFindClt);
 
@@ -585,7 +585,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 		btnAddClt.setToolTipText("Ajouter un nouveau client");
-		btnAddClt.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/plus12px.png"));
+		btnAddClt.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/plus12px.png")));
 		btnAddClt.setBounds(374, 79, 40, 32);
 		panelBas.add(btnAddClt);
 
@@ -700,7 +700,7 @@ public class JFrameLigneCommande extends JFrame {
 				JDcde.setVisible( true);
 			}
 		});
-		btnCommentaireClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnPost.png"));
+		btnCommentaireClient.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/btnPost.png")));
 		btnCommentaireClient.setBounds(475, 262, 101, 76);
 		panelBas.add(btnCommentaireClient);
 
@@ -764,7 +764,7 @@ public class JFrameLigneCommande extends JFrame {
 			}
 		});
 		btnValiderLigCde.setToolTipText("Valider la commande");
-		btnValiderLigCde.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/btnGestCommande.png"));
+		btnValiderLigCde.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/btnGestCommande.png")));
 		btnValiderLigCde.setBounds(685, 284, 67, 54);
 		panelBas.add(btnValiderLigCde);
 
@@ -826,7 +826,7 @@ public class JFrameLigneCommande extends JFrame {
 				}
 			}
 		});
-		btnRemoveLivre.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/moins12px.png"));
+		btnRemoveLivre.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/moins12px.png")));
 		btnRemoveLivre.setToolTipText("Supprimer un livre de la commande");
 		btnRemoveLivre.setBounds(618, 6, 40, 32);
 		panelDroite.add(btnRemoveLivre);
@@ -849,7 +849,7 @@ public class JFrameLigneCommande extends JFrame {
 				nbRow = 0;
 			}
 		});
-		btnRemoveAll.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/delete.png"));
+		btnRemoveAll.setIcon(new ImageIcon(JFrameLigneCommande.class.getResource("/icon/delete.png")));
 		btnRemoveAll.setToolTipText("Supprimer tous les livres de la commande");
 		btnRemoveAll.setBounds(669, 6, 40, 32);
 		panelDroite.add(btnRemoveAll);

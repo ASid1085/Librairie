@@ -279,7 +279,7 @@ public class JDialogEvenementAjout extends JDialog {
 		contentPanel.add(lblJour);
 		
 		JButton okButton = new JButton("");
-		okButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		okButton.setIcon(new ImageIcon(JDialogEvenement.class.getResource("icon/double-checked32px.png")));
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nom = txtSaisieNom.getText();
@@ -344,7 +344,7 @@ public class JDialogEvenementAjout extends JDialog {
 		contentPanel.add(okButton);
 		
 		JButton cancelButton = new JButton("");
-		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.setIcon(new ImageIcon(JDialogEvenement.class.getResource("/icon/cancel32px.png")));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

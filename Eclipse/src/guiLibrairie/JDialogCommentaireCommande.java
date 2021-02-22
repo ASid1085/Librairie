@@ -82,7 +82,7 @@ public class JDialogCommentaireCommande extends JDialog {
 			}
 		});
 		contentPanel.setLayout(null);
-		btnValider.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked.png"));
+		btnValider.setIcon(new ImageIcon(JDialogCommentaireCommande.class.getResource("/icon/double-checked.png")));
 		contentPanel.add(btnValider);
 		getRootPane().setDefaultButton(btnValider);
 
@@ -94,7 +94,7 @@ public class JDialogCommentaireCommande extends JDialog {
 				dispose();
 			}
 		});
-		btnSortir.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel.png"));
+		btnSortir.setIcon(new ImageIcon(JDialogCommentaireCommande.class.getResource("/icon/cancel.png")));
 		contentPanel.add(btnSortir);
 	}
 }

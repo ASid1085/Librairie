@@ -129,7 +129,7 @@ public class JFrameAccueil extends JFrame {
 		});
 		btnGestionCategorie.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionCategorie.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
-		btnGestionCategorie.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/categories64px.png"));
+		btnGestionCategorie.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/categories64px.png")));
 		btnGestionCategorie.setBounds(57, 164, 310, 133);
 		contentPane.add(btnGestionCategorie);
 		
@@ -144,7 +144,7 @@ public class JFrameAccueil extends JFrame {
 				levt.setVisible(true);
 			}
 		});
-		btnGestionEvenement.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/firework64px.png"));
+		btnGestionEvenement.setIcon(new ImageIcon(JDialogWelcome.class.getResource("/icon/firework64px.png")));
 		btnGestionEvenement.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionEvenement.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionEvenement.setBounds(557, 164, 310, 133);
@@ -162,7 +162,7 @@ public class JFrameAccueil extends JFrame {
 				lclt.setVisible( true);
 			}
 		});
-		btnGestionClient.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/rating64px.png"));
+		btnGestionClient.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/rating64px.png")));
 		btnGestionClient.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionClient.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionClient.setBounds(1025, 164, 310, 133);
@@ -179,7 +179,7 @@ public class JFrameAccueil extends JFrame {
 			}
 		});
 		btnGestionOuvrage.setForeground(new Color(128, 0, 0));
-		btnGestionOuvrage.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/books64px.png"));
+		btnGestionOuvrage.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/books64px.png")));
 		btnGestionOuvrage.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionOuvrage.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionOuvrage.setBounds(57, 414, 310, 133);
@@ -197,7 +197,7 @@ public class JFrameAccueil extends JFrame {
 				lemp.setVisible(true);
 			}
 		});
-		btnGestionEmployé.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/work64px.png"));
+		btnGestionEmployé.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/work64px.png")));
 		btnGestionEmployé.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnGestionEmployé.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnGestionEmployé.setBounds(557, 414, 310, 133);
@@ -208,7 +208,7 @@ public class JFrameAccueil extends JFrame {
 //BOUTON COMMANDES//////////////////////////////////////////////////////////////////////
 		JButton btnGestionCommande = new JButton("<html><center>Gestion<br>commandes</center></html>");
 		btnGestionCommande.setForeground(new Color(128, 0, 0));
-		btnGestionCommande.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/shopping-cart64px.png"));
+		btnGestionCommande.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/shopping-cart64px.png")));
 		btnGestionCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lcde = new JFrameListeCommande( "", employe);
@@ -227,7 +227,7 @@ public class JFrameAccueil extends JFrame {
 //BOUTON CATALOGUE//////////////////////////////////////////////////////////////////////
 		JButton btnCatalogue = new JButton("Catalogue");
 		btnCatalogue.setForeground(new Color(128, 0, 0));
-		btnCatalogue.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/catalogue64px.png"));
+		btnCatalogue.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/catalogue64px.png")));
 		btnCatalogue.setFont(new Font("Avenir Next", Font.PLAIN, 30));
 		btnCatalogue.setBorder( BorderFactory.createMatteBorder(3, 0, 3, 0, Color.ORANGE));
 		btnCatalogue.setBounds(57, 659, 810, 133);
@@ -240,7 +240,7 @@ public class JFrameAccueil extends JFrame {
 		
 //BOUTON COMMENTAIRES//////////////////////////////////////////////////////////////////////
 		JButton btnGestionCommentaires = new JButton("<html><center>Gestion<br>commentaires</center></html>");
-		btnGestionCommentaires.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/chat64px.png"));
+		btnGestionCommentaires.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/chat64px.png")));
 		btnGestionCommentaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrameCommentaire jfCommentaire = new JFrameCommentaire();
@@ -283,7 +283,7 @@ public class JFrameAccueil extends JFrame {
 //BOUTON DECONNEXION//////////////////////////////////////////////////////////////////////
 		JButton btnDeconnexion = new JButton("");
 		btnDeconnexion.setBackground(new Color(255, 250, 250));
-		btnDeconnexion.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/logout64px.png"));
+		btnDeconnexion.setIcon(new ImageIcon(JFrameAccueil.class.getResource("/icon/logout64px.png")));
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Connexion.closeInstance();

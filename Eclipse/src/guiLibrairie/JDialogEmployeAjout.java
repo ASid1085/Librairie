@@ -196,7 +196,7 @@ public class JDialogEmployeAjout extends JDialog {
 				}
 			}
 		});
-		okButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/double-checked32px.png"));
+		okButton.setIcon(new ImageIcon(JDialogEmployeAjout.class.getResource("/icon/double-checked32px.png")));
 		okButton.setActionCommand("OK");
 		okButton.setBounds(248, 479, 58, 58);
 		contentPanel.add(okButton);
@@ -207,7 +207,7 @@ public class JDialogEmployeAjout extends JDialog {
 				dispose();
 			}
 		});
-		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.setIcon(new ImageIcon(JDialogEmployeAjout.class.getResource("/icon/cancel32px.png")));
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.setBounds(501, 479, 58, 58);
 		contentPanel.add(cancelButton);

@@ -63,7 +63,7 @@ public class JDialogWelcome extends JDialog {
 
 
 		JButton cancelButton = new JButton("");
-		cancelButton.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/cancel32px.png"));
+		cancelButton.setIcon(new ImageIcon(JDialogWelcome.class.getResource("/icon/double-checked32px.png")));
 		cancelButton.setBounds(153, 246, 58, 58);
 		contentPanel.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
@@ -74,7 +74,7 @@ public class JDialogWelcome extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/Users/a.sid/Documents/gitHub/Librairie/Eclipse/icon/welcome128px.png"));
+		lblNewLabel.setIcon(new ImageIcon(JDialogWelcome.class.getResource("/icon/welcome128px.png")));
 		lblNewLabel.setBounds(113, 22, 128, 135);
 		contentPanel.add(lblNewLabel);
 		
