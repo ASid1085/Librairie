@@ -169,21 +169,20 @@ public class JFrameListeClient extends JFrame {
 				String clientLogSelect = "";
 				try {
 	
-					
 					if ( nom.equals( "") && login.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClient().getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
+//System.out.println( "récupération du login via la selection de ligne : " + clientLogSelect);
 						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 	 				}
 					if( !nom.equals( "")) {
 						clientLogSelect = (String) daoClt.listeClientByNom( nom).getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
+//System.out.println( "récupération du login via la recherche par NOM : " + clientLogSelect);
 						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 					}
 					if ( clientLogSelect.equals( login)) {
 						login = (String) cmbBxLoginClient.getSelectedItem();
 						clientLogSelect = (String) daoClt.listeClientByLogin( login).getValueAt( table.getSelectedRow(), 0);
-System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
+//System.out.println( "récupération du login via la recherche par LOGIN : " + clientLogSelect);
 						JFlcde = new JFrameListeCommande( clientLogSelect, employeATraiter);
 					} 
 					JFlcde.setLocationRelativeTo( null);
