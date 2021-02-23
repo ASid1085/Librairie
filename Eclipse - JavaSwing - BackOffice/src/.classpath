@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/marinecharrier/Librairie/librairie-en-ligne/Eclipse/mysql-connector-java-8.0.22.jar"/>
-	<classpathentry kind="lib" path="/Users/marinecharrier/Librairie/librairie-en-ligne/Eclipse/miglayout15-swing.jar"/>
-	<classpathentry kind="output" path=""/>
-</classpath>
