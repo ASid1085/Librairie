@@ -1,0 +1,137 @@
+body{margin-top:20px;}
+
+.align-center {
+    text-align: center;
+}
+.hash-list {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px){
+    .hash-list.cols-3 > li:nth-last-child(-n+3) {
+        border-bottom: none;
+    }
+}
+@media (min-width: 768px){
+    .hash-list.cols-3 > li {
+        width: 33.3333%;
+    }
+}
+.hash-list > li {
+    display: block;
+    float: left;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.pad-30, .pad-30-all > * {
+    padding: 30px;
+}
+img {
+    border: 0;
+}
+.mgb-20, .mgb-20-all > * {
+    margin-bottom: 20px;
+}
+.wpx-100, .wpx-100-after:after {
+    width: 100px;
+}
+.img-round, .img-rel-round {
+    border-radius: 50%;
+}
+.padb-30, .padb-30-all > * {
+    padding-bottom: 30px;
+}
+
+.mgb-40, .mgb-40-all > * {
+    margin-bottom: 40px;
+}
+.align-center {
+    text-align: center;
+}
+[class*="line-b"] {
+    position: relative;
+    padding-bottom: 20px;
+    border-color: #E6AF2A;
+}
+.fg-text-d, .fg-hov-text-d:hover, .fg-active-text-d.active {
+    color: #222;
+}
+.font-cond-b {
+    font-weight: 700 !important;
+}
+
+h2 {
+    display: inline-block;
+}
+
+#note {
+    display: inline-block;
+}
+
+p {
+     text-align: justify;
+}
+
+#quantite {
+    display: inline-block;
+}
+
+.tailleDetail {
+        height: 360px;
+        width: 230px;
+}
+
+.tailleModal {
+      height: 100px;
+        width: 70px;
+        background-color: white;
+        display: inline;
+}
+
+.selectCustom2 {
+    color :#C9A0E1;
+    border-radius: 4px;
+    border-color: #C9A0E1;
+}
+
+#qtee {
+    margin-left: 12em;
+}
+
+#addPanier {
+    display: block;
+    align-content: center;
+}
+
+.plusPanier {
+    color: white;
+}
+
+.plusPanier:hover {
+    color: white;
+}
+
+.loupeLien {
+    color: white;
+}
+
+.loupeLien:hover {
+    color: white;
+}
+
+.modal-custom {
+    background-color:rgba(201, 160, 225, 0.8);
+    border-color: white;
+}
+
+.cardModal {
+    background-color: inherit;
+}
+
+#titreSearch {
+    display: inline-block
+}
+
+

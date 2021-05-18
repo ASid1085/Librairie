@@ -1,0 +1,327 @@
+.text-custom, .text-custom:hover {
+    color : #C9A0E1;
+    text-decoration:none;
+}
+
+.dropdown-item:active {
+    background-color: #C9A0E1;
+    color : white;
+}
+
+#cacher {
+    display: none;
+    text-align: justify;
+}
+
+#parent:hover #cacher {
+    display: block;
+}
+
+.btn-custom { 
+    background-color: #C9A0E1;
+    color : white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.nav-link {
+    background-color: whitesmoke;
+    color: #C9A0E1;
+}
+
+.nav-link:hover {
+   color: #C9A0E1;
+   }
+   
+   .active:link:focus{
+ color: whitesmoke;
+ background-color: #C9A0E1;
+}
+
+
+.taille {
+        height: 210px;
+        width: 130px;
+}
+
+.selectCustom {
+    background-color: #C9A0E1;
+    color : white;
+    border-radius: 4px;
+    border-color: #C9A0E1;
+}
+
+.stars {
+    border: none;
+    background-color: inherit;
+    background-image: url('/Ressources/Bouton/starEmpty.svg');
+    color: #C9A0E1;
+    background-repeat: no-repeat;
+}
+
+[type="radio"]:checked:focus,
+[type="radio"]:not(:checked):focus  {
+    box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 3px rgba(201, 160, 225, .2);
+    border-color:  #C9A0E1;
+}
+
+[type="checkbox"]:checked:focus,
+[type="checkbox"]:not(:checked):focus  {
+    box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 3px rgba(255, 255, 255, .2);
+    border-color:  white;
+}
+
+[type="radio"]:not(:checked) {
+     border-color:  #C9A0E1;
+}
+
+[type="checkbox"]:not(:checked) {
+     border-color:  white;
+}
+
+[type="radio"]:checked {
+     border-color:  #C9A0E1;
+    background-color: #C9A0E1;
+    color : white;
+}
+
+[type="checkbox"]:checked {
+     border-color:  white;
+    background-color: #C9A0E1;
+    color : #C9A0E1;
+}
+
+[type="range"].custom-slider::-moz-range-track {
+     border-color:  #C9A0E1;
+     color : #C9A0E1;
+}
+
+.borderAdr {
+    border: 1px #C9A0E1 solid;
+    border-radius: 5px;
+  }
+  
+  .borderTel {
+      border: inherit;
+      border-left-color: white;
+      border-right-color: white;
+      border-top-color: white;
+      border-bottom: 1px grey solid;
+  }
+  
+  .splitLine {
+      display: inline-block;
+  }
+
+.border-custom {
+    border-color: #C9A0E1;
+  }
+  
+  .plusPanier {
+    color: white;
+}
+
+.plusPanier:hover {
+    color: white;
+}
+
+.modal-custom {
+    background-color:rgba(201, 160, 225, 0.95);
+    border-color: white;
+}
+
+.cardModal {
+    background-color: inherit;
+}
+
+.tailleModal {
+      height: 100px;
+        width: 70px;
+        background-color: white;
+        display: inline;
+}
+
+.taillePanier {
+      height: 100px;
+        width: 70px;
+        background-color: white;
+        display: inline;
+}
+
+.tailleCde {
+      height: 50px;
+        width: 35px;
+        background-color: white;
+        display: inline;
+}
+
+.iconPanier {
+    border: inherit;
+    background-color: inherit;
+    color: inherit;
+}
+
+.badge-custom {
+    background-color: #C9A0E1;
+}
+
+.btn-custom2 :
+    font-size: 14px;
+    border: inherit;
+    background-color: inherit;
+    box-shadow: inherit;
+}
+   
+body {
+    font-family: Avenir Next;
+    background-color: #fff;
+    line-height: 1.9;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Avenir Next;
+    color: black;
+}
+
+.text-black {
+    color: #000;
+}
+.content {
+    padding: 7rem 0;
+}
+
+.heading {
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+.contContact {
+    border: none;
+    background: #f3f3f3;
+    &:active, &:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: #000;
+        background: #f3f3f3;
+    }
+}
+.col-form-label {
+    color: #000;
+}
+.contContact, .custom-select {
+    height: 50px;
+}
+.custom-select {
+    &:active, &:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: #000;
+    }
+}
+
+.btn {
+    border: none;
+    border-radius: 4px;
+/*    &.btn-primary {
+        background: black;
+        color: white;
+        padding: 15px 20px;
+    }
+    &:hover {
+        color: white;
+    }
+    &:active, &:focus {
+        outline: none;
+        box-shadow: none;
+    }*/
+}
+
+.box {
+    padding: 40px;
+    background: white;
+    box-shadow: -30px 30px 0px 0 black;
+    h3 {
+        font-size: 14px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+}
+
+label.error {
+    font-size: 12px;
+    color: red;
+}
+
+#message {
+    resize: vertical;
+}
+#form-message-warning, #form-message-success {
+    display: none;
+}
+#form-message-warning {
+    color: #B90B0B;
+}
+#form-message-success {
+    color: #55A44E;
+    font-size: 18px;
+    font-weight: bold;
+}
+.submitting {
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    display: none;
+    font-weight: bold;
+    font-size: 12px;
+    color: #000;
+}
+
+.numTheme {
+    display: none;
+}
+
+#bandeau {
+    font-size:  14px;
+   border-color:  #C9A0E1;
+}
+
+.text-customEtape {
+    color : white;
+    background-color: #C9A0E1; 
+    border-color: #C9A0E1;
+}
+
+.champPanier{
+    width: 50px;
+}
+
+#ajoutPanier {
+    display: none;
+}
+
+.fieldsetCreate {
+    border: solid #C9A0E1 1px;
+    border-radius: 2px;
+}
+
+.inputCreate {
+    border: inherit;
+    border-bottom: solid  #C9A0E1  2px;
+}
+
+.btn-custom3 {
+    font-size: 12px;
+    border: inherit;
+    background-color: inherit;
+    box-shadow: inherit;
+    color:#C9A0E1;
+}
+
+textarea {
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, .5);
+    resize: none;
+}
+
